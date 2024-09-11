@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/main.css" />
+
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Post Auction</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+          <h2>Create New Auction</h2>
+          <form id="auction-form">
+            <div class="mb-3">
+              <label for="title" class="form-label">Auction Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="endsAt" class="form-label">End Date and Time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="endsAt"
+                name="endsAt"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="tags" class="form-label"
+                >Tags (comma-separated)</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="tags"
+                name="tags"
+                placeholder="tag1, tag2"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="media-url" class="form-label">Media URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="media-url"
+                name="media-url"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="media-alt" class="form-label">Media Alt Text</label>
+              <input
+                type="text"
+                class="form-control"
+                id="media-alt"
+                name="media-alt"
+                placeholder="Description of the media"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Create Auction
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
