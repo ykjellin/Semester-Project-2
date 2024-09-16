@@ -1,7 +1,7 @@
-import { login } from "../api/auth/login.mjs";
-import { createApiKey, storeToken } from "../api/auth/auth.mjs";
+import { login } from "../api/auth/auth.mjs";
+import { storeItem } from "../storage.mjs";
 
-export function initLoginForm() {
+export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", async (event) => {
@@ -11,16 +11,15 @@ export function initLoginForm() {
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const token = await login(email, password);
-      if (token) {
-        storeToken(token);
-        alert("Login successful!");
+      const data = await login(email, password);
+      if (data && data.token) {
+        storeItem("authToken", data.token);
 
-        const apiKey = await createApiKey("default-key");
-        if (apiKey) {
-          console.log(`API Key created: ${apiKey}`);
+        if (data.apiKey) {
+          storeItem("apiKey", data.apiKey);
         }
 
+        alert("Login successful!");
         window.location.href = "/profile/index.html";
       } else {
         alert("Login failed.");
