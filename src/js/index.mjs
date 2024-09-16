@@ -1,4 +1,5 @@
 import { route } from "./router.mjs";
+import { handleRegisterSubmit } from "../js/handler/registerHandler.mjs";
 import { togglePasswordVisibility } from "../js/utility/passwordVisibility.mjs";
 
 /**
@@ -43,14 +44,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const registerBtn = document.getElementById("register-btn");
-  if (registerBtn) {
-    registerBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.history.pushState({}, "", "/register");
-      route();
-    });
-  }
+  //const registerBtn = document.getElementById("register-btn");
+  //if (registerBtn) {
+  // registerBtn.addEventListener("click", (event) => {
+  //   event.preventDefault();
+  //   window.history.pushState({}, "", "/register");
+  //  route();
+  //});
+  //} else {
+  //  console.log("Register button not found");
+  //}
+
+  const mainContent = document.getElementById("main-content");
+  const observer = new MutationObserver(() => {
+    const registerForm = document.getElementById("register-form");
+    if (registerForm) {
+      console.log("Register form detected, attaching handler.");
+      handleRegisterSubmit();
+    }
+  });
+
+  observer.observe(mainContent, { childList: true, subtree: true });
 
   const passwordInput = document.getElementById("password");
   if (passwordInput) {
