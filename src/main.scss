@@ -1,5 +1,19 @@
+$primary: #023c47;
+$background: #031a20;
+$light: #023c47;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-#main-content h1 {
-  color: red;
+body {
+  background-color: $background;
+  color: #a09862;
+}
+
+header {
+  background-color: $light;
+}
+
+.logo {
+  font-family: "old standard tt italic";
+  color: #a09862;
 }
