@@ -18,7 +18,15 @@ export async function createApiKey(name) {
       body: JSON.stringify({ name }),
     });
 
+    console.log("Response status:", response.status);
+    console.log("Response:", response);
+
+    if (!response.ok) {
+      throw new Error(`Registration failed: ${response.statusText}`);
+    }
+
     const data = await response.json();
+    console.log("Data received:", data);
 
     if (data.data && data.data.key) {
       storeItem("apiKey", data.data.key);
@@ -76,25 +84,66 @@ export async function login(email, password) {
  * @param {string} password - The user's password
  * @returns {object|null} - Returns the registration data (token and apiKey) or null on failure
  */
-export async function register(name, email, password) {
+export async function register(
+  name,
+  email,
+  password,
+  bio = "",
+  avatarUrl = "",
+  bannerUrl = "",
+  venueManager = false
+) {
   try {
+    console.log("Starting registration...");
+
+    const requestBody = JSON.stringify({
+      name,
+      email,
+      password,
+      bio,
+      avatar: { url: avatarUrl || "", alt: "" },
+      banner: { url: bannerUrl || "", alt: "" },
+      venueManager,
+    });
+
+    console.log("Request Body:", requestBody);
+
     const response = await fetch(REGISTER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: requestBody,
     });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      if (
+        response.status === 400 &&
+        errorMessage.includes("User already exists")
+      ) {
+        throw new Error("This email or username is already registered.");
+      }
+      throw new Error(`Registration failed: ${response.statusText}`);
+    }
 
     const data = await response.json();
     if (data.token) {
       storeToken(data.token);
+
+      const apiKey = await createApiKey(name);
+      if (apiKey) {
+        console.log(`API Key created: ${apiKey}`);
+      } else {
+        console.warn("Failed to create API key");
+      }
+
       return data;
     } else {
-      throw new Error("Registration failed");
+      throw new Error("No token received from the API");
     }
   } catch (error) {
     console.error("Error registering:", error);
-    return null;
+    return { success: false, message: error.message };
   }
 }

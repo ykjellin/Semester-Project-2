@@ -13,6 +13,9 @@ export async function route() {
       }
       const html = await response.text();
       mainContent.innerHTML = html;
+      if (url.includes("home")) {
+        attachHomePageEventListeners();
+      }
     } catch (error) {
       console.error(error);
       mainContent.innerHTML = `
@@ -42,5 +45,19 @@ export async function route() {
       <p>The page you are looking for doesn't exist.</p>
       <a href="/">Go Home</a>
     `;
+  }
+}
+
+/**
+ * Function to attach event listeners for the home page
+ */
+function attachHomePageEventListeners() {
+  const registerBtn = document.getElementById("register-btn");
+  if (registerBtn) {
+    registerBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.history.pushState({}, "", "/register");
+      route();
+    });
   }
 }
