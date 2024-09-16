@@ -1,7 +1,7 @@
-import { register } from "../api/auth/register.mjs";
-import { createApiKey, storeToken } from "../api/auth/auth.mjs";
+import { register } from "../api/auth/auth.mjs";
+import { storeItem } from "../storage.mjs";
 
-export function initRegisterForm() {
+export function handleRegisterSubmit() {
   const registerForm = document.getElementById("registrationForm");
   if (registerForm) {
     registerForm.addEventListener("submit", async (event) => {
@@ -12,16 +12,15 @@ export function initRegisterForm() {
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const token = await register(name, email, password);
-      if (token) {
-        storeToken(token);
-        alert("Registration successful!");
+      const data = await register(name, email, password);
+      if (data && data.token) {
+        storeItem("authToken", data.token);
 
-        const apiKey = await createApiKey("default-key");
-        if (apiKey) {
-          console.log(`API Key created: ${apiKey}`);
+        if (data.apiKey) {
+          storeItem("apiKey", data.apiKey);
         }
 
+        alert("Registration successful!");
         window.location.href = "/login/index.html";
       } else {
         alert("Registration failed.");
