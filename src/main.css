@@ -11964,4 +11964,7 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+#main-content h1, #main-content .h1 {
+  color: red;
 }/*# sourceMappingURL=main.css.map */
