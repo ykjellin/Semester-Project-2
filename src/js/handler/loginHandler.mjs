@@ -1,5 +1,5 @@
-import { login } from "../api/auth/auth.mjs";
-import { storeItem } from "../storage.mjs";
+import { login, createApiKey } from "../api/auth/auth.mjs";
+import { storeItem, getItem } from "../storage.mjs";
 
 export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
@@ -10,14 +10,33 @@ export function handleLoginSubmit() {
       event.preventDefault();
 
       const formData = new FormData(loginForm);
+      const name = formData.get("name");
       const email = formData.get("email");
       const password = formData.get("password");
 
-      const data = await login(email, password);
+      const data = await login(name, email, password);
       console.log("Login API response:", data);
 
-      if (data && data.accessToken) {
-        storeItem("authToken", data.accessToken);
+      if (data && data.data && data.data.accessToken) {
+        storeItem("authToken", data.data.accessToken);
+
+        let apiKey = getItem("apiKey");
+        if (!apiKey) {
+          console.log("No API key found, attempting to create one...");
+          try {
+            apiKey = await createApiKey();
+            if (apiKey) {
+              console.log(`API key created: ${apiKey}`);
+            } else {
+              console.warn(
+                "Failed to create API key, proceeding without it..."
+              );
+            }
+          } catch (error) {
+            console.warn("Error creating API key, but continuing login...");
+          }
+        }
+
         alert("Login successful!");
         window.location.href = "/profile/index.html";
       } else {
