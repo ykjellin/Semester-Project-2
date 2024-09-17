@@ -14,7 +14,6 @@ export async function createApiKey(name) {
     const response = await fetch(KEY, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
     });

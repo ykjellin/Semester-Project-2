@@ -1,5 +1,6 @@
 import { login, createApiKey } from "../api/auth/auth.mjs";
 import { storeItem, getItem } from "../storage.mjs";
+import { route } from "../router.mjs";
 
 export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
@@ -19,6 +20,7 @@ export function handleLoginSubmit() {
 
       if (data && data.data && data.data.accessToken) {
         storeItem("authToken", data.data.accessToken);
+        storeItem("username", data.data.name);
 
         let apiKey = getItem("apiKey");
         if (!apiKey) {
@@ -38,7 +40,8 @@ export function handleLoginSubmit() {
         }
 
         alert("Login successful!");
-        window.location.href = "/profile/index.html";
+        window.history.pushState({}, "", "/profile");
+        route();
       } else {
         alert("Login failed.");
       }
