@@ -4,6 +4,8 @@ import { storeItem } from "../storage.mjs";
 export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
+    console.log("Login form detected, attaching event listener.");
+
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -12,18 +14,17 @@ export function handleLoginSubmit() {
       const password = formData.get("password");
 
       const data = await login(email, password);
-      if (data && data.token) {
-        storeItem("authToken", data.token);
+      console.log("Login API response:", data);
 
-        if (data.apiKey) {
-          storeItem("apiKey", data.apiKey);
-        }
-
+      if (data && data.accessToken) {
+        storeItem("authToken", data.accessToken);
         alert("Login successful!");
         window.location.href = "/profile/index.html";
       } else {
         alert("Login failed.");
       }
     });
+  } else {
+    console.log("Login form not found.");
   }
 }
