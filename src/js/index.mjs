@@ -1,7 +1,7 @@
-import { route } from "./router.mjs";
-import { handleRegisterSubmit } from "../js/handler/registerHandler.mjs";
-import { handleLoginSubmit } from "../js/handler/loginHandler.mjs";
-import { togglePasswordVisibility } from "../js/utility/passwordVisibility.mjs";
+import { route } from "../../src/js/router.mjs";
+import { handleRegisterSubmit } from "../../src/js/handler/registerHandler.mjs";
+import { handleLoginSubmit } from "../../src/js/handler/loginHandler.mjs";
+import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibility.mjs";
 
 /**
  * Initializes the routing when the DOM content is fully loaded.
