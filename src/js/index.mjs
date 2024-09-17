@@ -1,5 +1,7 @@
 import { route } from "./router.mjs";
 import { handleRegisterSubmit } from "../js/handler/registerHandler.mjs";
+import { handleLoginSubmit } from "../js/handler/loginHandler.mjs";
+import { fetchAuctions } from "../js/api/auctionList.mjs";
 import { togglePasswordVisibility } from "../js/utility/passwordVisibility.mjs";
 
 /**
@@ -61,6 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registerForm) {
       console.log("Register form detected, attaching handler.");
       handleRegisterSubmit();
+    }
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+      console.log("Login form detected, attaching handler.");
+      handleLoginSubmit();
     }
   });
 
