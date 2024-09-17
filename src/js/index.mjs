@@ -1,5 +1,6 @@
 import { route } from "./router.mjs";
 import { handleRegisterSubmit } from "../js/handler/registerHandler.mjs";
+import { handleLoginSubmit } from "../js/handler/loginHandler.mjs";
 import { togglePasswordVisibility } from "../js/utility/passwordVisibility.mjs";
 
 /**
@@ -42,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
       window.history.pushState({}, "", "/login");
       route();
     });
+  } else {
+    console.log("Login button not found");
   }
 
   //const registerBtn = document.getElementById("register-btn");
@@ -61,6 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registerForm) {
       console.log("Register form detected, attaching handler.");
       handleRegisterSubmit();
+    }
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+      console.log("Login form detected, attaching handler.");
+      handleLoginSubmit();
     }
   });
 

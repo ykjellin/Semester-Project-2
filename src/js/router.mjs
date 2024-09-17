@@ -60,4 +60,14 @@ function attachHomePageEventListeners() {
       route();
     });
   }
+  const loginBtn = document.getElementById("login-btn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.history.pushState({}, "", "/login");
+      route();
+    });
+  } else {
+    console.log("Login button not found");
+  }
 }

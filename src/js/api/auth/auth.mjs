@@ -65,8 +65,11 @@ export async function login(email, password) {
     });
 
     const data = await response.json();
-    if (data.token) {
-      storeToken(data.token);
+
+    console.log("API Response:", data);
+
+    if (data.data && data.data.accessToken) {
+      storeToken(data.data.accessToken);
       return data;
     } else {
       throw new Error("Login failed");
