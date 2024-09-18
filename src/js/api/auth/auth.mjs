@@ -9,20 +9,25 @@ import { storeItem, getItem } from "../../storage.mjs";
 export async function createApiKey(name) {
   try {
     const authToken = getItem("authToken");
+    console.log("Bearer token:", authToken);
+
     const response = await fetch(KEY, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ name }),
     });
 
     console.log("Response status:", response.status);
     console.log("Response:", response);
 
     if (!response.ok) {
-      throw new Error(`Registration failed: ${response.statusText}`);
+      if (response.status === 403) {
+        console.error(
+          "403 Forbidden - You may already have an API key or lack permission."
+        );
+      }
+      throw new Error(`Failed to create API key: ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -32,7 +37,7 @@ export async function createApiKey(name) {
       storeItem("apiKey", data.data.key);
       return data.data.key;
     } else {
-      throw new Error("Failed to create API key");
+      throw new Error("No API key returned from the server.");
     }
   } catch (error) {
     console.error("Error creating API key", error);
@@ -50,18 +55,19 @@ export function storeToken(token) {
 
 /**
  * Function to handle user login
+ * @param {string} name - The user's name (username)
  * @param {string} email - The user's email
  * @param {string} password - The user's password
  * @returns {object|null} - Returns the login data (token and apiKey) or null on failure
  */
-export async function login(email, password) {
+export async function login(name, email, password) {
   try {
     const response = await fetch(LOGIN, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     });
 
     const data = await response.json();

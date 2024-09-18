@@ -1,7 +1,9 @@
 import { route } from "../../src/js/router.mjs";
+import { getItem } from "../../src/js/storage.mjs";
 import { handleRegisterSubmit } from "../../src/js/handler/registerHandler.mjs";
 import { handleLoginSubmit } from "../../src/js/handler/loginHandler.mjs";
 import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibility.mjs";
+import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
 
 /**
  * Initializes the routing when the DOM content is fully loaded.
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       window.history.pushState({}, "", "/");
       route();
+      loadProfile();
     });
   }
 
@@ -69,6 +72,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
       console.log("Login form detected, attaching handler.");
       handleLoginSubmit();
+    }
+
+    const profilePage = document.getElementById("profile-page");
+    if (profilePage) {
+      console.log("Profile page detected, loading profile data.");
+
+      const username = getItem("username");
+      const authToken = getItem("authToken");
+      if (username && authToken) {
+        loadProfile();
+      } else {
+        console.log("User is not logged in. Skipping profile loading.");
+      }
     }
   });
 
