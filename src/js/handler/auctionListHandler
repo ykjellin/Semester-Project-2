@@ -65,3 +65,19 @@ export function renderAuctions(auctions) {
     auctionListContainer.appendChild(auctionCard);
   });
 }
+
+export async function loadAuctions() {
+  const filters = {
+    sort: document.getElementById("sort").value,
+    sortOrder: document.getElementById("sortOrder").value,
+    limit: document.getElementById("limit").value,
+    page: 1,
+    _seller: document.getElementById("_seller").checked ? true : undefined,
+    _bids: document.getElementById("_bids").checked ? true : undefined,
+    _active: document.getElementById("_active").checked ? true : undefined,
+    _tag: document.getElementById("tag").value,
+  };
+
+  const auctions = await fetchAuctions(filters);
+  renderAuctions(auctions);
+}
