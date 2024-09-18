@@ -1,3 +1,4 @@
+import { route } from "../router.mjs";
 import { getItem } from "../storage.mjs";
 
 let profileLoaded = false;
@@ -11,10 +12,6 @@ export async function loadProfile() {
   const username = getItem("username");
   const authToken = getItem("authToken");
   const apiKey = getItem("apiKey");
-
-  console.log("Username:", username);
-  console.log("Auth Token:", authToken);
-  console.log("API Key:", apiKey);
 
   if (!username || !authToken || !apiKey) {
     console.log(
@@ -35,26 +32,14 @@ export async function loadProfile() {
       }
     );
 
-    console.log("API Response Status:", response.status);
-    console.log("API Response Headers:", response.headers);
-
     if (!response.ok) {
       throw new Error(`Failed to fetch profile for ${username}`);
     }
 
     const profile = await response.json();
-    console.log("Full profile data from API:", profile);
 
-    const defaultAvatar = "https://picsum.photos/80/80/?blur=5";
-    const defaultBanner = "https://picsum.photos/300/80/?blur=5";
-
-    const avatarUrl = profile.data?.avatar?.url || defaultAvatar;
-    const bannerUrl = profile.data?.banner?.url || defaultBanner;
-
-    console.log("Avatar URL:", avatarUrl);
-    console.log("Banner URL:", bannerUrl);
-
-    document.getElementById("avatar").src = avatarUrl;
+    document.getElementById("avatar").src =
+      profile.data?.avatar?.url || "default_avatar_url";
     document.getElementById("name").textContent =
       profile.data?.name || "No name available";
     document.getElementById("email").textContent =
@@ -63,12 +48,17 @@ export async function loadProfile() {
       profile.data?.bio || "No bio available";
     document.getElementById("credits").textContent =
       profile.data?.credits || "N/A";
-    document.getElementById("banner").src = bannerUrl;
+    document.getElementById("banner").src =
+      profile.data?.banner?.url || "default_banner_url";
 
     await loadListings(username, authToken, apiKey);
     await loadWins(username, authToken, apiKey);
+
     new bootstrap.Carousel(document.getElementById("listingsCarousel"));
     new bootstrap.Carousel(document.getElementById("winsCarousel"));
+
+    addEditProfileListener();
+
     profileLoaded = true;
   } catch (error) {
     console.error("Error loading profile:", error);
@@ -104,22 +94,20 @@ function populateListings(listings) {
   listingsContainer.innerHTML = "";
 
   if (!listings || listings.length === 0) {
-    // Placeholder data
     listings = [
       {
         title: "Sample Listing 1",
-        description:
-          "This is a placeholder listing to show how items will appear.",
+        description: "This is a placeholder listing.",
         media: ["https://picsum.photos/150/100?random=1"],
       },
       {
         title: "Sample Listing 2",
-        description: "Another placeholder listing with different content.",
+        description: "Another placeholder listing.",
         media: ["https://picsum.photos/150/100?random=2"],
       },
       {
         title: "Sample Listing 3",
-        description: "A third placeholder listing for demonstration.",
+        description: "A third placeholder listing.",
         media: ["https://picsum.photos/150/100?random=3"],
       },
     ];
@@ -141,13 +129,12 @@ function populateListings(listings) {
         <div class="card listing-card">
           <img class="card-img-top" src="${
             listing.media[0] || "https://picsum.photos/150/100?placeholder"
-          }" alt="${listing.title}"/>
+          }" alt="${listing.title}" />
           <div class="card-body">
             <h5 class="card-title">${listing.title}</h5>
             <p class="card-text">${listing.description}</p>
           </div>
-        </div>
-    `;
+        </div>`;
       rowElement.appendChild(colElement);
     });
     slideElement.appendChild(rowElement);
@@ -184,21 +171,20 @@ function populateWins(wins) {
   winsContainer.innerHTML = "";
 
   if (!wins || wins.length === 0) {
-    // Placeholder data
     wins = [
       {
         title: "Sample Win 1",
-        description: "This is a placeholder win to show how items will appear.",
+        description: "This is a placeholder win.",
         media: ["https://picsum.photos/150/100?random=4"],
       },
       {
         title: "Sample Win 2",
-        description: "Another placeholder win with different content.",
+        description: "Another placeholder win.",
         media: ["https://picsum.photos/150/100?random=5"],
       },
       {
         title: "Sample Win 3",
-        description: "A third placeholder win for demonstration.",
+        description: "A third placeholder win.",
         media: ["https://picsum.photos/150/100?random=6"],
       },
     ];
@@ -220,17 +206,125 @@ function populateWins(wins) {
         <div class="card win-card">
           <img class="card-img-top" src="${
             win.media[0] || "https://picsum.photos/150/100?placeholder"
-          }" alt="${win.title}"/>
+          }" alt="${win.title}" />
           <div class="card-body">
             <h5 class="card-title">${win.title}</h5>
             <p class="card-text">${win.description}</p>
           </div>
-        </div>
-      `;
+        </div>`;
       rowElement.appendChild(colElement);
     });
 
     slideElement.appendChild(rowElement);
     winsContainer.appendChild(slideElement);
   }
+}
+
+function addEditProfileListener() {
+  const editButton = document.getElementById("edit-profile-btn");
+  if (editButton) {
+    editButton.addEventListener("click", loadEditProfileForm);
+  }
+}
+
+function loadEditProfileForm() {
+  const profileContainer = document.getElementById("profile-page");
+  const name = document.getElementById("name").textContent;
+  const email = document.getElementById("email").textContent;
+  const bio = document.getElementById("bio").textContent;
+  const avatar = document.getElementById("avatar").src;
+  const banner = document.getElementById("banner").src;
+
+  profileContainer.innerHTML = `
+    <h3>${name}</h3>
+    <p>Email: ${email}</p>
+    <form id="edit-profile-form">
+      <!-- Editable Avatar URL -->
+      <div class="mb-3">
+        <label for="edit-avatar" class="form-label">Avatar URL</label>
+        <input type="url" class="form-control" id="edit-avatar" value="${avatar}">
+      </div>
+      <!-- Editable Banner URL -->
+      <div class="mb-3">
+        <label for="edit-banner" class="form-label">Banner URL</label>
+        <input type="url" class="form-control" id="edit-banner" value="${banner}">
+      </div>
+      <!-- Editable Bio -->
+      <div class="mb-3">
+        <label for="edit-bio" class="form-label">Bio</label>
+        <textarea class="form-control" id="edit-bio">${bio}</textarea>
+      </div>
+      <!-- Save and Cancel buttons -->
+      <button type="submit" class="btn btn-success">Save Changes</button>
+      <button id="cancel-edit" class="btn btn-secondary">Cancel</button>
+    </form>
+  `;
+
+  document
+    .getElementById("edit-profile-form")
+    .addEventListener("submit", handleEditProfileSubmit);
+  document
+    .getElementById("cancel-edit")
+    .addEventListener("click", reloadProfileView);
+}
+
+async function handleEditProfileSubmit(event) {
+  event.preventDefault();
+
+  const updatedAvatarUrl = document.getElementById("edit-avatar").value;
+  const updatedBannerUrl = document.getElementById("edit-banner").value;
+  const updatedBio = document.getElementById("edit-bio").value;
+
+  const authToken = getItem("authToken");
+  const apiKey = getItem("apiKey");
+  const username = getItem("username");
+
+  try {
+    const response = await fetch(
+      `https://v2.api.noroff.dev/auction/profiles/${username}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "X-Noroff-API-Key": apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          avatar: {
+            url: updatedAvatarUrl,
+            alt: "",
+          },
+          banner: {
+            url: updatedBannerUrl,
+            alt: "",
+          },
+          bio: updatedBio,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Failed to update profile", errorData);
+      alert("Failed to update profile: " + errorData.message);
+    } else {
+      console.log("Profile updated successfully.");
+      navigateToProfile();
+    }
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    alert("An error occurred while updating the profile.");
+  }
+}
+
+function navigateToProfile() {
+  window.history.pushState({}, "", "/profile");
+  route();
+  profileLoaded = false;
+  loadProfile();
+}
+
+function reloadProfileView() {
+  profileLoaded = false;
+  loadProfile();
 }
