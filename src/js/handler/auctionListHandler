@@ -30,9 +30,38 @@ export async function fetchAuctions(filters = {}) {
     }
 
     const auctionData = await response.json();
+    console.log(auctionData);
     return auctionData.data;
   } catch (error) {
     console.error("Fetch Auctions Error: ", error);
     return [];
   }
+}
+
+export function renderAuctions(auctions) {
+  const auctionListContainer = document.getElementById("auction-list");
+  const template = document.getElementById("auction-card-template");
+
+  auctionListContainer.innerHTML = "";
+
+  auctions.forEach((auction) => {
+    const auctionCard = document.importNode(template.content, true);
+
+    auctionCard.querySelector("#auction-title").textContent = auction.title;
+    auctionCard.querySelector("#auction-description").textContent =
+      auction.description;
+
+    const auctionImg = auctionCard.querySelector("#auction-img");
+    if (auction.media && auction.media.length > 0) {
+      auctionImg.src = auction.media[0].url;
+      auctionImg.alt = auction.media[0].alt || "Auction Image";
+    } else {
+      auctionImg.src = "default-image.jpg";
+    }
+
+    const viewAuctionBtn = auctionCard.querySelector("#view-auction");
+    viewAuctionBtn.href = `/auction/${auction.id}`;
+
+    auctionListContainer.appendChild(auctionCard);
+  });
 }
