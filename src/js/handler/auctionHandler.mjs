@@ -20,6 +20,16 @@ export async function loadAuctionDetails(auctionId) {
     document.getElementById("auction-endsAt").textContent = new Date(
       auction.data.endsAt
     ).toLocaleString();
+
+    const mediaContainer = document.getElementById("auction-media");
+    mediaContainer.innerHTML = "";
+    auction.data.media.forEach((media) => {
+      const img = document.createElement("img");
+      img.src = media.url;
+      img.alt = media.alt || "Auction Image";
+      img.classList.add("img-fluid", "mb-3");
+      mediaContainer.appendChild(img);
+    });
   } catch (error) {
     console.error("Error loading auction details:", error);
   }
