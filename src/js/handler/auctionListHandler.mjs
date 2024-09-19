@@ -2,16 +2,45 @@ import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
 
 export async function loadAuctionsList() {
+  const sort = document.getElementById("sort")
+    ? document.getElementById("sort").value
+    : "";
+  const sortOrder = document.getElementById("sortOrder")
+    ? document.getElementById("sortOrder").value
+    : "asc";
+  const limit = document.getElementById("limit")
+    ? document.getElementById("limit").value
+    : 10;
+  const page = 1;
+  const _seller = document.getElementById("_seller")
+    ? document.getElementById("_seller").checked
+    : undefined;
+  const _bids = document.getElementById("_bids")
+    ? document.getElementById("_bids").checked
+    : undefined;
+  const _active = document.getElementById("_active")
+    ? document.getElementById("_active").checked
+    : undefined;
+  const _tag = document.getElementById("tag")
+    ? document.getElementById("tag").value
+    : "";
+
   const filters = {
-    sort: document.getElementById("sort").value,
-    sortOrder: document.getElementById("sortOrder").value,
-    limit: document.getElementById("limit").value,
-    page: 1,
-    _seller: document.getElementById("_seller").checked ? true : undefined,
-    _bids: document.getElementById("_bids").checked ? true : undefined,
-    _active: document.getElementById("_active").checked ? true : undefined,
-    _tag: document.getElementById("tag").value,
+    sort: sort || undefined,
+    sortOrder,
+    limit,
+    page,
+    _seller,
+    _bids,
+    _active,
+    _tag: _tag || undefined,
   };
+
+  const cleanedFilters = Object.fromEntries(
+    Object.entries(filters).filter(
+      ([key, value]) => value !== undefined && value !== ""
+    )
+  );
 
   try {
     const apiKey = getItem("apiKey");
@@ -22,19 +51,19 @@ export async function loadAuctionsList() {
       return [];
     }
 
-    const queryParams = new URLSearchParams(filters).toString();
+    const queryParams = new URLSearchParams(cleanedFilters).toString();
+    const url = queryParams
+      ? `${BASE_URL}/auction/listings?${queryParams}`
+      : `${BASE_URL}/auction/listings`;
 
-    const response = await fetch(
-      `${BASE_URL}/auction/listings?${queryParams}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Noroff-API-Key": apiKey,
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Noroff-API-Key": apiKey,
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`Error fetching auctions: ${response.status}`);

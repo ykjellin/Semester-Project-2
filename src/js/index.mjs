@@ -88,17 +88,21 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("User is not logged in. Skipping profile loading.");
       }
     }
+
+    const auctionListPage = document.getElementById("auction-list");
+    if (auctionListPage) {
+      console.log("Auction list page detected, attaching event listener.");
+      const applyFiltersBtn = document.getElementById("apply-filters");
+      if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener("click", (event) => {
+          event.preventDefault();
+          loadAuctionsList();
+        });
+      }
+    }
   });
 
   observer.observe(mainContent, { childList: true, subtree: true });
-
-  const applyFiltersBtn = document.getElementById("apply-filters");
-  if (applyFiltersBtn) {
-    applyFiltersBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      loadAuctionsList();
-    });
-  }
 
   const passwordInput = document.getElementById("password");
   if (passwordInput) {
