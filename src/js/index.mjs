@@ -4,6 +4,7 @@ import { handleRegisterSubmit } from "../../src/js/handler/registerHandler.mjs";
 import { handleLoginSubmit } from "../../src/js/handler/loginHandler.mjs";
 import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibility.mjs";
 import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
+import { loadAuctionsList } from "../../src/js/handler/auctionListHandler.mjs";
 
 /**
  * Initializes the routing when the DOM content is fully loaded.
@@ -34,8 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (auctionsLink) {
     auctionsLink.addEventListener("click", (event) => {
       event.preventDefault();
-      window.history.pushState({}, "", "/auctions");
+      window.history.pushState({}, "", "/auctionList");
       route();
+      loadAuctionsList();
     });
   }
 
@@ -84,6 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
         loadProfile();
       } else {
         console.log("User is not logged in. Skipping profile loading.");
+      }
+    }
+
+    const auctionListPage = document.getElementById("auction-list");
+    if (auctionListPage) {
+      console.log("Auction list page detected, attaching event listener.");
+      const applyFiltersBtn = document.getElementById("apply-filters");
+      if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener("click", (event) => {
+          event.preventDefault();
+          loadAuctionsList();
+        });
       }
     }
   });

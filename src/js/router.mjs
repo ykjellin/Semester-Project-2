@@ -15,6 +15,8 @@ export async function route() {
       mainContent.innerHTML = html;
       if (url.includes("home")) {
         attachHomePageEventListeners();
+      } else if (url.includes("auctionList")) {
+        attachAuctionListEventListeners();
       }
     } catch (error) {
       console.error(error);
@@ -34,6 +36,8 @@ export async function route() {
     await loadContent("../register/index.html");
   } else if (path.includes("/profile")) {
     await loadContent("../profile/index.html");
+  } else if (path.includes("/auctionList")) {
+    await loadContent("../auctionList/index.html");
   } else if (path.includes("/createAuction")) {
     await loadContent("../createAuction/index.html");
   } else if (path.includes("/auction/")) {
@@ -45,6 +49,19 @@ export async function route() {
       <p>The page you are looking for doesn't exist.</p>
       <a href="/">Go Home</a>
     `;
+  }
+}
+
+/**
+ * Function to attach event listeners for the auction list page
+ */
+function attachAuctionListEventListeners() {
+  const applyFiltersBtn = document.getElementById("apply-filters");
+  if (applyFiltersBtn) {
+    applyFiltersBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      loadAuctionsList();
+    });
   }
 }
 
