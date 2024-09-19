@@ -39,6 +39,18 @@ export async function loadAuctionDetails(auctionId) {
       tagElement.textContent = tag;
       tagsContainer.appendChild(tagElement);
     });
+
+    const bidsContainer = document.getElementById("auction-bids");
+    bidsContainer.innerHTML = "";
+    auction.data.bids.forEach((bid) => {
+      const bidElement = document.createElement("div");
+      bidElement.textContent = `Bidder: ${bid.bidder.name}, Amount: ${bid.amount}`;
+      bidsContainer.appendChild(bidElement);
+    });
+
+    const sellerInfo = auction.data.seller;
+    document.getElementById("seller-name").textContent = sellerInfo.name;
+    document.getElementById("seller-email").textContent = sellerInfo.email;
   } catch (error) {
     console.error("Error loading auction details:", error);
   }
