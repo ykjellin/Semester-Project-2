@@ -30,6 +30,15 @@ export async function loadAuctionDetails(auctionId) {
       img.classList.add("img-fluid", "mb-3");
       mediaContainer.appendChild(img);
     });
+
+    const tagsContainer = document.getElementById("auction-tags");
+    tagsContainer.innerHTML = "";
+    auction.data.tags.forEach((tag) => {
+      const tagElement = document.createElement("span");
+      tagElement.classList.add("badge", "bg-secondary", "me-2");
+      tagElement.textContent = tag;
+      tagsContainer.appendChild(tagElement);
+    });
   } catch (error) {
     console.error("Error loading auction details:", error);
   }
