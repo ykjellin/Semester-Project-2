@@ -95,7 +95,7 @@ export function renderAuctions(auctions) {
       auctionImg.src = auction.media[0].url;
       auctionImg.alt = auction.media[0].alt || "Auction Image";
     } else {
-      auctionImg.src = "default-image.jpg";
+      auctionImg.src = "https://picsum.photos/150/100?random=6";
     }
 
     const viewAuctionBtn = auctionCard.querySelector("#view-auction");
