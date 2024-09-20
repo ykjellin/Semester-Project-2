@@ -1,6 +1,6 @@
-import { login, createApiKey } from "../api/auth/auth.mjs";
-import { storeItem, getItem } from "../storage.mjs";
-import { route } from "../router.mjs";
+import { login, createApiKey } from "/api/auth/auth.mjs";
+import { storeItem, getItem } from "/storage.mjs";
+import { route } from "/router.mjs";
 
 export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
