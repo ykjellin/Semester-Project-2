@@ -1,3 +1,5 @@
+import { loadAuctionDetails } from "./handler/auctionHandler.mjs";
+
 export async function route() {
   const path = window.location.pathname;
   const mainContent = document.querySelector("#main-content");
@@ -42,7 +44,8 @@ export async function route() {
     await loadContent("../createAuction/index.html");
   } else if (path.includes("/auction/")) {
     const auctionId = path.split("/auction/")[1];
-    await loadContent("../viewAuction/index.html");
+    await loadContent("/auctionDetail/index.html");
+    loadAuctionDetails(auctionId);
   } else {
     mainContent.innerHTML = `
       <h1>404 - Page Not Found</h1>
