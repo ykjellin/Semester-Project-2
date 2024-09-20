@@ -31,20 +31,20 @@ export async function route() {
   }
 
   if (path === "/" || path === "/home") {
-    await loadContent("/home/index.html");
+    await loadContent("../home/index.html");
   } else if (path.includes("/login")) {
-    await loadContent("/login/index.html");
+    await loadContent("../login/index.html");
   } else if (path.includes("/register")) {
-    await loadContent("/register/index.html");
+    await loadContent("../register/index.html");
   } else if (path.includes("/profile")) {
-    await loadContent("/profile/index.html");
+    await loadContent("../profile/index.html");
   } else if (path.includes("/auctionList")) {
-    await loadContent("/auctionList/index.html");
+    await loadContent("../auctionList/index.html");
   } else if (path.includes("/createAuction")) {
-    await loadContent("/createAuction/index.html");
+    await loadContent("../createAuction/index.html");
   } else if (path.includes("/auction/")) {
     const auctionId = path.split("/auction/")[1];
-    await loadContent("/auctionDetail/index.html");
+    await loadContent("../auctionDetail/index.html");
     loadAuctionDetails(auctionId);
   } else {
     mainContent.innerHTML = `
