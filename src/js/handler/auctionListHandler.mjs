@@ -1,5 +1,6 @@
 import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
+import { route } from "../router.mjs";
 
 export async function loadAuctionsList() {
   const sort = document.getElementById("sort")
@@ -99,7 +100,11 @@ export function renderAuctions(auctions) {
     }
 
     const viewAuctionBtn = auctionCard.querySelector("#view-auction");
-    viewAuctionBtn.href = `/auction/${auction.id}`;
+    viewAuctionBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.history.pushState({}, "", `/auction/${auction.id}`);
+      route();
+    });
 
     auctionListContainer.appendChild(auctionCard);
   });
