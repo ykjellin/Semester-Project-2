@@ -80,6 +80,7 @@ export async function loadAuctionsList() {
 
 export function renderAuctions(auctions) {
   const auctionListContainer = document.getElementById("auction-list");
+  console.log("Auction list page detected:", auctionListPage);
   const template = document.getElementById("auction-card-template");
 
   auctionListContainer.innerHTML = "";
