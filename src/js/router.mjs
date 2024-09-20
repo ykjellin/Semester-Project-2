@@ -31,7 +31,7 @@ export async function route() {
   }
 
   if (path === "/" || path === "/home") {
-    await loadContent("../home/index.html");
+    await loadContent("/home/index.html");
   } else if (path.includes("/login")) {
     await loadContent("../login/index.html");
   } else if (path.includes("/register")) {
