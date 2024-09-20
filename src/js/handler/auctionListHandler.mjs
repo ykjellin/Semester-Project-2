@@ -1,6 +1,6 @@
-import { BASE_URL } from "./constants.mjs";
-import { getItem } from "./storage.mjs";
-import { route } from "./router.mjs";
+import { BASE_URL } from "../constants.mjs";
+import { getItem } from "../storage.mjs";
+import { route } from "../router.mjs";
 
 export async function loadAuctionsList() {
   const sort = document.getElementById("sort")

@@ -1,5 +1,5 @@
-import { route } from "./router.mjs";
-import { getItem } from "./storage.mjs";
+import { route } from "../router.mjs";
+import { getItem } from "../storage.mjs";
 
 let profileLoaded = false;
 

@@ -1,5 +1,5 @@
-import { BASE_URL } from "./constants.mjs";
-import { getItem } from "./storage.mjs";
+import { BASE_URL } from "../constants.mjs";
+import { getItem } from "../storage.mjs";
 
 export async function placeBid(auctionId, bidAmount) {
   try {

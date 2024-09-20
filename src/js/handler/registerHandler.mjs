@@ -1,5 +1,5 @@
-import { register } from "./api/auth/auth.mjs";
-import { storeItem } from "./storage.mjs";
+import { register } from "../api/auth/auth.mjs";
+import { storeItem } from "../storage.mjs";
 
 export function handleRegisterSubmit() {
   const registerForm = document.getElementById("register-form");
