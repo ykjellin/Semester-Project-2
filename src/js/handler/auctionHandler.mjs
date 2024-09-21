@@ -11,7 +11,7 @@ export async function loadAuctionDetails(auctionId) {
       return;
     }
 
-    const url = `${BASE_URL}/auction/listings/${auctionId}`;
+    const url = `${BASE_URL}/auction/listings/${auctionId}?_bids=true&_seller=true`;
     console.log(`Fetching auction details from: ${url}`);
 
     const response = await fetch(url, {
@@ -33,6 +33,8 @@ export async function loadAuctionDetails(auctionId) {
     const auctionData = auctionDataResponse.data;
     console.log("Auction Data:", auctionData);
 
+    console.log("Bids Array:", auctionData.bids);
+
     const auctionTitle = document.getElementById("auction-detail-title");
     if (auctionTitle) auctionTitle.textContent = auctionData.title;
 
@@ -53,6 +55,35 @@ export async function loadAuctionDetails(auctionId) {
       auctionData._count.bids !== undefined
     ) {
       auctionBids.textContent = auctionData._count.bids;
+    }
+    const bidsContainer = document.getElementById("auction-bids-list");
+    if (bidsContainer && auctionData.bids && auctionData.bids.length > 0) {
+      bidsContainer.innerHTML = "";
+      auctionData.bids.forEach((bid) => {
+        const bidElement = document.createElement("p");
+        bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
+        bidsContainer.appendChild(bidElement);
+      });
+    } else {
+      if (bidsContainer) {
+        bidsContainer.innerHTML = "<p>No bids placed yet.</p>";
+      }
+    }
+
+    const sellerContainer = document.getElementById("auction-seller");
+    if (sellerContainer && auctionData.seller) {
+      sellerContainer.innerHTML = `
+        <p><strong>Seller Name:</strong> ${auctionData.seller.name}</p>
+        <p><strong>Seller Email:</strong> ${auctionData.seller.email}</p>
+        <p><strong>Seller Bio:</strong> ${
+          auctionData.seller.bio || "No bio available"
+        }</p>
+        <img src="${auctionData.seller.avatar.url}" alt="${
+        auctionData.seller.avatar.alt || "Seller Avatar"
+      }" class="img-fluid" />
+      `;
+    } else if (sellerContainer) {
+      sellerContainer.innerHTML = "<p>No seller information available.</p>";
     }
 
     const mediaContainer = document.getElementById("auction-detail-media");
