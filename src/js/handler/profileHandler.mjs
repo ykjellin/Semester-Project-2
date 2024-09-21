@@ -1,4 +1,3 @@
-import { route } from "../router.mjs";
 import { getItem } from "../storage.mjs";
 
 let profileLoaded = false;
@@ -315,13 +314,6 @@ async function handleEditProfileSubmit(event) {
     console.error("Error updating profile:", error);
     alert("An error occurred while updating the profile.");
   }
-}
-
-function navigateToProfile() {
-  window.history.pushState({}, "", "/profile");
-  route();
-  profileLoaded = false;
-  loadProfile();
 }
 
 function reloadProfileView() {

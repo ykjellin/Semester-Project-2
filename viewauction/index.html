@@ -36,20 +36,63 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#" id="home-link">Home</a>
+                <a class="nav-link" href="/home/index.html" id="home-link"
+                  >Home</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" id="profile-link">Profile</a>
+                <a class="nav-link" href="/profile/index.html" id="profile-link"
+                  >Profile</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" id="auctions-link">Auctions</a>
+                <a
+                  class="nav-link"
+                  href="/auctionlist/index.html"
+                  id="auctions-link"
+                  >Auctions</a
+                >
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+    <div class="container">
+      <div class="row my-5">
+        <div class="col-md-12">
+          <h1 id="auction-detail-title"></h1>
+          <div id="auction-seller"></div>
+          <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
+          <p id="auction-detail-description"></p>
+          <p>
+            <strong>Ends at:</strong> <span id="auction-detail-endsAt"></span>
+          </p>
+          <div id="auction-detail-tags"></div>
+        </div>
+      </div>
 
-    <div class="container" id="main-content"></div>
+      <div class="row">
+        <div class="col-md-12" id="auction-detail-media"></div>
+      </div>
+
+      <div class="row my-5">
+        <div id="auction-bids-list"></div>
+        <h2>Place Your Bid</h2>
+        <form id="bid-form">
+          <div class="mb-3">
+            <label for="bid-amount" class="form-label">Bid Amount</label>
+            <input
+              type="number"
+              class="form-control"
+              id="bid-amount"
+              name="bid-amount"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Place Bid</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

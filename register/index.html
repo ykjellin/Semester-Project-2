@@ -1,60 +1,120 @@
-<div class="row vh-100 d-flex justify-content-center align-items-center">
-  <div class="col-md-6">
-    <h2>Register</h2>
-    <form id="register-form">
-      <div class="mb-3">
-        <label for="name" class="form-label">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="userName"
-          name="name"
-          required
-        />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="../src/assets/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../src/js/index.mjs"></script>
+
+    <title>Elegant Auctions - Register</title>
+  </head>
+  <body>
+    <header class="d-flex justify-content-between align-items-center p-3">
+      <h1 class="logo">Elegant Auctions</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/home/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login/index.html">Login</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h2>Register</h2>
+          <form id="register-form">
+            <div class="mb-3">
+              <label for="name" class="form-label">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="bio" class="form-label">Bio</label>
+              <textarea
+                class="form-control"
+                id="bio"
+                name="bio"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="avatar_url" class="form-label">Avatar URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="avatar_url"
+                name="avatar_url"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="banner_url" class="form-label">Banner URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="banner_url"
+                name="banner_url"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="bio" class="form-label">Bio (Optional)</label>
-        <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="avatar-url" class="form-label">Avatar URL (Optional)</label>
-        <input
-          type="url"
-          class="form-control"
-          id="avatar-url"
-          name="avatar_url"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="banner-url" class="form-label">Banner URL (Optional)</label>
-        <input
-          type="url"
-          class="form-control"
-          id="banner-url"
-          name="banner_url"
-        />
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-  </div>
-</div>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>

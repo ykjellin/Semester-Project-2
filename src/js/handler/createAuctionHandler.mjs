@@ -1,11 +1,11 @@
-export function initCreateAuctionForm() {
-  const createAuctionForm = document.getElementById("create-auction-form");
+export function initcreateauctionForm() {
+  const createauctionForm = document.getElementById("create-auction-form");
 
-  if (createAuctionForm) {
-    createAuctionForm.addEventListener("submit", async (event) => {
+  if (createauctionForm) {
+    createauctionForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const formData = new FormData(createAuctionForm);
+      const formData = new FormData(createauctionForm);
       const auctionData = {
         title: formData.get("title"),
         description: formData.get("description"),

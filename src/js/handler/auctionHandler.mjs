@@ -1,27 +1,105 @@
+import { BASE_URL } from "../constants.mjs";
+import { getItem } from "../storage.mjs";
+
 export async function loadAuctionDetails(auctionId) {
   try {
-    const response = await fetch(`/api/auction/listings/${auctionId}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch auction details");
+    const apiKey = getItem("apiKey");
+    const authToken = getItem("authToken");
+
+    if (!apiKey || !authToken) {
+      console.error("API key or auth token is missing");
+      return;
     }
 
-    const auction = await response.json();
+    const url = `${BASE_URL}/auction/listings/${auctionId}?_bids=true&_seller=true`;
+    console.log(`Fetching auction details from: ${url}`);
 
-    document.getElementById("auction-title").textContent = auction.title;
-    document.getElementById("auction-description").textContent =
-      auction.description;
-    document.getElementById("auction-endsAt").textContent = new Date(
-      auction.endsAt
-    ).toLocaleString();
-
-    const mediaContainer = document.getElementById("auction-media");
-    auction.media.forEach((media) => {
-      const img = document.createElement("img");
-      img.src = media.url;
-      img.alt = media.alt;
-      img.classList.add("img-fluid", "mb-3");
-      mediaContainer.appendChild(img);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Noroff-API-Key": apiKey,
+        Authorization: `Bearer ${authToken}`,
+      },
     });
+
+    console.log(`API Response status: ${response.status}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching auction details: ${response.statusText}`);
+    }
+
+    const auctionDataResponse = await response.json();
+    const auctionData = auctionDataResponse.data;
+    console.log("Auction Data:", auctionData);
+
+    console.log("Bids Array:", auctionData.bids);
+
+    const auctionTitle = document.getElementById("auction-detail-title");
+    if (auctionTitle) auctionTitle.textContent = auctionData.title;
+
+    const auctionDescription = document.getElementById(
+      "auction-detail-description"
+    );
+    if (auctionDescription)
+      auctionDescription.textContent = auctionData.description;
+
+    const auctionEndsAt = document.getElementById("auction-detail-endsAt");
+    if (auctionEndsAt)
+      auctionEndsAt.textContent = new Date(auctionData.endsAt).toLocaleString();
+
+    const auctionBids = document.getElementById("auction-detail-bids");
+    if (
+      auctionBids &&
+      auctionData._count &&
+      auctionData._count.bids !== undefined
+    ) {
+      auctionBids.textContent = auctionData._count.bids;
+    }
+    const bidsContainer = document.getElementById("auction-bids-list");
+    if (bidsContainer && auctionData.bids && auctionData.bids.length > 0) {
+      bidsContainer.innerHTML = "";
+      auctionData.bids.forEach((bid) => {
+        const bidElement = document.createElement("p");
+        bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
+        bidsContainer.appendChild(bidElement);
+      });
+    } else {
+      if (bidsContainer) {
+        bidsContainer.innerHTML = "<p>No bids placed yet.</p>";
+      }
+    }
+
+    const sellerContainer = document.getElementById("auction-seller");
+    if (sellerContainer && auctionData.seller) {
+      sellerContainer.innerHTML = `
+        <p><strong>Seller Name:</strong> ${auctionData.seller.name}</p>
+        <p><strong>Seller Email:</strong> ${auctionData.seller.email}</p>
+        <p><strong>Seller Bio:</strong> ${
+          auctionData.seller.bio || "No bio available"
+        }</p>
+        <img src="${auctionData.seller.avatar.url}" alt="${
+        auctionData.seller.avatar.alt || "Seller Avatar"
+      }" class="img-fluid" />
+      `;
+    } else if (sellerContainer) {
+      sellerContainer.innerHTML = "<p>No seller information available.</p>";
+    }
+
+    const mediaContainer = document.getElementById("auction-detail-media");
+    if (mediaContainer && auctionData.media && auctionData.media.length > 0) {
+      mediaContainer.innerHTML = "";
+      auctionData.media.forEach((media) => {
+        const img = document.createElement("img");
+        img.src = media.url || "https://via.placeholder.com/150";
+        img.alt = media.alt || "Auction Image";
+        img.classList.add("img-fluid", "mb-3");
+        mediaContainer.appendChild(img);
+      });
+    } else {
+      console.log("No media available for this auction.");
+      mediaContainer.innerHTML = "<p>No images available for this auction.</p>";
+    }
   } catch (error) {
     console.error("Error loading auction details:", error);
     alert("Failed to load auction details.");
