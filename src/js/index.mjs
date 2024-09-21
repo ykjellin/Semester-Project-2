@@ -25,7 +25,7 @@ function initializePage() {
     loadProfile();
   }
 
-  if (window.location.pathname.includes("/viewAuction/index.html")) {
+  if (window.location.pathname.includes("/viewauction/index.html")) {
     console.log("View auction page detected, loading auction details.");
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -40,7 +40,7 @@ function initializePage() {
     }
   }
 
-  if (window.location.pathname === "/auctionList/index.html") {
+  if (window.location.pathname === "/auctionlist/index.html") {
     console.log("Auction list page detected, loading auctions.");
 
     import("./handler/auctionListHandler.mjs")

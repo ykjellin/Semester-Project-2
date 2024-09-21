@@ -83,10 +83,10 @@ export async function loadAuctionsList() {
 }
 
 export function renderAuctions(auctions) {
-  const auctionListContainer = document.getElementById("auction-list");
+  const auctionlistContainer = document.getElementById("auction-list");
   const template = document.getElementById("auction-card-template");
 
-  if (!auctionListContainer) {
+  if (!auctionlistContainer) {
     console.error("Auction list container not found");
     return;
   }
@@ -96,7 +96,7 @@ export function renderAuctions(auctions) {
     return;
   }
 
-  auctionListContainer.innerHTML = "";
+  auctionlistContainer.innerHTML = "";
 
   auctions.forEach((auction) => {
     const auctionCard = document.importNode(template.content, true);
@@ -114,13 +114,13 @@ export function renderAuctions(auctions) {
       auctionImg.src = "https://picsum.photos/150/100?random=6";
     }
 
-    const viewAuctionBtn = auctionCard.querySelector("#auction-list-view");
-    viewAuctionBtn.addEventListener("click", (event) => {
+    const viewauctionBtn = auctionCard.querySelector("#auction-list-view");
+    viewauctionBtn.addEventListener("click", (event) => {
       event.preventDefault();
       const auctionId = auction.id;
-      window.location.href = `/viewAuction/index.html?auctionId=${auctionId}`;
+      window.location.href = `/viewauction/index.html?auctionId=${auctionId}`;
     });
 
-    auctionListContainer.appendChild(auctionCard);
+    auctionlistContainer.appendChild(auctionCard);
   });
 }
