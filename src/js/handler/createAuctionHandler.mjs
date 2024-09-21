@@ -1,3 +1,6 @@
+import { BASE_URL } from "../constants.mjs";
+import { getItem } from "../storage.mjs";
+
 export function initcreateauctionForm() {
   const createauctionForm = document.getElementById("create-auction-form");
 
@@ -19,15 +22,22 @@ export function initcreateauctionForm() {
           : [],
       };
 
+      const authToken = getItem("authToken");
+      const apiKey = getItem("apiKey");
+      console.log("Auth Token:", authToken);
+      console.log("API Key:", apiKey);
+
       try {
-        const response = await fetch("/auction/listings", {
+        const response = await fetch(`${BASE_URL}/auction/listings`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getItem("authToken")}`,
+            "X-Noroff-API-Key": apiKey,
+            Authorization: `Bearer ${authToken}`,
           },
           body: JSON.stringify(auctionData),
         });
+        console.log("Auction data being sent:", auctionData);
 
         if (response.ok) {
           const result = await response.json();

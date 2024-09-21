@@ -6,6 +6,7 @@ import { loadAuctionDetails } from "../../src/js/handler/auctionHandler.mjs";
 import { handleBidSubmission } from "./handler/bidHandler.mjs";
 import { getItem } from "./storage.mjs";
 import { initAuctionSearch } from "./handler/auctionSearch.mjs";
+import { initcreateauctionForm } from "./handler/createAuctionHandler.mjs";
 
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
@@ -89,6 +90,11 @@ function initializePage() {
     initAuctionSearch();
   } else {
     console.log("Not on the auction list page, skipping auction list loading.");
+  }
+
+  if (currentPath === "/createauction/index.html") {
+    console.log("Create Auction page detected, initializing form.");
+    initcreateauctionForm();
   }
 
   const passwordInput = document.getElementById("password");
