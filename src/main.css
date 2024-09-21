@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "./assets/bootstrap-icons.css";
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -11968,14 +11969,274 @@ textarea.form-control-lg {
 body {
   background-color: #031a20;
   color: #a09862;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "old standard tt", serif;
+}
+
+main {
+  flex: 1;
 }
 
 header {
   background-color: #023c47;
+  border-bottom: 3px solid #a09862;
+}
+
+hr {
+  background-color: #a09862;
 }
 
 .logo {
-  font-family: "old standard tt italic";
+  font-family: "Tangerine";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 68px;
+  color: #a09862;
+}
+
+.header-nav .nav-link {
+  text-decoration: none;
+  color: #a09862;
+  font-size: 36px;
+  font-weight: 400;
+  margin-right: 25px;
+}
+
+.navbar-toggler {
+  border-color: #a09862;
+  height: 40px;
+}
+.navbar-toggler .navbar-toggler-icon {
+  background-image: none;
+  background-color: #a09862;
+  width: 30px;
+  height: 3px;
+  position: relative;
+}
+.navbar-toggler .navbar-toggler-icon::before,
+.navbar-toggler .navbar-toggler-icon::after {
+  content: "";
+  background-color: #a09862;
+  width: 30px;
+  height: 3px;
+  position: absolute;
+  left: 0;
+}
+.navbar-toggler .navbar-toggler-icon::before {
+  top: -8px;
+}
+.navbar-toggler .navbar-toggler-icon::after {
+  top: 8px;
+}
+
+#home-h1 {
+  padding-bottom: 2%;
+}
+
+.home-btn {
+  border-radius: 1px;
+  border: 2px solid #a09862;
+  color: #a09862;
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.homepage-auction-section {
+  background-color: #023c47;
+  padding: 20px;
+  border-radius: 0px;
+  border: 1px solid #a09862;
+  margin-bottom: 5%;
+}
+.homepage-auction-section h2, .homepage-auction-section .h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.homepage-auction-section h2 button, .homepage-auction-section .h2 button {
+  font-size: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #a09862;
+  cursor: pointer;
+}
+.homepage-auction-section h2 button:active, .homepage-auction-section .h2 button:active, .homepage-auction-section h2 button:focus, .homepage-auction-section .h2 button:focus {
+  color: #031a20;
+}
+.homepage-auction-section h2 button:hover, .homepage-auction-section .h2 button:hover, .homepage-auction-section h2 button:focus-visible, .homepage-auction-section .h2 button:focus-visible {
+  color: #a09862;
+  outline: none;
+}
+.homepage-auction-section i {
+  color: #a09862;
+}
+.homepage-auction-section i:active, .homepage-auction-section i:focus {
+  color: #031a20;
+}
+.homepage-auction-section #homepage-search-btn {
+  background-color: #031a20;
+  border: 1px solid #a09862;
+}
+.homepage-auction-section #load-more-home-btn {
+  font-size: 2rem;
+  padding: 10px 30px;
+  border-radius: 0px;
+  background-color: #023c47;
+  color: #a09862;
+  border: 1px solid #a09862;
+}
+.homepage-auction-section .card-container {
+  padding: 2rem;
+}
+.homepage-auction-section .card-container .card {
+  width: 300px;
+  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: #031a20;
+  border: 2px solid #a09862;
+  color: #a09862;
+  text-align: center;
+}
+.homepage-auction-section .card-container .card .card-img-top {
+  height: 150px;
+  padding: 0.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.homepage-auction-section .card-container .card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.homepage-auction-section .card-container .card .card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.homepage-auction-section .card-container .card #homepage-auction-list-view {
+  background-color: #023c47;
+  color: #a09862;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+#loginForm {
+  font-size: large;
+  font-weight: 600;
+}
+#loginForm input {
+  border-color: #a09862;
+}
+
+.login-btn {
+  border-radius: 1px;
+  border: 2px solid #a09862;
+  color: #a09862;
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.contact-us-section {
+  background-color: #023c47;
+  color: #a09862;
+  padding: 50px 20px;
+  text-align: left;
+}
+.contact-us-section h2, .contact-us-section .h2 {
+  color: #a09862;
+  margin-bottom: 20px;
+}
+.contact-us-section p {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.contact-us-section .contact-form .form-group {
+  margin-bottom: 20px;
+}
+.contact-us-section .contact-form .form-group label {
+  color: #a09862;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.contact-us-section .contact-form .form-group .form-control {
+  font-weight: 700;
+  background-color: #048199;
+  color: #a09862;
+  border: 1px solid #a09862;
+  padding: 10px;
+}
+.contact-us-section .contact-form button {
+  background-color: #a09862;
+  color: #031a20;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.contact-us-section .contact-form button:hover {
+  background-color: #b3ad82;
+}
+.contact-us-section .container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.site-footer {
+  background-color: #023c47;
+  padding: 20px 0;
+  color: #a09862;
+  text-align: center;
+}
+.site-footer h6, .site-footer .h6 {
+  font-size: 16px;
+  color: #a09862;
+}
+.site-footer p {
+  font-size: 14px;
+  color: #a09862;
+}
+.site-footer .footer-links {
+  list-style-type: none;
+  padding: 0;
+}
+.site-footer .footer-links li {
+  display: inline-block;
+  padding: 0 10px;
+}
+.site-footer .footer-links a {
+  color: #a09862;
+  text-decoration: none;
+}
+.site-footer .footer-links a:hover {
+  color: #c6c2a2;
+}
+.site-footer .social-icons {
+  list-style-type: none;
+  padding: 0;
+}
+.site-footer .social-icons li {
+  display: inline-block;
+  margin: 0 5px;
+}
+.site-footer .social-icons a {
+  font-size: 18px;
+  color: #a09862;
+}
+.site-footer .social-icons a:hover {
+  color: #c6c2a2;
+}
+.site-footer hr {
+  border-color: #a09862;
+}
+.site-footer .copyright-text {
+  font-size: 14px;
+  margin-top: 15px;
   color: #a09862;
 }
 
