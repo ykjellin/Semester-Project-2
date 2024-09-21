@@ -3,19 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../src/main.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="/src/assets/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/src/js/index.mjs"></script>
+    <link rel="stylesheet" href="/src/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-
-    <script src="../src/assets/bootstrap.bundle.min.js"></script>
-    <script type="module" src="../src/js/index.mjs"></script>
-
-    <title>Elegant Auctions</title>
+    <title>About Us - Elegant Auctions</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
@@ -33,74 +28,70 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse id="navbarNav">
+          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
-                  >Home</a
-                >
+                <a class="nav-link" href="/home/index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
-                  >Profile</a
-                >
+                <a class="nav-link" href="/auctionlist/index.html">Auctions</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="/auctionlist/index.html"
-                  id="auctions-link"
-                  >Auctions</a
-                >
-              </li>
-              <li class="nav-item d-none" id="create-auction-link">
-                <a class="nav-link" href="/createauction/index.html"
-                  >Create Auction</a
-                >
+                <a class="nav-link" href="/profile/index.html">Profile</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
-    <main>
+
+    <main class="contact-us-section">
       <div class="container">
-        <div class="row my-5">
-          <div class="col-md-12">
-            <h1 id="auction-detail-title"></h1>
-            <div id="auction-seller"></div>
-            <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
-            <p id="auction-detail-description"></p>
-            <p>
-              <strong>Ends at:</strong> <span id="auction-detail-endsAt"></span>
-            </p>
-            <div id="auction-detail-tags"></div>
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions or need further assistance, feel free to
+          reach out to us!
+        </p>
+
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="Enter your name"
+              required
+            />
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-12" id="auction-detail-media"></div>
-        </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
 
-        <div class="row my-5">
-          <div id="auction-bids-list"></div>
-          <h2>Place Your Bid</h2>
-          <form id="bid-form">
-            <div class="mb-3">
-              <label for="bid-amount" class="form-label">Bid Amount</label>
-              <input
-                type="number"
-                class="form-control"
-                id="bid-amount"
-                name="bid-amount"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">Place Bid</button>
-          </form>
-        </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea
+              id="message"
+              class="form-control"
+              rows="5"
+              placeholder="Enter your message"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
       </div>
     </main>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row">
