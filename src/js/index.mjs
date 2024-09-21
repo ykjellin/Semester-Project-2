@@ -4,6 +4,8 @@ import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibilit
 import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
 import { loadAuctionDetails } from "../../src/js/handler/auctionHandler.mjs";
 import { handleBidSubmission } from "./handler/bidHandler.mjs";
+import { getItem } from "./storage.mjs";
+import { initAuctionSearch } from "./handler/auctionSearch.mjs";
 
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
@@ -20,6 +22,7 @@ function handleNavigationLinks() {
 
 function initializePage() {
   console.log("Current path:", window.location.pathname);
+  handleNavigationLinks();
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
     console.log("Register form detected, attaching handler.");
@@ -47,6 +50,7 @@ function initializePage() {
     if (auctionId) {
       console.log(`Auction ID found: ${auctionId}`);
       loadAuctionDetails(auctionId);
+      module.initAuctionSearch();
       handleBidSubmission(auctionId);
     } else {
       console.error("No auction ID found in the URL.");
@@ -82,6 +86,7 @@ function initializePage() {
           });
       });
     }
+    initAuctionSearch();
   } else {
     console.log("Not on the auction list page, skipping auction list loading.");
   }

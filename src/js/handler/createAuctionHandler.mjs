@@ -32,10 +32,12 @@ export function initcreateauctionForm() {
         if (response.ok) {
           const result = await response.json();
           alert("Auction created successfully!");
+          console.log("Auction creation response:", result);
           window.location.href = "/auctions";
         } else {
           const errorData = await response.json();
           alert(`Error: ${errorData.message}`);
+          console.error("Auction creation failed:", errorData);
         }
       } catch (error) {
         console.error("Error creating auction:", error);
