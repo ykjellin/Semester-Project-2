@@ -33,7 +33,7 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse navbar-collapse header-nav" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                 <a class="nav-link" href="/home/index.html" id="home-link"
@@ -63,41 +63,103 @@
         </div>
       </nav>
     </header>
-    <div class="container">
-      <div class="row my-5">
-        <div class="col-md-12">
-          <h1 id="auction-detail-title"></h1>
-          <div id="auction-seller"></div>
-          <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
-          <p id="auction-detail-description"></p>
-          <p>
-            <strong>Ends at:</strong> <span id="auction-detail-endsAt"></span>
-          </p>
-          <div id="auction-detail-tags"></div>
+    <main>
+      <div class="container">
+        <div class="row my-5">
+          <div class="col-md-12">
+            <h1 id="auction-detail-title"></h1>
+            <div id="auction-seller"></div>
+            <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
+            <p id="auction-detail-description"></p>
+            <p>
+              <strong>Ends at:</strong> <span id="auction-detail-endsAt"></span>
+            </p>
+            <div id="auction-detail-tags"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12" id="auction-detail-media"></div>
+        </div>
+
+        <div class="row my-5">
+          <div id="auction-bids-list"></div>
+          <h2>Place Your Bid</h2>
+          <form id="bid-form">
+            <div class="mb-3">
+              <label for="bid-amount" class="form-label">Bid Amount</label>
+              <input
+                type="number"
+                class="form-control"
+                id="bid-amount"
+                name="bid-amount"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Place Bid</button>
+          </form>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-12" id="auction-detail-media"></div>
-      </div>
-
-      <div class="row my-5">
-        <div id="auction-bids-list"></div>
-        <h2>Place Your Bid</h2>
-        <form id="bid-form">
-          <div class="mb-3">
-            <label for="bid-amount" class="form-label">Bid Amount</label>
-            <input
-              type="number"
-              class="form-control"
-              id="bid-amount"
-              name="bid-amount"
-              required
-            />
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">
+              Elegant Auctions is your go-to platform for bidding on unique
+              items. Our mission is to provide a seamless experience for both
+              buyers and sellers, ensuring transparency and fair bidding.
+            </p>
           </div>
-          <button type="submit" class="btn btn-primary">Place Bid</button>
-        </form>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Quick Links</h6>
+            <ul class="footer-links">
+              <li><a href="/home/index.html">Home</a></li>
+              <li><a href="/auctionlist/index.html">Auctions</a></li>
+              <li><a href="/profile/index.html">Profile</a></li>
+              <li><a href="/contact/index.html">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Follow Us</h6>
+            <ul class="social-icons">
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-facebook"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
       </div>
-    </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">
+              &copy; 2024 Elegant Auctions. All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
