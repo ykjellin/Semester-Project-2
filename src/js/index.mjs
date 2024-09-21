@@ -40,7 +40,8 @@ function initializePage() {
     }
   }
 
-  if (window.location.pathname === "/auctionlist/index.html") {
+  const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
+  if (currentPath === "/auctionlist/index.html") {
     console.log("Auction list page detected, loading auctions.");
 
     import("./handler/auctionListHandler.mjs")
