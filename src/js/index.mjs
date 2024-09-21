@@ -5,6 +5,19 @@ import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
 import { loadAuctionDetails } from "../../src/js/handler/auctionHandler.mjs";
 import { handleBidSubmission } from "./handler/bidHandler.mjs";
 
+function handleNavigationLinks() {
+  const createAuctionLink = document.getElementById("create-auction-link");
+  const authToken = getItem("authToken");
+
+  if (createAuctionLink) {
+    if (authToken) {
+      createAuctionLink.classList.remove("d-none");
+    } else {
+      createAuctionLink.classList.add("d-none");
+    }
+  }
+}
+
 function initializePage() {
   console.log("Current path:", window.location.pathname);
   const registerForm = document.getElementById("register-form");
