@@ -1,5 +1,10 @@
 import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
+import { loadAuctionDetails } from "./auctionHandler.mjs";
+
+if (document.getElementById("auction-list")) {
+  loadAuctionsList();
+}
 
 export async function loadAuctionsList() {
   const sort = document.getElementById("sort")
@@ -81,16 +86,27 @@ export function renderAuctions(auctions) {
   const auctionListContainer = document.getElementById("auction-list");
   const template = document.getElementById("auction-card-template");
 
+  if (!auctionListContainer) {
+    console.error("Auction list container not found");
+    return;
+  }
+
+  if (!template) {
+    console.error("Auction card template not found");
+    return;
+  }
+
   auctionListContainer.innerHTML = "";
 
   auctions.forEach((auction) => {
     const auctionCard = document.importNode(template.content, true);
 
-    auctionCard.querySelector("#auction-title").textContent = auction.title;
-    auctionCard.querySelector("#auction-description").textContent =
+    auctionCard.querySelector("#auction-list-title").textContent =
+      auction.title;
+    auctionCard.querySelector("#auction-list-description").textContent =
       auction.description;
 
-    const auctionImg = auctionCard.querySelector("#auction-img");
+    const auctionImg = auctionCard.querySelector("#auction-list-img");
     if (auction.media && auction.media.length > 0) {
       auctionImg.src = auction.media[0].url;
       auctionImg.alt = auction.media[0].alt || "Auction Image";
@@ -98,8 +114,12 @@ export function renderAuctions(auctions) {
       auctionImg.src = "https://picsum.photos/150/100?random=6";
     }
 
-    const viewAuctionBtn = auctionCard.querySelector("#view-auction");
-    viewAuctionBtn.href = `/auction/${auction.id}`;
+    const viewAuctionBtn = auctionCard.querySelector("#auction-list-view");
+    viewAuctionBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const auctionId = auction.id;
+      window.location.href = `/viewAuction/index.html?auctionId=${auctionId}`;
+    });
 
     auctionListContainer.appendChild(auctionCard);
   });

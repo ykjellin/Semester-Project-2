@@ -1,73 +1,128 @@
-<div class="container">
-  <div class="row vh-100 d-flex justify-content-center align-items-center">
-    <div class="col-md-8">
-      <h2>Create New Auction</h2>
-      <form id="create-auction-form">
-        <div class="mb-3">
-          <label for="auction-title" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="auction-title"
-            name="title"
-            placeholder="Enter auction title"
-            required
-          />
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/main.css" />
 
-        <div class="mb-3">
-          <label for="auction-description" class="form-label"
-            >Description</label
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="../src/assets/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../src/js/index.mjs"></script>
+
+    <title>Elegant Auctions</title>
+  </head>
+  <body>
+    <header class="d-flex justify-content-between align-items-center p-3">
+      <h1 class="logo">Elegant Auctions</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-          <textarea
-            class="form-control"
-            id="auction-description"
-            name="description"
-            rows="4"
-            placeholder="Enter auction description"
-            required
-          ></textarea>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="home-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="profile-link">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="auctions-link">Auctions</a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="row vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+          <h2>Create New Auction</h2>
+          <form id="create-auction-form">
+            <div class="mb-3">
+              <label for="auction-title" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="auction-title"
+                name="title"
+                placeholder="Enter auction title"
+                required
+              />
+            </div>
 
-        <div class="mb-3">
-          <label for="auction-tags" class="form-label"
-            >Tags (Comma-separated)</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="auction-tags"
-            name="tags"
-            placeholder="e.g. art, painting, collectible"
-          />
+            <div class="mb-3">
+              <label for="auction-description" class="form-label"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="auction-description"
+                name="description"
+                rows="4"
+                placeholder="Enter auction description"
+                required
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="auction-tags" class="form-label"
+                >Tags (Comma-separated)</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="auction-tags"
+                name="tags"
+                placeholder="e.g. art, painting, collectible"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="auction-media" class="form-label">Media URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="auction-media"
+                name="media"
+                placeholder="Enter media URL (optional)"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="auction-end-date" class="form-label"
+                >End Date & Time</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="auction-end-date"
+                name="endsAt"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Create Auction
+            </button>
+          </form>
         </div>
-
-        <div class="mb-3">
-          <label for="auction-media" class="form-label">Media URL</label>
-          <input
-            type="url"
-            class="form-control"
-            id="auction-media"
-            name="media"
-            placeholder="Enter media URL (optional)"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="auction-end-date" class="form-label"
-            >End Date & Time</label
-          >
-          <input
-            type="datetime-local"
-            class="form-control"
-            id="auction-end-date"
-            name="endsAt"
-            required
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Create Auction</button>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
+  </body>
+</html>

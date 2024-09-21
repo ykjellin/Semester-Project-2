@@ -1,6 +1,5 @@
 import { login, createApiKey } from "../api/auth/auth.mjs";
 import { storeItem, getItem } from "../storage.mjs";
-import { route } from "../router.mjs";
 
 export function handleLoginSubmit() {
   const loginForm = document.getElementById("loginForm");
@@ -40,8 +39,8 @@ export function handleLoginSubmit() {
         }
 
         alert("Login successful!");
-        window.history.pushState({}, "", "/profile");
-        route();
+
+        window.location.href = "/profile/index.html";
       } else {
         alert("Login failed.");
       }
