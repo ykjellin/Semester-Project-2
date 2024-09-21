@@ -7,6 +7,11 @@ import { handleBidSubmission } from "./handler/bidHandler.mjs";
 import { getItem } from "./storage.mjs";
 import { initAuctionSearch } from "./handler/auctionSearch.mjs";
 import { initcreateauctionForm } from "./handler/createAuctionHandler.mjs";
+import {
+  renderHomepageAuctions,
+  loadPublicAuctionsList,
+  initHomepageAuctionSearch,
+} from "./handler/publicListHandler.mjs";
 
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
@@ -59,6 +64,47 @@ function initializePage() {
   }
 
   const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
+
+  if (currentPath === "/home/index.html") {
+    console.log("Home page detected, loading public auctions.");
+
+    let currentPage = 1;
+    const limit = 6;
+
+    loadPublicAuctionsList(limit, currentPage)
+      .then(() => {
+        initHomepageAuctionSearch();
+      })
+      .catch((error) => {
+        console.error("Failed to load public auctions:", error);
+      });
+
+    const loadMoreBtn = document.getElementById("load-more-home-btn");
+    if (loadMoreBtn) {
+      loadMoreBtn.addEventListener("click", () => {
+        currentPage++;
+        loadPublicAuctionsList(limit, currentPage).catch((error) => {
+          console.error("Failed to load more auctions:", error);
+        });
+      });
+    }
+
+    const searchSection = document.getElementById("search-section");
+    const toggleIcon = document.getElementById("toggle-icon");
+
+    if (searchSection && toggleIcon) {
+      searchSection.addEventListener("shown.bs.collapse", () => {
+        toggleIcon.classList.remove("bi-chevron-down");
+        toggleIcon.classList.add("bi-chevron-up");
+      });
+
+      searchSection.addEventListener("hidden.bs.collapse", () => {
+        toggleIcon.classList.remove("bi-chevron-up");
+        toggleIcon.classList.add("bi-chevron-down");
+      });
+    }
+  }
+
   if (currentPath === "/auctionlist/index.html") {
     console.log("Auction list page detected, loading auctions.");
 
