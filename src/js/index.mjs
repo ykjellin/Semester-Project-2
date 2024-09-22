@@ -75,6 +75,7 @@ function initializePage() {
   const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
 
   if (currentPath === "/home/index.html") {
+    console.log("Loading public auctions...");
     let currentPage = 1;
     const limit = 6;
 
