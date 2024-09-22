@@ -35,6 +35,7 @@ function handleNavigationLinks() {
  * It attaches form handlers, loads auction data, and manages DOM interactions.
  */
 function initializePage() {
+  console.log("Initializing the page...");
   handleNavigationLinks();
 
   const registerForm = document.getElementById("register-form");
@@ -75,7 +76,10 @@ function initializePage() {
     });
   }
 
-  const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
+  const currentPath = window.location.pathname
+    .replace(/\/$/, "/index.html")
+    .toLowerCase();
+  console.log("Current path:", currentPath);
 
   if (currentPath === "/home/index.html") {
     console.log("Loading public auctions...");
