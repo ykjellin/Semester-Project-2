@@ -8,18 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-    href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
     <script src="/src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/js/index.mjs"></script>
 
-    <title>Elegant Auctions</title>
+    <title>Elegant Auctions - auction list</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
-      <h1 class="logo">Elegant Auctions</h1>
+      <h1 class="logo" aria-label="Elegant Auctions Logo">Elegant Auctions</h1>
       <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
@@ -36,44 +36,68 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
+                <a
+                  class="nav-link"
+                  href="/home/index.html"
+                  id="home-link"
+                  aria-label="Go to Home Page"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
+                <a
+                  class="nav-link"
+                  href="/profile/index.html"
+                  id="profile-link"
+                  aria-label="Go to Profile Page"
                   >Profile</a
                 >
               </li>
               <li class="nav-item d-none" id="create-auction-link">
-                <a class="nav-link" href="/createauction/index.html"
+                <a
+                  class="nav-link"
+                  href="/createauction/index.html"
+                  aria-label="Create New Auction"
                   >Create Auction</a
                 >
               </li>
               <li class="nav-item">
-                <button id="logout-btn" class="btn">Logout</button>
+                <button id="logout-btn" class="btn" aria-label="Logout">
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+
     <main>
       <div class="container">
         <div class="filters">
           <div class="d-flex justify-content-between align-items-center">
-            <h2 type="button" class="mb-0" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="true" aria-controls="filterCollapse">
+            <h2
+              type="button"
+              class="mb-0"
+              data-bs-toggle="collapse"
+              data-bs-target="#filterCollapse"
+              aria-expanded="true"
+              aria-controls="filterCollapse"
+              aria-label="Filter Auctions"
+            >
               Filters
               <i id="filter-chevron" class="bi bi-chevron-down fs-2"></i>
-          </h2>
-              
-            </button>
+            </h2>
           </div>
           <div id="filterCollapse" class="collapse show">
             <div class="row">
               <div class="col-md-6">
                 <label for="sort" class="form-label">Sort By</label>
-                <select id="sort" class="form-select">
+                <select
+                  id="sort"
+                  class="form-select"
+                  aria-label="Select sort criteria"
+                >
                   <option value="">None</option>
                   <option value="title">Title</option>
                   <option value="date">Date</option>
@@ -81,7 +105,11 @@
               </div>
               <div class="col-md-6">
                 <label for="sortOrder" class="form-label">Order</label>
-                <select id="sortOrder" class="form-select">
+                <select
+                  id="sortOrder"
+                  class="form-select"
+                  aria-label="Select sort order"
+                >
                   <option value="asc">Ascending</option>
                   <option value="desc">Descending</option>
                 </select>
@@ -94,13 +122,19 @@
                     type="checkbox"
                     id="_active"
                     class="form-check-input"
+                    aria-label="Show only active auctions"
                   />
                   Active Only
                 </label>
               </div>
               <div class="col-md-4">
                 <label for="_bids" class="form-check-label">
-                  <input type="checkbox" id="_bids" class="form-check-input" />
+                  <input
+                    type="checkbox"
+                    id="_bids"
+                    class="form-check-input"
+                    aria-label="Show only auctions with bids"
+                  />
                   Has Bids
                 </label>
               </div>
@@ -110,6 +144,7 @@
                     type="checkbox"
                     id="_seller"
                     class="form-check-input"
+                    aria-label="Show only my auctions"
                   />
                   My Auctions
                 </label>
@@ -117,7 +152,11 @@
             </div>
             <div class="row my-3">
               <div class="col-md-12">
-                <button id="apply-filters" class="btn btn-primary list-btn">
+                <button
+                  id="apply-filters"
+                  class="btn btn-primary list-btn"
+                  aria-label="Apply filters"
+                >
                   Apply Filters
                 </button>
               </div>
@@ -127,12 +166,18 @@
 
         <div class="search-container mt-3">
           <div class="d-flex justify-content-between align-items-center">
-            <h2 type="button" class="mb-0" data-bs-toggle="collapse" data-bs-target="#searchCollapse" aria-expanded="true" aria-controls="searchCollapse">
+            <h2
+              type="button"
+              class="mb-0"
+              data-bs-toggle="collapse"
+              data-bs-target="#searchCollapse"
+              aria-expanded="true"
+              aria-controls="searchCollapse"
+              aria-label="Search Auctions"
+            >
               Search
               <i id="search-chevron" class="bi bi-chevron-down fs-2"></i>
-          </h2>
-              
-            </button>
+            </h2>
           </div>
           <div id="searchCollapse" class="collapse show">
             <div class="row search-container mb-3 justify-content-center">
@@ -142,8 +187,13 @@
                   id="search-title"
                   class="form-control"
                   placeholder="Search by auction title"
+                  aria-label="Search auctions by title"
                 />
-                <button id="search-btn" class="btn btn-primary list-btn">
+                <button
+                  id="search-btn"
+                  class="btn btn-primary list-btn"
+                  aria-label="Start search"
+                >
                   Search
                 </button>
               </div>
@@ -153,24 +203,41 @@
       </div>
 
       <div class="container">
-        <div class="row" id="auction-list"></div>
+        <div
+          class="row"
+          id="auction-list"
+          aria-live="polite"
+          aria-label="Auction list"
+        ></div>
       </div>
 
       <template id="auction-card-template">
         <div class="col-md-4">
           <div class="card auction-list-card">
-            <img src="" alt="" class="card-img-top" id="auction-list-img" />
+            <img
+              src=""
+              alt="Auction Image"
+              class="card-img-top"
+              id="auction-list-img"
+              aria-label="Auction image"
+            />
             <div class="card-body">
               <h5 class="card-title" id="auction-list-title"></h5>
               <p class="card-text" id="auction-list-description"></p>
-              <a href="#" class="btn btn-primary" id="auction-list-view"
-                >View Auction</a
+              <a
+                href="#"
+                class="btn btn-primary"
+                id="auction-list-view"
+                aria-label="View auction details"
               >
+                View Auction
+              </a>
             </div>
           </div>
         </div>
       </template>
     </main>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -186,10 +253,24 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="/home/index.html">Home</a></li>
-              <li><a href="/auctionlist/index.html">Auctions</a></li>
-              <li><a href="/profile/index.html">Profile</a></li>
-              <li><a href="/contact/index.html">Contact Us</a></li>
+              <li>
+                <a href="/home/index.html" aria-label="Go to Home Page">Home</a>
+              </li>
+              <li>
+                <a href="/auctionlist/index.html" aria-label="View Auctions"
+                  >Auctions</a
+                >
+              </li>
+              <li>
+                <a href="/profile/index.html" aria-label="Go to Profile Page"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a href="/contact/index.html" aria-label="Go to Contact Page"
+                  >Contact Us</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -197,24 +278,40 @@
             <h6>Follow Us</h6>
             <ul class="social-icons">
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-facebook"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Facebook"
+                >
+                  <i class="bi bi-facebook"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-twitter"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Twitter"
+                >
+                  <i class="bi bi-twitter"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-instagram"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Instagram"
+                >
+                  <i class="bi bi-instagram"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-linkedin"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <i class="bi bi-linkedin"></i>
+                </a>
               </li>
             </ul>
           </div>

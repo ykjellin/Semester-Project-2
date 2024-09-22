@@ -15,11 +15,13 @@
     <script src="../src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="../src/js/index.mjs"></script>
 
-    <title>Elegant Auctions</title>
+    <title>Elegant Auctions - Login</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
-      <h1 class="logo">Elegant Auctions</h1>
+      <h1 class="logo" aria-label="Elegant Auctions Website Logo">
+        Elegant Auctions
+      </h1>
       <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
@@ -36,12 +38,20 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
+                <a
+                  class="nav-link"
+                  href="/home/index.html"
+                  id="home-link"
+                  aria-label="Go to Home Page"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
+                <a
+                  class="nav-link"
+                  href="/profile/index.html"
+                  id="profile-link"
+                  aria-label="Go to Profile Page"
                   >Profile</a
                 >
               </li>
@@ -50,6 +60,7 @@
                   class="nav-link"
                   href="/auctionlist/index.html"
                   id="auctions-link"
+                  aria-label="View Auctions"
                   >Auctions</a
                 >
               </li>
@@ -62,11 +73,11 @@
     <main>
       <div class="row vh-100 d-flex justify-content-center align-items-center">
         <div class="col-md-4">
-          <h1 id="login-h2">Login</h1>
+          <h1 id="login-h2" aria-label="Login Form">Login</h1>
           <hr class="my-4" />
           <div id="loginLoader" class="loader" style="display: none"></div>
 
-          <form id="loginForm">
+          <form id="loginForm" aria-label="Login Form">
             <div class="mb-3">
               <label for="name" class="form-label">Username</label>
               <input
@@ -75,6 +86,7 @@
                 id="name"
                 name="name"
                 required
+                aria-label="Enter your username"
               />
             </div>
             <div class="mb-3">
@@ -85,6 +97,7 @@
                 id="email"
                 name="email"
                 required
+                aria-label="Enter your email address"
               />
             </div>
             <div class="mb-3">
@@ -95,13 +108,22 @@
                 id="password"
                 name="password"
                 required
+                aria-label="Enter your password"
               />
             </div>
-            <button type="submit" class="btn btn-primary login-btn">
+            <button
+              type="submit"
+              class="btn btn-primary login-btn"
+              aria-label="Submit Login"
+            >
               Login
             </button>
           </form>
-          <div id="loginFeedback" class="alert alert-info hidden"></div>
+          <div
+            id="loginFeedback"
+            class="alert alert-info hidden"
+            aria-live="polite"
+          ></div>
         </div>
       </div>
     </main>
@@ -121,10 +143,24 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="/home/index.html">Home</a></li>
-              <li><a href="/auctionlist/index.html">Auctions</a></li>
-              <li><a href="/profile/index.html">Profile</a></li>
-              <li><a href="/contact/index.html">Contact Us</a></li>
+              <li>
+                <a href="/home/index.html" aria-label="Go to Home Page">Home</a>
+              </li>
+              <li>
+                <a href="/auctionlist/index.html" aria-label="View Auctions"
+                  >Auctions</a
+                >
+              </li>
+              <li>
+                <a href="/profile/index.html" aria-label="Go to Profile Page"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a href="/contact/index.html" aria-label="Go to Contact Page"
+                  >Contact Us</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -132,24 +168,40 @@
             <h6>Follow Us</h6>
             <ul class="social-icons">
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-facebook"></i
-                ></a>
+                <a
+                  href="https://www.facebook.com"
+                  class="social-icon"
+                  aria-label="Facebook"
+                >
+                  <i class="bi bi-facebook"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-twitter"></i
-                ></a>
+                <a
+                  href="https://www.twitter.com"
+                  class="social-icon"
+                  aria-label="Twitter"
+                >
+                  <i class="bi bi-twitter"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-instagram"></i
-                ></a>
+                <a
+                  href="https://www.instagram.com/"
+                  class="social-icon"
+                  aria-label="Instagram"
+                >
+                  <i class="bi bi-instagram"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-linkedin"></i
-                ></a>
+                <a
+                  href="https://www.linkedin.com"
+                  class="social-icon"
+                  aria-label="LinkedIn"
+                >
+                  <i class="bi bi-linkedin"></i>
+                </a>
               </li>
             </ul>
           </div>
@@ -159,7 +211,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">
+            <p
+              class="copyright-text"
+              aria-label="Copyright Elegant Auctions 2024"
+            >
               &copy; 2024 Elegant Auctions. All Rights Reserved.
             </p>
           </div>

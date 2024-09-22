@@ -8,18 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-    href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
     <script src="../src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="../src/js/index.mjs"></script>
 
-    <title>Elegant Auctions</title>
+    <title>Elegant Auctions - Auction Details</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
-      <h1 class="logo">Elegant Auctions</h1>
+      <h1 class="logo" aria-label="Elegant Auctions Logo">Elegant Auctions</h1>
       <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
@@ -33,15 +33,23 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse id="navbarNav">
+          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
+                <a
+                  class="nav-link"
+                  href="/home/index.html"
+                  id="home-link"
+                  aria-label="Go to Home Page"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
+                <a
+                  class="nav-link"
+                  href="/profile/index.html"
+                  id="profile-link"
+                  aria-label="Go to Profile Page"
                   >Profile</a
                 >
               </li>
@@ -50,60 +58,103 @@
                   class="nav-link"
                   href="/auctionlist/index.html"
                   id="auctions-link"
+                  aria-label="View Auctions"
                   >Auctions</a
                 >
               </li>
               <li class="nav-item d-none" id="create-auction-link">
-                <a class="nav-link" href="/createauction/index.html"
+                <a
+                  class="nav-link"
+                  href="/createauction/index.html"
+                  aria-label="Create New Auction"
                   >Create Auction</a
                 >
               </li>
               <li class="nav-item">
-                <button id="logout-btn" class="btn">Logout</button>
+                <button id="logout-btn" class="btn" aria-label="Logout">
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+
     <main>
       <div class="container">
         <div class="row my-5">
           <div class="col-md-12">
-            <h1 id="auction-detail-title"></h1>
+            <h1 id="auction-detail-title" aria-label="Auction Title"></h1>
             <hr class="my-4" />
-            <div id="auction-seller"></div>
+            <div
+              id="auction-seller"
+              aria-label="Auction Seller Information"
+            ></div>
             <hr class="my-4" />
-            <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
-            <p id="auction-detail-description"></p>
             <p>
-              <strong>Ends at:</strong> <span id="auction-detail-endsAt"></span>
+              <strong>Bids:</strong>
+              <span id="auction-detail-bids" aria-label="Number of Bids"></span>
             </p>
-            <div id="auction-detail-tags"></div>
+            <p
+              id="auction-detail-description"
+              aria-label="Auction Description"
+            ></p>
+            <p>
+              <strong>Ends at:</strong>
+              <span
+                id="auction-detail-endsAt"
+                aria-label="Auction End Date and Time"
+              ></span>
+            </p>
+            <div id="auction-detail-tags" aria-label="Auction Tags"></div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-12" id="auction-detail-media"></div>
+          <div
+            class="col-md-12"
+            id="auction-detail-media"
+            aria-label="Auction Media"
+          ></div>
         </div>
-        <div id="auction-feedback" class="alert hidden" style="display: none;"></div>
+        <div
+          id="auction-feedback"
+          class="alert hidden"
+          style="display: none"
+          aria-live="polite"
+        ></div>
+
         <div class="row my-5">
-          <div id="auction-bids-list"></div>
+          <div id="auction-bids-list" aria-label="Auction Bids List"></div>
           <hr class="my-4" />
           <h2>Place Your Bid</h2>
-          <form id="bid-form">
+          <form id="bid-form" aria-label="Place a Bid Form">
             <div class="mb-3">
               <label for="bid-amount" class="form-label">Bid Amount</label>
-              <input type="number" class="form-control" id="bid-amount" placeholder="Enter your bid">
-              <div class="invalid-feedback">
+              <input
+                type="number"
+                class="form-control"
+                id="bid-amount"
+                placeholder="Enter your bid"
+                aria-label="Enter Bid Amount"
+              />
+              <div class="invalid-feedback" aria-live="polite">
                 <!-- Error message will go here -->
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Place Bid</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              aria-label="Submit Bid"
+            >
+              Place Bid
+            </button>
           </form>
         </div>
       </div>
     </main>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -119,10 +170,24 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="/home/index.html">Home</a></li>
-              <li><a href="/auctionlist/index.html">Auctions</a></li>
-              <li><a href="/profile/index.html">Profile</a></li>
-              <li><a href="/contact/index.html">Contact Us</a></li>
+              <li>
+                <a href="/home/index.html" aria-label="Go to Home Page">Home</a>
+              </li>
+              <li>
+                <a href="/auctionlist/index.html" aria-label="View Auctions"
+                  >Auctions</a
+                >
+              </li>
+              <li>
+                <a href="/profile/index.html" aria-label="Go to Profile Page"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a href="/contact/index.html" aria-label="Go to Contact Page"
+                  >Contact Us</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -130,24 +195,40 @@
             <h6>Follow Us</h6>
             <ul class="social-icons">
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-facebook"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Facebook"
+                >
+                  <i class="bi bi-facebook"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-twitter"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Twitter"
+                >
+                  <i class="bi bi-twitter"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-instagram"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Instagram"
+                >
+                  <i class="bi bi-instagram"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-linkedin"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <i class="bi bi-linkedin"></i>
+                </a>
               </li>
             </ul>
           </div>
