@@ -6,17 +6,16 @@ if (document.getElementById("auction-list")) {
   loadAuctionsList();
 }
 
-export async function loadAuctionsList() {
+let currentPage = 1;
+
+export async function loadAuctionsList(page = 1) {
   const sort = document.getElementById("sort")
     ? document.getElementById("sort").value
     : "";
   const sortOrder = document.getElementById("sortOrder")
     ? document.getElementById("sortOrder").value
-    : "asc";
-  const limit = document.getElementById("limit")
-    ? document.getElementById("limit").value
-    : 10;
-  const page = 1;
+    : "";
+
   const _seller = document.getElementById("_seller")
     ? document.getElementById("_seller").checked
     : undefined;
@@ -33,7 +32,6 @@ export async function loadAuctionsList() {
   const filters = {
     sort: sort || undefined,
     sortOrder,
-    limit,
     page,
     _seller,
     _bids,

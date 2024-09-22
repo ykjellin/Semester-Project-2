@@ -147,6 +147,36 @@ function initializePage() {
   if (passwordInput) {
     togglePasswordVisibility("password", "togglePassword", "toggleIcon");
   }
+
+  const filterCollapse = document.getElementById("filterCollapse");
+  const filterChevron = document.getElementById("filter-chevron");
+
+  if (filterCollapse && filterChevron) {
+    filterCollapse.addEventListener("shown.bs.collapse", () => {
+      filterChevron.classList.remove("bi-chevron-down");
+      filterChevron.classList.add("bi-chevron-up");
+    });
+
+    filterCollapse.addEventListener("hidden.bs.collapse", () => {
+      filterChevron.classList.remove("bi-chevron-up");
+      filterChevron.classList.add("bi-chevron-down");
+    });
+  }
+
+  const searchCollapse = document.getElementById("searchCollapse");
+  const searchChevron = document.getElementById("search-chevron");
+
+  if (searchCollapse && searchChevron) {
+    searchCollapse.addEventListener("shown.bs.collapse", () => {
+      searchChevron.classList.remove("bi-chevron-down");
+      searchChevron.classList.add("bi-chevron-up");
+    });
+
+    searchCollapse.addEventListener("hidden.bs.collapse", () => {
+      searchChevron.classList.remove("bi-chevron-up");
+      searchChevron.classList.add("bi-chevron-down");
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
