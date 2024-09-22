@@ -15,7 +15,7 @@
     <script src="/src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/js/index.mjs"></script>
 
-    <title>Elegant Auctions</title>
+    <title>Elegant Auctions - Home</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
@@ -66,6 +66,7 @@
       </div>
 
       <div class="container mt-5 homepage-auction-section">
+        <div id="feedback" class="alert d-none"></div>
         <h2 class="d-flex justify-content-between align-items-center">
           <button
             class="btn btn-link p-0"
@@ -74,6 +75,7 @@
             data-bs-target="#search-section"
             aria-expanded="false"
             aria-controls="search-section"
+            aria-label="Toggle search auction section"
             style="text-decoration: none; font-size: 2rem"
           >
             Search Auctions
@@ -83,15 +85,24 @@
         <div class="collapse" id="search-section">
           <div class="row">
             <div class="col-md-8">
-              <input
-                type="text"
-                id="homepage-search-title"
-                class="form-control"
-                placeholder="Search auctions by title"
-              />
+              <div class="form-floating">
+                <label for="homepage-search-title" class="form-label"
+                  >Search by Title</label
+                >
+                <input
+                  type="text"
+                  id="homepage-search-title"
+                  class="form-control"
+                  placeholder="Search auctions by title"
+                />
+              </div>
             </div>
             <div class="col-md-4">
-              <button id="homepage-search-btn" class="btn btn-primary">
+              <button
+                id="homepage-search-btn"
+                class="btn btn-primary"
+                aria-label="Search Auctions"
+              >
                 Search
               </button>
             </div>
@@ -119,6 +130,7 @@
                   href="#"
                   class="btn btn-primary"
                   id="homepage-auction-list-view"
+                  aria-label="View Auction Details"
                   >View Auction</a
                 >
               </div>
@@ -148,10 +160,28 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="/home/index.html">Home</a></li>
-              <li><a href="/auctionlist/index.html">Auctions</a></li>
-              <li><a href="/profile/index.html">Profile</a></li>
-              <li><a href="/contact/index.html">Contact Us</a></li>
+              <li>
+                <a href="/home/index.html" aria-label="Go to Homepage">Home</a>
+              </li>
+              <li>
+                <a
+                  href="/auctionlist/index.html"
+                  aria-label="View Available Auctions"
+                  >Auctions</a
+                >
+              </li>
+              <li>
+                <a href="/profile/index.html" aria-label="Go to Your Profile"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/contact/index.html"
+                  aria-label="Contact Us for Support"
+                  >Contact Us</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -159,22 +189,38 @@
             <h6>Follow Us</h6>
             <ul class="social-icons">
               <li>
-                <a href="#" class="social-icon">
+                <a
+                  href="https://www.facebook.com"
+                  class="social-icon"
+                  aria-label="Facebook"
+                >
                   <i class="bi bi-facebook"></i
                 ></a>
               </li>
               <li>
-                <a href="#" class="social-icon">
+                <a
+                  href="https://www.twitter.com"
+                  class="social-icon"
+                  aria-label="Twitter"
+                >
                   <i class="bi bi-twitter"></i
                 ></a>
               </li>
               <li>
-                <a href="#" class="social-icon">
+                <a
+                  href="https://www.instagram.com/"
+                  class="social-icon"
+                  aria-label="Instagram"
+                >
                   <i class="bi bi-instagram"></i
                 ></a>
               </li>
               <li>
-                <a href="#" class="social-icon">
+                <a
+                  href="https://www.linkedin.com"
+                  class="social-icon"
+                  aria-label="LinkedIn"
+                >
                   <i class="bi bi-linkedin"></i
                 ></a>
               </li>
@@ -184,9 +230,12 @@
         <hr />
       </div>
       <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-sm-6 col-xs-12 text-center">
+            <p
+              class="copyright-text"
+              aria-label="Copyright 2024 Elegant Auctions"
+            >
               &copy; 2024 Elegant Auctions. All Rights Reserved.
             </p>
           </div>

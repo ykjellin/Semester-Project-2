@@ -2,14 +2,13 @@ import { KEY, LOGIN, REGISTER } from "../../constants.mjs";
 import { storeItem, getItem } from "../../storage.mjs";
 
 /**
- * Function to create an API key
- * @param {string} name - The name for the API key
- * @returns {string|null} - Returns the API key if successful, or null if failed
+ * Function to create an API key.
+ * @param {string} name - The name for the API key.
+ * @returns {Promise<string|null>} - Returns the API key if successful, or null if failed.
  */
 export async function createApiKey(name) {
   try {
     const authToken = getItem("authToken");
-    console.log("Bearer token:", authToken);
 
     const response = await fetch(KEY, {
       method: "POST",
@@ -17,9 +16,6 @@ export async function createApiKey(name) {
         Authorization: `Bearer ${authToken}`,
       },
     });
-
-    console.log("Response status:", response.status);
-    console.log("Response:", response);
 
     if (!response.ok) {
       if (response.status === 403) {
@@ -31,7 +27,6 @@ export async function createApiKey(name) {
     }
 
     const data = await response.json();
-    console.log("Data received:", data);
 
     if (data.data && data.data.key) {
       storeItem("apiKey", data.data.key);
@@ -46,19 +41,19 @@ export async function createApiKey(name) {
 }
 
 /**
- * Function to store the authentication token
- * @param {string} token - The authentication token to store
+ * Function to store the authentication token.
+ * @param {string} token - The authentication token to store.
  */
 export function storeToken(token) {
   storeItem("authToken", token);
 }
 
 /**
- * Function to handle user login
- * @param {string} name - The user's name (username)
- * @param {string} email - The user's email
- * @param {string} password - The user's password
- * @returns {object|null} - Returns the login data (token and apiKey) or null on failure
+ * Function to handle user login.
+ * @param {string} name - The user's name (username).
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @returns {Promise<object|null>} - Returns the login data (token and apiKey) or null on failure.
  */
 export async function login(name, email, password) {
   try {
@@ -71,8 +66,6 @@ export async function login(name, email, password) {
     });
 
     const data = await response.json();
-
-    console.log("API Response:", data);
 
     if (data.data && data.data.accessToken) {
       storeToken(data.data.accessToken);
@@ -87,11 +80,15 @@ export async function login(name, email, password) {
 }
 
 /**
- * Function to handle user registration
- * @param {string} name - The user's name
- * @param {string} email - The user's email
- * @param {string} password - The user's password
- * @returns {object|null} - Returns the registration data (token and apiKey) or null on failure
+ * Function to handle user registration.
+ * @param {string} name - The user's name.
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @param {string} [bio=""] - The user's bio (optional).
+ * @param {string} [avatarUrl=""] - The user's avatar URL (optional).
+ * @param {string} [bannerUrl=""] - The user's banner URL (optional).
+ * @param {boolean} [venueManager=false] - Indicates if the user is a venue manager (optional).
+ * @returns {Promise<object|null>} - Returns the registration data (token and apiKey) or null on failure.
  */
 export async function register(
   name,
@@ -103,8 +100,6 @@ export async function register(
   venueManager = false
 ) {
   try {
-    console.log("Starting registration...");
-
     const requestBody = JSON.stringify({
       name,
       email,
@@ -114,8 +109,6 @@ export async function register(
       banner: { url: bannerUrl || "", alt: "" },
       venueManager,
     });
-
-    console.log("Request Body:", requestBody);
 
     const response = await fetch(REGISTER, {
       method: "POST",
@@ -141,9 +134,7 @@ export async function register(
       storeToken(data.token);
 
       const apiKey = await createApiKey(name);
-      if (apiKey) {
-        console.log(`API Key created: ${apiKey}`);
-      } else {
+      if (!apiKey) {
         console.warn("Failed to create API key");
       }
 

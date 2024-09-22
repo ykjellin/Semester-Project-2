@@ -15,11 +15,11 @@
     <script src="../src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="../src/js/index.mjs"></script>
 
-    <title>Elegant Auctions</title>
+    <title>Elegant Auctions - Create Auction</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
-      <h1 class="logo">Elegant Auctions</h1>
+      <h1 class="logo" aria-label="Elegant Auctions Logo">Elegant Auctions</h1>
       <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
@@ -36,12 +36,20 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
+                <a
+                  class="nav-link"
+                  href="/home/index.html"
+                  id="home-link"
+                  aria-label="Go to Home Page"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
+                <a
+                  class="nav-link"
+                  href="/profile/index.html"
+                  id="profile-link"
+                  aria-label="Go to Profile Page"
                   >Profile</a
                 >
               </li>
@@ -50,17 +58,27 @@
                   class="nav-link"
                   href="/auctionlist/index.html"
                   id="auctions-link"
+                  aria-label="View Auctions"
                   >Auctions</a
                 >
               </li>
               <li class="nav-item">
-                <button id="logout-btn" class="btn">Logout</button>
+                <button id="auth-btn" class="btn" aria-label="Login">
+                  Login
+                </button>
+              </li>
+
+              <li class="nav-item">
+                <button id="other-logout-btn" class="btn" aria-label="Logout">
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+
     <main>
       <div class="container create-container">
         <div
@@ -69,7 +87,7 @@
           <div class="col-md-8">
             <h2>Create New Auction</h2>
             <hr class="my-4" />
-            <form id="create-auction-form">
+            <form id="create-auction-form" aria-label="Create Auction Form">
               <div class="mb-3">
                 <label for="auction-title" class="form-label">Title</label>
                 <input
@@ -77,6 +95,7 @@
                   class="form-control"
                   id="auction-title"
                   name="title"
+                  aria-label="Enter auction title"
                   placeholder="Enter auction title"
                   required
                 />
@@ -91,6 +110,7 @@
                   id="auction-description"
                   name="description"
                   rows="4"
+                  aria-label="Enter auction description"
                   placeholder="Enter auction description"
                   required
                 ></textarea>
@@ -105,6 +125,7 @@
                   class="form-control"
                   id="auction-tags"
                   name="tags"
+                  aria-label="Enter auction tags"
                   placeholder="e.g. art, painting, collectible"
                 />
               </div>
@@ -116,6 +137,7 @@
                   class="form-control"
                   id="auction-media"
                   name="media"
+                  aria-label="Enter media URL"
                   placeholder="Enter media URL (optional)"
                 />
               </div>
@@ -129,18 +151,29 @@
                   class="form-control"
                   id="auction-end-date"
                   name="endsAt"
+                  aria-label="Select auction end date and time"
                   required
                 />
               </div>
 
-              <button type="submit" class="btn btn-primary">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                aria-label="Submit auction form"
+              >
                 Create Auction
               </button>
             </form>
+            <div
+              id="formFeedback"
+              class="alert alert-info d-none"
+              aria-live="polite"
+            ></div>
           </div>
         </div>
       </div>
     </main>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -156,10 +189,24 @@
           <div class="col-xs-6 col-md-3">
             <h6>Quick Links</h6>
             <ul class="footer-links">
-              <li><a href="/home/index.html">Home</a></li>
-              <li><a href="/auctionlist/index.html">Auctions</a></li>
-              <li><a href="/profile/index.html">Profile</a></li>
-              <li><a href="/contact/index.html">Contact Us</a></li>
+              <li>
+                <a href="/home/index.html" aria-label="Go to Home Page">Home</a>
+              </li>
+              <li>
+                <a href="/auctionlist/index.html" aria-label="View Auctions"
+                  >Auctions</a
+                >
+              </li>
+              <li>
+                <a href="/profile/index.html" aria-label="Go to Profile Page"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a href="/contact/index.html" aria-label="Go to Contact Page"
+                  >Contact Us</a
+                >
+              </li>
             </ul>
           </div>
 
@@ -167,24 +214,40 @@
             <h6>Follow Us</h6>
             <ul class="social-icons">
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-facebook"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Facebook"
+                >
+                  <i class="bi bi-facebook"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-twitter"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Twitter"
+                >
+                  <i class="bi bi-twitter"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-instagram"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on Instagram"
+                >
+                  <i class="bi bi-instagram"></i>
+                </a>
               </li>
               <li>
-                <a href="#" class="social-icon">
-                  <i class="bi bi-linkedin"></i
-                ></a>
+                <a
+                  href="#"
+                  class="social-icon"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <i class="bi bi-linkedin"></i>
+                </a>
               </li>
             </ul>
           </div>
@@ -192,9 +255,12 @@
         <hr />
       </div>
       <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-sm-6 col-xs-12 text-center">
+            <p
+              class="copyright-text"
+              aria-label="Copyright 2024 Elegant Auctions"
+            >
               &copy; 2024 Elegant Auctions. All Rights Reserved.
             </p>
           </div>

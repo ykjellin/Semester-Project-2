@@ -1,22 +1,50 @@
 $primary: #023c47;
 $background: #031a20;
 $light: #023c47;
-$gold: #a09862;
+//$gold: #a09862;
+$gold: #cbb958;
 $lighter: #035969;
 $lightest: #048199;
+
+$border-radius: 1px;
+$button-font-size: x-large;
+$card-width: 300px;
+$card-height: 400px;
 
 @import "./assets/bootstrap-icons.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+@mixin gold-button {
+  border-radius: $border-radius;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: $button-font-size;
+  font-weight: 400;
+
+  &:hover {
+    background-color: lighten($primary, 10%);
+  }
+}
+
+%base-card {
+  width: $card-width;
+  height: $card-height;
+  min-width: $card-width;
+  min-height: $card-height;
+  overflow: hidden;
+  border: 2px solid $gold;
+  color: $gold;
+  text-align: center;
+}
+
 body {
   background-color: $background;
-  color: #a09862;
+  color: $gold;
   height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   font-family: "old standard tt", serif;
-  //font-style: italic;
 }
 
 main {
@@ -37,18 +65,19 @@ hr {
   font-style: italic;
   font-size: 68px;
   font-weight: 400;
-
   color: $gold;
 }
 
-.header-nav .nav-link {
-  text-decoration: none;
-  color: $gold;
-  font-size: 36px;
-  font-weight: 400;
-  margin-right: 25px;
-  &:hover {
-    color: lighten($gold, 10%);
+.header-nav {
+  .nav-link {
+    text-decoration: none;
+    color: $gold;
+    font-size: 36px;
+    font-weight: 400;
+    margin-right: 25px;
+    &:hover {
+      color: lighten($gold, 10%);
+    }
   }
 }
 
@@ -58,43 +87,35 @@ hr {
 
   .navbar-toggler-icon {
     background-image: none;
-
     background-color: $gold;
     width: 30px;
     height: 3px;
     position: relative;
-  }
 
-  .navbar-toggler-icon::before,
-  .navbar-toggler-icon::after {
-    content: "";
-    background-color: $gold;
-    width: 30px;
-    height: 3px;
-    position: absolute;
-    left: 0;
-  }
+    &::before,
+    &::after {
+      content: "";
+      background-color: $gold;
+      width: 30px;
+      height: 3px;
+      position: absolute;
+      left: 0;
+    }
 
-  .navbar-toggler-icon::before {
-    top: -8px;
-  }
+    &::before {
+      top: -8px;
+    }
 
-  .navbar-toggler-icon::after {
-    top: 8px;
+    &::after {
+      top: 8px;
+    }
   }
 }
 
-#logout-btn {
-  border-radius: 1px;
-  border: 2px solid $gold;
-  color: $gold;
-  font-size: x-large;
-  font-weight: 400;
+#logout-btn,
+#auth-btn {
+  @include gold-button;
   margin-left: 2rem;
-
-  &:hover {
-    background-color: lighten($primary, 10%);
-  }
 }
 
 #home-h1 {
@@ -102,11 +123,7 @@ hr {
 }
 
 .home-btn {
-  border-radius: 1px;
-  border: 2px solid $gold;
-  color: $gold;
-  font-size: x-large;
-  font-weight: 400;
+  @include gold-button;
 }
 
 .homepage-auction-section {
@@ -115,6 +132,11 @@ hr {
   border-radius: 0px;
   border: 1px solid $gold;
   margin-bottom: 5%;
+
+  .form-label {
+    color: black;
+  }
+
   h2 {
     display: flex;
     justify-content: space-between;
@@ -151,15 +173,9 @@ hr {
   }
 
   #homepage-search-btn {
-    border-radius: 1px;
-    border: 2px solid $gold;
-    color: $gold;
-    font-size: x-large;
-    font-weight: 400;
-    &:hover {
-      background-color: lighten($primary, 10%);
-    }
+    @include gold-button;
   }
+
   #load-more-home-btn {
     font-size: 2rem;
     padding: 10px 30px;
@@ -172,20 +188,13 @@ hr {
       background-color: lighten($primary, 10%);
     }
   }
+
   .card-container {
     padding: 2rem;
 
     .card {
-      border-radius: 1px;
-      width: 300px;
-      height: 400px;
-      min-width: 300px;
-      min-height: 400px;
-      overflow: hidden;
+      @extend %base-card;
       background-color: $background;
-      border: 2px solid $gold;
-      color: $gold;
-      text-align: center;
 
       .card-img-top {
         height: 150px;
@@ -205,19 +214,11 @@ hr {
         white-space: nowrap;
       }
 
-      .card-title {
-      }
-
       #homepage-auction-list-view {
-        border-radius: 1px;
-        border: 2px solid $gold;
+        @include gold-button;
         background-color: $primary;
-        color: $gold;
         font-size: 1.3rem;
         font-weight: 500;
-        &:hover {
-          background-color: lighten($primary, 10%);
-        }
       }
     }
   }
@@ -232,14 +233,7 @@ hr {
 }
 
 .login-btn {
-  border-radius: 1px;
-  border: 2px solid $gold;
-  color: $gold;
-  font-size: x-large;
-  font-weight: 400;
-  &:hover {
-    background-color: lighten($primary, 10%);
-  }
+  @include gold-button;
 }
 
 .contact-us-section {
@@ -270,7 +264,6 @@ hr {
 
       .form-control {
         font-weight: 700;
-
         color: $gold;
         border: 1px solid $gold;
         padding: 10px;
@@ -278,16 +271,8 @@ hr {
     }
 
     button {
+      @include gold-button;
       margin-top: auto;
-      border-radius: 1px;
-      border: 2px solid $gold;
-      color: $gold;
-      font-size: x-large;
-      font-weight: 400;
-
-      &:hover {
-        background-color: lighten($primary, 10%);
-      }
     }
   }
 
@@ -305,12 +290,12 @@ hr {
   text-align: center;
 
   h6 {
-    font-size: 16px;
+    font-size: 26px;
     color: $gold;
   }
 
   p {
-    font-size: 14px;
+    font-size: 20px;
     color: $gold;
   }
 
@@ -326,6 +311,7 @@ hr {
     a {
       color: $gold;
       text-decoration: none;
+      font-size: 20px;
 
       &:hover {
         color: lighten($gold, 20%);
@@ -343,7 +329,7 @@ hr {
     }
 
     a {
-      font-size: 18px;
+      font-size: 24px;
       color: $gold;
 
       &:hover {
@@ -357,7 +343,7 @@ hr {
   }
 
   .copyright-text {
-    font-size: 14px;
+    font-size: 20px;
     margin-top: 15px;
     color: $gold;
   }
@@ -369,7 +355,7 @@ hr {
   }
 
   .card {
-    border-radius: 1px;
+    @extend %base-card;
     margin: 0 0.5em;
     box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
   }
@@ -387,15 +373,8 @@ hr {
 
 .listing-card,
 .win-card {
-  width: 300px;
-  height: 400px;
-  min-width: 300px;
-  min-height: 400px;
-  overflow: hidden;
+  @extend %base-card;
   background-color: $light;
-  border: 2px solid $gold;
-  color: $gold;
-  text-align: center;
   padding: 1rem;
 
   .card-img-top {
@@ -419,37 +398,22 @@ hr {
   }
 }
 
-#avatar {
-  border: 3px solid $gold;
-}
-
+#avatar,
 #banner {
   border: 3px solid $gold;
 }
 
 #edit-profile-btn {
-  border-radius: 1px;
-  border: 2px solid $gold;
-  color: $gold;
-  font-size: x-large;
-  font-weight: 400;
+  @include gold-button;
 }
 
 .auction-list-card {
-  width: 300px;
-  height: 400px;
-  min-width: 300px;
-  min-height: 400px;
-  overflow: hidden;
+  @extend %base-card;
   background-color: $primary;
-  border: 2px solid $gold;
-  color: $gold;
-  text-align: center;
   margin: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 1px;
 
   img {
     object-fit: cover;
@@ -476,23 +440,15 @@ hr {
     }
 
     .btn {
+      @include gold-button;
       margin-top: auto;
-      border-radius: 1px;
-      border: 2px solid $gold;
-      color: $gold;
-      font-size: x-large;
-      font-weight: 400;
     }
   }
 }
 
 .list-btn {
+  @include gold-button;
   margin-top: auto;
-  border-radius: 1px;
-  border: 2px solid $gold;
-  color: $gold;
-  font-size: x-large;
-  font-weight: 400;
 }
 
 .create-container {
@@ -509,12 +465,8 @@ hr {
     margin-bottom: 5px;
   }
   button {
+    @include gold-button;
     margin-top: auto;
-    border-radius: 1px;
-    border: 2px solid $gold;
-    color: $gold;
-    font-size: x-large;
-    font-weight: 400;
   }
 }
 
@@ -538,12 +490,8 @@ hr {
 
 #bid-form {
   button {
+    @include gold-button;
     margin-top: auto;
-    border-radius: 1px;
-    border: 2px solid $gold;
-    color: $gold;
-    font-size: x-large;
-    font-weight: 400;
 
     &:hover {
       color: lighten($primary, 20%);
@@ -551,6 +499,50 @@ hr {
   }
   #bid-amount {
     max-width: 10rem;
+  }
+}
+
+#edit-profile-form {
+  button {
+    @include gold-button;
+    margin-top: auto;
+
+    &:hover {
+      color: lighten($primary, 20%);
+    }
+  }
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  display: none;
+  margin: 10px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+#register-button {
+  @include gold-button;
+  margin-top: auto;
+
+  &:hover {
+    color: lighten($primary, 20%);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
