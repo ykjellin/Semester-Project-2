@@ -11973,14 +11973,14 @@ textarea.form-control-lg {
   min-width: 300px;
   min-height: 400px;
   overflow: hidden;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   text-align: center;
 }
 
 body {
   background-color: #031a20;
-  color: #a09862;
+  color: #cbb958;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -11994,11 +11994,11 @@ main {
 
 header {
   background-color: #023c47;
-  border-bottom: 3px solid #a09862;
+  border-bottom: 3px solid #cbb958;
 }
 
 hr {
-  background-color: #a09862;
+  background-color: #cbb958;
 }
 
 .logo {
@@ -12006,34 +12006,34 @@ hr {
   font-style: italic;
   font-size: 68px;
   font-weight: 400;
-  color: #a09862;
+  color: #cbb958;
 }
 
 .header-nav .nav-link {
   text-decoration: none;
-  color: #a09862;
+  color: #cbb958;
   font-size: 36px;
   font-weight: 400;
   margin-right: 25px;
 }
 .header-nav .nav-link:hover {
-  color: #b3ad82;
+  color: #d7c97f;
 }
 
 .navbar-toggler {
-  border-color: #a09862;
+  border-color: #cbb958;
   height: 40px;
 }
 .navbar-toggler .navbar-toggler-icon {
   background-image: none;
-  background-color: #a09862;
+  background-color: #cbb958;
   width: 30px;
   height: 3px;
   position: relative;
 }
 .navbar-toggler .navbar-toggler-icon::before, .navbar-toggler .navbar-toggler-icon::after {
   content: "";
-  background-color: #a09862;
+  background-color: #cbb958;
   width: 30px;
   height: 3px;
   position: absolute;
@@ -12048,8 +12048,8 @@ hr {
 
 #logout-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-left: 2rem;
@@ -12064,8 +12064,8 @@ hr {
 
 .home-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
 }
@@ -12077,7 +12077,7 @@ hr {
   background-color: #023c47;
   padding: 20px;
   border-radius: 0px;
-  border: 1px solid #a09862;
+  border: 1px solid #cbb958;
   margin-bottom: 5%;
 }
 .homepage-auction-section h2, .homepage-auction-section .h2 {
@@ -12090,26 +12090,26 @@ hr {
   background: none;
   border: none;
   padding: 0;
-  color: #a09862;
+  color: #cbb958;
   cursor: pointer;
 }
 .homepage-auction-section h2 button:active, .homepage-auction-section .h2 button:active, .homepage-auction-section h2 button:focus, .homepage-auction-section .h2 button:focus {
   color: #031a20;
 }
 .homepage-auction-section h2 button:hover, .homepage-auction-section .h2 button:hover, .homepage-auction-section h2 button:focus-visible, .homepage-auction-section .h2 button:focus-visible {
-  color: #a09862;
+  color: #cbb958;
   outline: none;
 }
 .homepage-auction-section i {
-  color: #a09862;
+  color: #cbb958;
 }
 .homepage-auction-section i:active, .homepage-auction-section i:focus {
   color: #031a20;
 }
 .homepage-auction-section #homepage-search-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
 }
@@ -12121,8 +12121,8 @@ hr {
   padding: 10px 30px;
   border-radius: 0px;
   background-color: #023c47;
-  color: #a09862;
-  border: 1px solid #a09862;
+  color: #cbb958;
+  border: 1px solid #cbb958;
 }
 .homepage-auction-section #load-more-home-btn:hover {
   background-color: #036679;
@@ -12151,8 +12151,8 @@ hr {
 }
 .homepage-auction-section .card-container .card #homepage-auction-list-view {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   background-color: #023c47;
@@ -12168,13 +12168,13 @@ hr {
   font-weight: 600;
 }
 #loginForm input {
-  border-color: #a09862;
+  border-color: #cbb958;
 }
 
 .login-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
 }
@@ -12183,12 +12183,12 @@ hr {
 }
 
 .contact-us-section {
-  color: #a09862;
+  color: #cbb958;
   padding: 50px 20px;
   text-align: left;
 }
 .contact-us-section h2, .contact-us-section .h2 {
-  color: #a09862;
+  color: #cbb958;
   margin-bottom: 20px;
 }
 .contact-us-section p {
@@ -12200,20 +12200,20 @@ hr {
   margin-bottom: 20px;
 }
 .contact-us-section .contact-form .form-group label {
-  color: #a09862;
+  color: #cbb958;
   font-size: 14px;
   margin-bottom: 5px;
 }
 .contact-us-section .contact-form .form-group .form-control {
   font-weight: 700;
-  color: #a09862;
-  border: 1px solid #a09862;
+  color: #cbb958;
+  border: 1px solid #cbb958;
   padding: 10px;
 }
 .contact-us-section .contact-form button {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12227,19 +12227,19 @@ hr {
 }
 
 .site-footer {
-  border-top: 3px solid #a09862;
+  border-top: 3px solid #cbb958;
   background-color: #023c47;
   padding: 20px 0;
-  color: #a09862;
+  color: #cbb958;
   text-align: center;
 }
 .site-footer h6, .site-footer .h6 {
   font-size: 26px;
-  color: #a09862;
+  color: #cbb958;
 }
 .site-footer p {
   font-size: 20px;
-  color: #a09862;
+  color: #cbb958;
 }
 .site-footer .footer-links {
   list-style-type: none;
@@ -12250,12 +12250,12 @@ hr {
   padding: 0 10px;
 }
 .site-footer .footer-links a {
-  color: #a09862;
+  color: #cbb958;
   text-decoration: none;
   font-size: 20px;
 }
 .site-footer .footer-links a:hover {
-  color: #c6c2a2;
+  color: #e3daa6;
 }
 .site-footer .social-icons {
   list-style-type: none;
@@ -12267,18 +12267,18 @@ hr {
 }
 .site-footer .social-icons a {
   font-size: 24px;
-  color: #a09862;
+  color: #cbb958;
 }
 .site-footer .social-icons a:hover {
-  color: #c6c2a2;
+  color: #e3daa6;
 }
 .site-footer hr {
-  border-color: #a09862;
+  border-color: #cbb958;
 }
 .site-footer .copyright-text {
   font-size: 20px;
   margin-top: 15px;
-  color: #a09862;
+  color: #cbb958;
 }
 
 .carousel .carousel-inner {
@@ -12327,13 +12327,13 @@ hr {
 
 #avatar,
 #banner {
-  border: 3px solid #a09862;
+  border: 3px solid #cbb958;
 }
 
 #edit-profile-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
 }
@@ -12371,8 +12371,8 @@ hr {
 }
 .auction-list-card .card-body .btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12383,8 +12383,8 @@ hr {
 
 .list-btn {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12405,8 +12405,8 @@ hr {
 }
 #create-auction-form button {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12421,7 +12421,7 @@ hr {
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
-  border: 3px solid #a09862;
+  border: 3px solid #cbb958;
   display: block;
 }
 
@@ -12432,8 +12432,8 @@ hr {
 
 #bid-form button {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12450,8 +12450,8 @@ hr {
 
 #edit-profile-form button {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
@@ -12480,8 +12480,8 @@ hr {
 
 #register-button {
   border-radius: 1px;
-  border: 2px solid #a09862;
-  color: #a09862;
+  border: 2px solid #cbb958;
+  color: #cbb958;
   font-size: x-large;
   font-weight: 400;
   margin-top: auto;
