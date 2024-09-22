@@ -1,4 +1,4 @@
-import { BASE_URL } from "/src/constants.mjs";
+import { BASE_URL } from "../constants.mjs";
 
 function displayFeedback(message, type = "info") {
   const feedbackContainer = document.getElementById("feedback");
