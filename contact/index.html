@@ -3,19 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../src/main.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="/src/assets/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/src/js/index.mjs"></script>
+    <link rel="stylesheet" href="/src/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
       rel="stylesheet"
     />
-
-    <script src="../src/assets/bootstrap.bundle.min.js"></script>
-    <script type="module" src="../src/js/index.mjs"></script>
-
-    <title>Elegant Auctions</title>
+    <title>About Us - Elegant Auctions</title>
   </head>
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
@@ -36,22 +31,13 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/home/index.html" id="home-link"
-                  >Home</a
-                >
+                <a class="nav-link" href="/home/index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profile/index.html" id="profile-link"
-                  >Profile</a
-                >
+                <a class="nav-link" href="/auctionlist/index.html">Auctions</a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="/auctionlist/index.html"
-                  id="auctions-link"
-                  >Auctions</a
-                >
+                <a class="nav-link" href="/profile/index.html">Profile</a>
               </li>
             </ul>
           </div>
@@ -59,47 +45,51 @@
       </nav>
     </header>
 
-    <main>
-      <div class="row vh-100 d-flex justify-content-center align-items-center">
-        <div class="col-md-4">
-          <h1 id="login-h2">Login</h1>
-          <hr class="my-4" />
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary login-btn">
-              Login
-            </button>
-          </form>
-        </div>
+    <main class="contact-us-section">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <hr class="my-4" />
+        <p>
+          If you have any questions or need further assistance, feel free to
+          reach out to us!
+        </p>
+
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea
+              id="message"
+              class="form-control"
+              rows="5"
+              placeholder="Enter your message"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
       </div>
     </main>
 

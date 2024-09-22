@@ -1,21 +1,353 @@
 $primary: #023c47;
 $background: #031a20;
 $light: #023c47;
+$gold: #a09862;
+$lighter: #035969;
+$lightest: #048199;
 
+@import "./assets/bootstrap-icons.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 body {
   background-color: $background;
   color: #a09862;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "old standard tt", serif;
+  //font-style: italic;
+}
+
+main {
+  flex: 1;
 }
 
 header {
   background-color: $light;
+  border-bottom: 3px solid $gold;
+}
+
+hr {
+  background-color: $gold;
 }
 
 .logo {
-  font-family: "old standard tt italic";
-  color: #a09862;
+  font-family: "Tangerine";
+  font-style: italic;
+  font-size: 68px;
+  font-weight: 400;
+
+  color: $gold;
+}
+
+.header-nav .nav-link {
+  text-decoration: none;
+  color: $gold;
+  font-size: 36px;
+  font-weight: 400;
+  margin-right: 25px;
+  &:hover {
+    color: lighten($gold, 10%);
+  }
+}
+
+.navbar-toggler {
+  border-color: $gold;
+  height: 40px;
+
+  .navbar-toggler-icon {
+    background-image: none;
+
+    background-color: $gold;
+    width: 30px;
+    height: 3px;
+    position: relative;
+  }
+
+  .navbar-toggler-icon::before,
+  .navbar-toggler-icon::after {
+    content: "";
+    background-color: $gold;
+    width: 30px;
+    height: 3px;
+    position: absolute;
+    left: 0;
+  }
+
+  .navbar-toggler-icon::before {
+    top: -8px;
+  }
+
+  .navbar-toggler-icon::after {
+    top: 8px;
+  }
+}
+
+#home-h1 {
+  padding-bottom: 2%;
+}
+
+.home-btn {
+  border-radius: 1px;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.homepage-auction-section {
+  background-color: $primary;
+  padding: 20px;
+  border-radius: 0px;
+  border: 1px solid $gold;
+  margin-bottom: 5%;
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      font-size: 16px;
+      background: none;
+      border: none;
+      padding: 0;
+      color: $gold;
+      cursor: pointer;
+
+      &:active,
+      &:focus {
+        color: $background;
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: $gold;
+        outline: none;
+      }
+    }
+  }
+
+  i {
+    color: $gold;
+
+    &:active,
+    &:focus {
+      color: $background;
+    }
+  }
+
+  #homepage-search-btn {
+    border-radius: 1px;
+    border: 2px solid $gold;
+    color: $gold;
+    font-size: x-large;
+    font-weight: 400;
+    &:hover {
+      background-color: lighten($primary, 10%);
+    }
+  }
+  #load-more-home-btn {
+    font-size: 2rem;
+    padding: 10px 30px;
+    border-radius: 0px;
+    background-color: $primary;
+    color: $gold;
+    border: 1px solid $gold;
+
+    &:hover {
+      background-color: lighten($primary, 10%);
+    }
+  }
+  .card-container {
+    padding: 2rem;
+
+    .card {
+      border-radius: 1px;
+      width: 300px;
+      height: 400px;
+      min-width: 300px;
+      min-height: 400px;
+      overflow: hidden;
+      background-color: $background;
+      border: 2px solid $gold;
+      color: $gold;
+      text-align: center;
+
+      .card-img-top {
+        height: 150px;
+        padding: 0.5rem;
+        object-fit: cover;
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .card-title {
+      }
+
+      #homepage-auction-list-view {
+        border-radius: 1px;
+        border: 2px solid $gold;
+        background-color: $primary;
+        color: $gold;
+        font-size: 1.3rem;
+        font-weight: 500;
+        &:hover {
+          background-color: lighten($primary, 10%);
+        }
+      }
+    }
+  }
+}
+
+#loginForm {
+  font-size: large;
+  font-weight: 600;
+  input {
+    border-color: $gold;
+  }
+}
+
+.login-btn {
+  border-radius: 1px;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: x-large;
+  font-weight: 400;
+  &:hover {
+    background-color: lighten($primary, 10%);
+  }
+}
+
+.contact-us-section {
+  color: $gold;
+  padding: 50px 20px;
+  text-align: left;
+
+  h2 {
+    color: $gold;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .contact-form {
+    .form-group {
+      margin-bottom: 20px;
+
+      label {
+        color: $gold;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .form-control {
+        font-weight: 700;
+
+        color: $gold;
+        border: 1px solid $gold;
+        padding: 10px;
+      }
+    }
+
+    button {
+      margin-top: auto;
+      border-radius: 1px;
+      border: 2px solid $gold;
+      color: $gold;
+      font-size: x-large;
+      font-weight: 400;
+
+      &:hover {
+        background-color: lighten($primary, 10%);
+      }
+    }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+.site-footer {
+  border-top: 3px solid $gold;
+  background-color: $primary;
+  padding: 20px 0;
+  color: $gold;
+  text-align: center;
+
+  h6 {
+    font-size: 16px;
+    color: $gold;
+  }
+
+  p {
+    font-size: 14px;
+    color: $gold;
+  }
+
+  .footer-links {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      padding: 0 10px;
+    }
+
+    a {
+      color: $gold;
+      text-decoration: none;
+
+      &:hover {
+        color: lighten($gold, 20%);
+      }
+    }
+  }
+
+  .social-icons {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    a {
+      font-size: 18px;
+      color: $gold;
+
+      &:hover {
+        color: lighten($gold, 20%);
+      }
+    }
+  }
+
+  hr {
+    border-color: $gold;
+  }
+
+  .copyright-text {
+    font-size: 14px;
+    margin-top: 15px;
+    color: $gold;
+  }
 }
 
 .carousel {
@@ -24,9 +356,9 @@ header {
   }
 
   .card {
+    border-radius: 1px;
     margin: 0 0.5em;
     box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-    border: none;
   }
 
   .carousel-control-prev,
@@ -42,8 +374,20 @@ header {
 
 .listing-card,
 .win-card {
+  width: 300px;
+  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: $light;
+  border: 2px solid $gold;
+  color: $gold;
+  text-align: center;
+  padding: 1rem;
+
   .card-img-top {
-    height: 200px;
+    height: 150px;
+    padding: 0.5rem;
     object-fit: cover;
   }
 
@@ -53,12 +397,111 @@ header {
   }
 
   .card-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: xx-large;
+    font-weight: normal;
   }
 
   .card-text {
-    font-size: 0.9rem;
+    font-size: large;
+  }
+}
+
+#avatar {
+  border: 3px solid $gold;
+}
+
+#banner {
+  border: 3px solid $gold;
+}
+
+#edit-profile-btn {
+  border-radius: 1px;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.auction-list-card {
+  width: 300px;
+  height: 400px;
+  min-width: 300px;
+  min-height: 400px;
+  overflow: hidden;
+  background-color: $primary;
+  border: 2px solid $gold;
+  color: $gold;
+  text-align: center;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 1px;
+
+  img {
+    object-fit: cover;
+    height: 150px;
+    width: 100%;
+  }
+
+  .card-body {
+    .card-title {
+      height: 40px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: x-large;
+    }
+
+    .card-text {
+      height: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .btn {
+      margin-top: auto;
+      border-radius: 1px;
+      border: 2px solid $gold;
+      color: $gold;
+      font-size: x-large;
+      font-weight: 400;
+    }
+  }
+}
+
+.list-btn {
+  margin-top: auto;
+  border-radius: 1px;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.create-container {
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}
+
+#create-auction-form {
+  .form-label {
+    font-size: x-large;
+    font-weight: normal;
+    margin-bottom: 5px;
+  }
+  button {
+    margin-top: auto;
+    border-radius: 1px;
+    border: 2px solid $gold;
+    color: $gold;
+    font-size: x-large;
+    font-weight: 400;
   }
 }
 

@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
+    href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
     <script src="/src/assets/bootstrap.bundle.min.js"></script>
     <script type="module" src="/src/js/index.mjs"></script>
@@ -20,7 +20,7 @@
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
       <h1 class="logo">Elegant Auctions</h1>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -33,7 +33,7 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse header-nav" id="navbarNav">
+          <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                 <a class="nav-link" href="/home/index.html" id="home-link"
@@ -56,69 +56,96 @@
       </nav>
     </header>
     <main>
-      <div class="filters">
-        <div class="row">
-          <div class="col-md-4">
-            <label for="sort" class="form-label">Sort By</label>
-            <select id="sort" class="form-select">
-              <option value="">None</option>
-              <option value="title">Title</option>
-              <option value="date">Date</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="sortOrder" class="form-label">Order</label>
-            <select id="sortOrder" class="form-select">
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="limit" class="form-label">Results Per Page</label>
-            <input
-              type="number"
-              id="limit"
-              class="form-control"
-              value="10"
-              min="1"
-            />
-          </div>
-        </div>
-        <div class="row my-3">
-          <div class="col-md-4">
-            <label for="_active" class="form-check-label">
-              <input type="checkbox" id="_active" class="form-check-input" />
-              Active Only
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label for="_bids" class="form-check-label">
-              <input type="checkbox" id="_bids" class="form-check-input" /> Has
-              Bids
-            </label>
-          </div>
-          <div class="col-md-4">
-            <label for="_seller" class="form-check-label">
-              <input type="checkbox" id="_seller" class="form-check-input" /> My
-              Auctions
-            </label>
-          </div>
-        </div>
-        <div class="row my-3">
-          <div class="col-md-12">
-            <button id="apply-filters" class="btn btn-primary">
-              Apply Filters
+      <div class="container">
+        <div class="filters">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 type="button" class="mb-0" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="true" aria-controls="filterCollapse">
+              Filters
+              <i id="filter-chevron" class="bi bi-chevron-down fs-2"></i>
+          </h2>
+              
             </button>
           </div>
+          <div id="filterCollapse" class="collapse show">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="sort" class="form-label">Sort By</label>
+                <select id="sort" class="form-select">
+                  <option value="">None</option>
+                  <option value="title">Title</option>
+                  <option value="date">Date</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="sortOrder" class="form-label">Order</label>
+                <select id="sortOrder" class="form-select">
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col-md-4">
+                <label for="_active" class="form-check-label">
+                  <input
+                    type="checkbox"
+                    id="_active"
+                    class="form-check-input"
+                  />
+                  Active Only
+                </label>
+              </div>
+              <div class="col-md-4">
+                <label for="_bids" class="form-check-label">
+                  <input type="checkbox" id="_bids" class="form-check-input" />
+                  Has Bids
+                </label>
+              </div>
+              <div class="col-md-4">
+                <label for="_seller" class="form-check-label">
+                  <input
+                    type="checkbox"
+                    id="_seller"
+                    class="form-check-input"
+                  />
+                  My Auctions
+                </label>
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col-md-12">
+                <button id="apply-filters" class="btn btn-primary list-btn">
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="search-container mb-3">
-          <input
-            type="text"
-            id="search-title"
-            class="form-control"
-            placeholder="Search by auction title"
-          />
-          <button id="search-btn" class="btn btn-primary mt-2">Search</button>
+
+        <div class="search-container mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 type="button" class="mb-0" data-bs-toggle="collapse" data-bs-target="#searchCollapse" aria-expanded="true" aria-controls="searchCollapse">
+              Search
+              <i id="search-chevron" class="bi bi-chevron-down fs-2"></i>
+          </h2>
+              
+            </button>
+          </div>
+          <div id="searchCollapse" class="collapse show">
+            <div class="row search-container mb-3 justify-content-center">
+              <div class="col-md-8 col-lg-6 d-flex mx-auto">
+                <input
+                  type="text"
+                  id="search-title"
+                  class="form-control"
+                  placeholder="Search by auction title"
+                />
+                <button id="search-btn" class="btn btn-primary list-btn">
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -128,7 +155,7 @@
 
       <template id="auction-card-template">
         <div class="col-md-4">
-          <div class="card">
+          <div class="card auction-list-card">
             <img src="" alt="" class="card-img-top" id="auction-list-img" />
             <div class="card-body">
               <h5 class="card-title" id="auction-list-title"></h5>
@@ -140,6 +167,7 @@
           </div>
         </div>
       </template>
+      <button id="load-more-btn">Load More</button>
     </main>
     <footer class="site-footer">
       <div class="container">

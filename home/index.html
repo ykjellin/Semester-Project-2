@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Tangerine:wght@400;700&display=swap"
       rel="stylesheet"
     />
 
@@ -20,7 +20,7 @@
   <body>
     <header class="d-flex justify-content-between align-items-center p-3">
       <h1 class="logo">Elegant Auctions</h1>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light header-nav">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -44,11 +44,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="#" id="auctions-link">Auctions</a>
               </li>
-              <li class="nav-item d-none" id="create-auction-link">
-                <a class="nav-link" href="/createauction/index.html"
-                  >Create Auction</a
-                >
-              </li>
             </ul>
           </div>
         </div>
@@ -60,17 +55,143 @@
         class="row vh-100 d-flex justify-content-center align-items-center text-center"
       >
         <div class="col-12">
-          <h1>Elegant Auctions</h1>
-          <a href="/login/index.html" class="btn btn-primary mx-2">Login</a>
-          <a href="/register/index.html" class="btn btn-secondary mx-2"
+          <h1 id="home-h1">Elegant Auctions</h1>
+          <a href="/login/index.html" class="btn btn-primary mx-2 home-btn"
+            >Login</a
+          >
+          <a href="/register/index.html" class="btn btn-primary mx-2 home-btn"
             >Register</a
           >
         </div>
       </div>
 
-      <div class="row mt-5" id="auction-list"></div>
+      <div class="container mt-5 homepage-auction-section">
+        <h2 class="d-flex justify-content-between align-items-center">
+          <button
+            class="btn btn-link p-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#search-section"
+            aria-expanded="false"
+            aria-controls="search-section"
+            style="text-decoration: none; font-size: 2rem"
+          >
+            Search Auctions
+            <i class="bi bi-chevron-down" id="toggle-icon"></i>
+          </button>
+        </h2>
+        <div class="collapse" id="search-section">
+          <div class="row">
+            <div class="col-md-8">
+              <input
+                type="text"
+                id="homepage-search-title"
+                class="form-control"
+                placeholder="Search auctions by title"
+              />
+            </div>
+            <div class="col-md-4">
+              <button id="homepage-search-btn" class="btn btn-primary">
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row mt-5 justify-content-center"
+          id="homepage-auction-list"
+        ></div>
+        <template id="homepage-auction-card-template">
+          <div
+            class="card-container col-lg-4 col-md-6 col-sm-12 col-12 d-flex justify-content-center"
+          >
+            <div class="card">
+              <img
+                src=""
+                alt="Auction Image"
+                class="card-img-top"
+                id="homepage-auction-list-img"
+              />
+              <div class="card-body">
+                <h4 class="card-title" id="homepage-auction-list-title"></h4>
+                <p class="card-text" id="homepage-auction-list-description"></p>
+                <a
+                  href="#"
+                  class="btn btn-primary"
+                  id="homepage-auction-list-view"
+                  >View Auction</a
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="text-center mt-4">
+          <button id="load-more-home-btn" class="btn btn-primary">
+            Load More
+          </button>
+        </div>
+      </div>
     </main>
 
-    <footer></footer>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">
+              Elegant Auctions is your go-to platform for bidding on unique
+              items. Our mission is to provide a seamless experience for both
+              buyers and sellers, ensuring transparency and fair bidding.
+            </p>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Quick Links</h6>
+            <ul class="footer-links">
+              <li><a href="/home/index.html">Home</a></li>
+              <li><a href="/auctionlist/index.html">Auctions</a></li>
+              <li><a href="/profile/index.html">Profile</a></li>
+              <li><a href="/contact/index.html">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Follow Us</h6>
+            <ul class="social-icons">
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-facebook"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-icon">
+                  <i class="bi bi-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">
+              &copy; 2024 Elegant Auctions. All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -169,7 +169,7 @@ function populateWins(wins) {
   const winsContainer = document.getElementById("wins");
   winsContainer.innerHTML = "";
 
-  if (!wins || wins.length === 0) {
+  /*if (!wins || wins.length === 0) {
     wins = [
       {
         title: "Sample Win 1",
@@ -187,7 +187,7 @@ function populateWins(wins) {
         media: ["https://picsum.photos/150/100?random=6"],
       },
     ];
-  }
+  }*/
 
   const itemsPerSlide = 3;
   for (let i = 0; i < wins.length; i += itemsPerSlide) {
