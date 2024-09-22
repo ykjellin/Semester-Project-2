@@ -51,6 +51,9 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
       },
     });
 
+    console.log("Fetching auctions from:", url);
+    console.log("API Response:", response);
+
     if (!response.ok) {
       throw new Error(`Error fetching auctions: ${response.status}`);
     }
