@@ -171,5 +171,6 @@ function initializePage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Ensuring local storage is clear...");
   initializePage();
 });
