@@ -43,6 +43,7 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
     const url = queryParams
       ? `${BASE_URL}/auction/listings?${queryParams}`
       : `${BASE_URL}/auction/listings`;
+    console.log("Fetching auctions from:", url);
 
     const response = await fetch(url, {
       method: "GET",
@@ -51,7 +52,6 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
       },
     });
 
-    console.log("Fetching auctions from:", url);
     console.log("API Response:", response);
 
     if (!response.ok) {
