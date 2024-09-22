@@ -19,6 +19,7 @@ import {
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
   const authToken = getItem("authToken");
+  console.log("Auth token status:", authToken ? "Logged in" : "Not logged in");
 
   if (createAuctionLink) {
     if (authToken) {
