@@ -284,12 +284,12 @@ hr {
   text-align: center;
 
   h6 {
-    font-size: 16px;
+    font-size: 26px;
     color: $gold;
   }
 
   p {
-    font-size: 14px;
+    font-size: 20px;
     color: $gold;
   }
 
@@ -305,6 +305,7 @@ hr {
     a {
       color: $gold;
       text-decoration: none;
+      font-size: 20px;
 
       &:hover {
         color: lighten($gold, 20%);
@@ -322,7 +323,7 @@ hr {
     }
 
     a {
-      font-size: 18px;
+      font-size: 24px;
       color: $gold;
 
       &:hover {
@@ -336,7 +337,7 @@ hr {
   }
 
   .copyright-text {
-    font-size: 14px;
+    font-size: 20px;
     margin-top: 15px;
     color: $gold;
   }

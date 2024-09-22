@@ -12234,11 +12234,11 @@ hr {
   text-align: center;
 }
 .site-footer h6, .site-footer .h6 {
-  font-size: 16px;
+  font-size: 26px;
   color: #a09862;
 }
 .site-footer p {
-  font-size: 14px;
+  font-size: 20px;
   color: #a09862;
 }
 .site-footer .footer-links {
@@ -12252,6 +12252,7 @@ hr {
 .site-footer .footer-links a {
   color: #a09862;
   text-decoration: none;
+  font-size: 20px;
 }
 .site-footer .footer-links a:hover {
   color: #c6c2a2;
@@ -12265,7 +12266,7 @@ hr {
   margin: 0 5px;
 }
 .site-footer .social-icons a {
-  font-size: 18px;
+  font-size: 24px;
   color: #a09862;
 }
 .site-footer .social-icons a:hover {
@@ -12275,7 +12276,7 @@ hr {
   border-color: #a09862;
 }
 .site-footer .copyright-text {
-  font-size: 14px;
+  font-size: 20px;
   margin-top: 15px;
   color: #a09862;
 }
