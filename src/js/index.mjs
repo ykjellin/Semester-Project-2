@@ -65,10 +65,12 @@ function initializePage() {
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
+      console.log("Logging out and clearing all user data...");
       removeItem("authToken");
       removeItem("apiKey");
       removeItem("username");
       removeItem("userProfile");
+      clearStorage();
       window.location.href = "/home/index.html";
     });
   }
