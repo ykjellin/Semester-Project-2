@@ -58,6 +58,9 @@
                   >Create Auction</a
                 >
               </li>
+              <li class="nav-item">
+                <button id="logout-btn" class="btn">Logout</button>
+              </li>
             </ul>
           </div>
         </div>
@@ -68,7 +71,9 @@
         <div class="row my-5">
           <div class="col-md-12">
             <h1 id="auction-detail-title"></h1>
+            <hr class="my-4" />
             <div id="auction-seller"></div>
+            <hr class="my-4" />
             <p><strong>Bids:</strong> <span id="auction-detail-bids"></span></p>
             <p id="auction-detail-description"></p>
             <p>
@@ -84,6 +89,7 @@
 
         <div class="row my-5">
           <div id="auction-bids-list"></div>
+          <hr class="my-4" />
           <h2>Place Your Bid</h2>
           <form id="bid-form">
             <div class="mb-3">
