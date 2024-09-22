@@ -22,7 +22,10 @@ export async function loadAuctionDetails(auctionId) {
 
     if (!apiKey || !authToken) {
       console.error("API key or auth token is missing");
-      showFeedback("API key or authentication token is missing.", true);
+      showFeedback(
+        "API key or authentication token is missing, please log in.",
+        true
+      );
       return;
     }
 

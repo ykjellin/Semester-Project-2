@@ -44,9 +44,11 @@ export function handleLoginSubmit() {
               console.warn("Error creating API key, but continuing login...");
             }
           }
-
-          feedbackElement.textContent = "Login successful!";
-          window.location.href = "/profile/index.html";
+          const username = getItem("username");
+          console.log("Navigating to profile for user:", username);
+          window.location.href = `/profile/index.html?user=${encodeURIComponent(
+            username
+          )}`;
         } else {
           feedbackElement.textContent =
             "Login failed. Please check your credentials.";

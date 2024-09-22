@@ -12046,7 +12046,8 @@ hr {
   top: 8px;
 }
 
-#logout-btn {
+#logout-btn,
+#auth-btn {
   border-radius: 1px;
   border: 2px solid #cbb958;
   color: #cbb958;
@@ -12054,7 +12055,8 @@ hr {
   font-weight: 400;
   margin-left: 2rem;
 }
-#logout-btn:hover {
+#logout-btn:hover,
+#auth-btn:hover {
   background-color: #036679;
 }
 

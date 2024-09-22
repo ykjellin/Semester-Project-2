@@ -62,7 +62,13 @@
                 >
               </li>
               <li class="nav-item">
-                <button id="logout-btn" class="btn" aria-label="Logout">
+                <button id="auth-btn" class="btn" aria-label="Login">
+                  Login
+                </button>
+              </li>
+
+              <li class="nav-item">
+                <button id="other-logout-btn" class="btn" aria-label="Logout">
                   Logout
                 </button>
               </li>
@@ -74,6 +80,11 @@
 
     <main>
       <div id="profile-page" class="container">
+        <div
+          id="error-container"
+          class="alert alert-danger mt-3"
+          style="display: none"
+        ></div>
         <div class="row my-5">
           <div class="col-md-4 text-center">
             <img
