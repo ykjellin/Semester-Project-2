@@ -12446,6 +12446,18 @@ hr {
   max-width: 10rem;
 }
 
+#edit-profile-form button {
+  margin-top: auto;
+  border-radius: 1px;
+  border: 2px solid #a09862;
+  color: #a09862;
+  font-size: x-large;
+  font-weight: 400;
+}
+#edit-profile-form button:hover {
+  color: #0590aa;
+}
+
 @media (max-width: 768px) {
   .carousel-inner {
     padding: 1em 0;

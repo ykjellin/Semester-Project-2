@@ -2,9 +2,11 @@ import { getItem } from "../storage.mjs";
 
 let profileLoaded = false;
 
+/**
+ * Function to load the user profile from the API and populate the page with profile data.
+ */
 export async function loadProfile() {
   if (profileLoaded) {
-    console.log("Profile already loaded. Skipping.");
     return;
   }
 
@@ -13,9 +15,6 @@ export async function loadProfile() {
   const apiKey = getItem("apiKey");
 
   if (!username || !authToken || !apiKey) {
-    console.log(
-      "User is not logged in or missing API key. Skipping profile loading."
-    );
     return;
   }
 
@@ -64,6 +63,12 @@ export async function loadProfile() {
   }
 }
 
+/**
+ * Function to load user listings from the API and populate the listings section.
+ * @param {string} username - The username for which to load listings.
+ * @param {string} authToken - The user's authentication token.
+ * @param {string} apiKey - The API key for the request.
+ */
 async function loadListings(username, authToken, apiKey) {
   try {
     const response = await fetch(
@@ -88,6 +93,10 @@ async function loadListings(username, authToken, apiKey) {
   }
 }
 
+/**
+ * Function to populate the listings section with auction cards.
+ * @param {Array} listings - The list of auction listings to display.
+ */
 function populateListings(listings) {
   const listingsContainer = document.getElementById("listings");
   listingsContainer.innerHTML = "";
@@ -141,6 +150,12 @@ function populateListings(listings) {
   }
 }
 
+/**
+ * Function to load user wins from the API and populate the wins section.
+ * @param {string} username - The username for which to load wins.
+ * @param {string} authToken - The user's authentication token.
+ * @param {string} apiKey - The API key for the request.
+ */
 async function loadWins(username, authToken, apiKey) {
   try {
     const response = await fetch(
@@ -165,29 +180,13 @@ async function loadWins(username, authToken, apiKey) {
   }
 }
 
+/**
+ * Function to populate the wins section with auction cards.
+ * @param {Array} wins - The list of auction wins to display.
+ */
 function populateWins(wins) {
   const winsContainer = document.getElementById("wins");
   winsContainer.innerHTML = "";
-
-  /*if (!wins || wins.length === 0) {
-    wins = [
-      {
-        title: "Sample Win 1",
-        description: "This is a placeholder win.",
-        media: ["https://picsum.photos/150/100?random=4"],
-      },
-      {
-        title: "Sample Win 2",
-        description: "Another placeholder win.",
-        media: ["https://picsum.photos/150/100?random=5"],
-      },
-      {
-        title: "Sample Win 3",
-        description: "A third placeholder win.",
-        media: ["https://picsum.photos/150/100?random=6"],
-      },
-    ];
-  }*/
 
   const itemsPerSlide = 3;
   for (let i = 0; i < wins.length; i += itemsPerSlide) {
@@ -219,6 +218,9 @@ function populateWins(wins) {
   }
 }
 
+/**
+ * Function to add the listener for editing profile details.
+ */
 function addEditProfileListener() {
   const editButton = document.getElementById("edit-profile-btn");
   if (editButton) {
@@ -226,6 +228,9 @@ function addEditProfileListener() {
   }
 }
 
+/**
+ * Function to load the profile editing form and prefill it with current profile data.
+ */
 function loadEditProfileForm() {
   const profileContainer = document.getElementById("profile-page");
   const name = document.getElementById("name").textContent;
@@ -238,24 +243,20 @@ function loadEditProfileForm() {
     <h3>${name}</h3>
     <p>Email: ${email}</p>
     <form id="edit-profile-form">
-      <!-- Editable Avatar URL -->
       <div class="mb-3">
         <label for="edit-avatar" class="form-label">Avatar URL</label>
         <input type="url" class="form-control" id="edit-avatar" value="${avatar}">
       </div>
-      <!-- Editable Banner URL -->
       <div class="mb-3">
         <label for="edit-banner" class="form-label">Banner URL</label>
         <input type="url" class="form-control" id="edit-banner" value="${banner}">
       </div>
-      <!-- Editable Bio -->
       <div class="mb-3">
         <label for="edit-bio" class="form-label">Bio</label>
         <textarea class="form-control" id="edit-bio">${bio}</textarea>
       </div>
-      <!-- Save and Cancel buttons -->
-      <button type="submit" class="btn btn-success">Save Changes</button>
-      <button id="cancel-edit" class="btn btn-secondary">Cancel</button>
+      <button type="submit" class="btn ">Save Changes</button>
+      <button id="cancel-edit" class="btn ">Cancel</button>
     </form>
   `;
 
@@ -267,6 +268,10 @@ function loadEditProfileForm() {
     .addEventListener("click", reloadProfileView);
 }
 
+/**
+ * Function to handle the profile editing form submission and send updated data to the API.
+ * @param {Event} event - The form submission event.
+ */
 async function handleEditProfileSubmit(event) {
   event.preventDefault();
 
@@ -307,7 +312,6 @@ async function handleEditProfileSubmit(event) {
       console.error("Failed to update profile", errorData);
       alert("Failed to update profile: " + errorData.message);
     } else {
-      console.log("Profile updated successfully.");
       navigateToProfile();
     }
   } catch (error) {
@@ -316,6 +320,9 @@ async function handleEditProfileSubmit(event) {
   }
 }
 
+/**
+ * Function to reload the profile view after editing or canceling the edit.
+ */
 function reloadProfileView() {
   profileLoaded = false;
   loadProfile();

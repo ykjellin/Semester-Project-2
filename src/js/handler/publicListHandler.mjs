@@ -1,5 +1,10 @@
 import { BASE_URL } from "../constants.mjs";
 
+/**
+ * Function to load a list of public auctions.
+ * @param {number} [limit=6] - The number of auctions to display per page.
+ * @param {number} [page=1] - The current page to load auctions from.
+ */
 export async function loadPublicAuctionsList(limit = 6, page = 1) {
   const sort = document.getElementById("sort")
     ? document.getElementById("sort").value
@@ -39,12 +44,15 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
     }
 
     const auctionData = await response.json();
-    console.log(auctionData);
     renderHomepageAuctions(auctionData.data);
   } catch (error) {
     console.error("Fetch Auctions Error: ", error);
   }
 }
+
+/**
+ * Function to initialize the homepage auction search.
+ */
 export function initHomepageAuctionSearch() {
   const searchBtn = document.getElementById("homepage-search-btn");
 
@@ -64,6 +72,11 @@ export function initHomepageAuctionSearch() {
   }
 }
 
+/**
+ * Function to search public auctions by title.
+ * @param {string} title - The title to search for.
+ * @returns {Promise<object>} - The search results from the API.
+ */
 export async function searchAuctionsByTitlePublic(title) {
   const queryUrl = `${BASE_URL}/auction/listings/search?q=${encodeURIComponent(
     title
@@ -89,6 +102,10 @@ export async function searchAuctionsByTitlePublic(title) {
   }
 }
 
+/**
+ * Function to render auctions on the homepage.
+ * @param {Array} auctions - An array of auction objects to display.
+ */
 export function renderHomepageAuctions(auctions) {
   const auctionlistContainer = document.getElementById("homepage-auction-list");
   const template = document.getElementById("homepage-auction-card-template");

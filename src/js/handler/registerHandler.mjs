@@ -1,8 +1,13 @@
 import { register } from "../api/auth/auth.mjs";
 import { storeItem } from "../storage.mjs";
 
+/**
+ * Function to handle the register form submission.
+ * Sends registration request to the API and stores authentication data on success.
+ */
 export function handleRegisterSubmit() {
   const registerForm = document.getElementById("register-form");
+
   if (registerForm) {
     registerForm.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -23,6 +28,7 @@ export function handleRegisterSubmit() {
         avatarUrl,
         bannerUrl
       );
+
       if (data && data.token) {
         storeItem("authToken", data.token);
 

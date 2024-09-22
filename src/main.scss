@@ -554,6 +554,21 @@ hr {
   }
 }
 
+#edit-profile-form {
+  button {
+    margin-top: auto;
+    border-radius: 1px;
+    border: 2px solid $gold;
+    color: $gold;
+    font-size: x-large;
+    font-weight: 400;
+
+    &:hover {
+      color: lighten($primary, 20%);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .carousel-inner {
     padding: 1em 0;

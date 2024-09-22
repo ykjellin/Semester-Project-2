@@ -1,6 +1,10 @@
 import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
 
+/**
+ * Function to initialize the create auction form submission.
+ * Handles the creation of a new auction by sending the form data to the API.
+ */
 export function initcreateauctionForm() {
   const createauctionForm = document.getElementById("create-auction-form");
 
@@ -24,8 +28,6 @@ export function initcreateauctionForm() {
 
       const authToken = getItem("authToken");
       const apiKey = getItem("apiKey");
-      console.log("Auth Token:", authToken);
-      console.log("API Key:", apiKey);
 
       try {
         const response = await fetch(`${BASE_URL}/auction/listings`, {
@@ -37,12 +39,10 @@ export function initcreateauctionForm() {
           },
           body: JSON.stringify(auctionData),
         });
-        console.log("Auction data being sent:", auctionData);
 
         if (response.ok) {
           const result = await response.json();
           alert("Auction created successfully!");
-          console.log("Auction creation response:", result);
           window.location.href = "/auctions";
         } else {
           const errorData = await response.json();

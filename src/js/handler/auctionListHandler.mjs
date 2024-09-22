@@ -8,6 +8,10 @@ if (document.getElementById("auction-list")) {
 
 let currentPage = 1;
 
+/**
+ * Function to load a list of auctions.
+ * @param {number} [page=1] - The current page to load auctions from.
+ */
 export async function loadAuctionsList(page = 1) {
   const sort = document.getElementById("sort")
     ? document.getElementById("sort").value
@@ -73,13 +77,16 @@ export async function loadAuctionsList(page = 1) {
     }
 
     const auctionData = await response.json();
-    console.log(auctionData);
     renderAuctions(auctionData.data);
   } catch (error) {
     console.error("Fetch Auctions Error: ", error);
   }
 }
 
+/**
+ * Function to render the auctions on the page.
+ * @param {Array} auctions - An array of auction objects to display.
+ */
 export function renderAuctions(auctions) {
   const auctionlistContainer = document.getElementById("auction-list");
   const template = document.getElementById("auction-card-template");

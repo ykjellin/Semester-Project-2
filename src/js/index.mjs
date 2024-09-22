@@ -13,6 +13,9 @@ import {
   initHomepageAuctionSearch,
 } from "./handler/publicListHandler.mjs";
 
+/**
+ * Function to handle navigation links visibility based on authentication.
+ */
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
   const authToken = getItem("authToken");
@@ -26,40 +29,35 @@ function handleNavigationLinks() {
   }
 }
 
+/**
+ * Function to initialize the page based on the current path.
+ * It attaches form handlers, loads auction data, and manages DOM interactions.
+ */
 function initializePage() {
-  console.log("Current path:", window.location.pathname);
   handleNavigationLinks();
+
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
-    console.log("Register form detected, attaching handler.");
     handleRegisterSubmit();
   }
 
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
-    console.log("Login form detected, attaching handler.");
     handleLoginSubmit();
   }
 
   const profilePage = document.getElementById("profile-page");
   if (profilePage) {
-    console.log("Profile page detected, loading profile data.");
     loadProfile();
   }
 
   if (window.location.pathname.includes("/viewauction/index.html")) {
-    console.log("View auction page detected, loading auction details.");
-
     const urlParams = new URLSearchParams(window.location.search);
     const auctionId = urlParams.get("auctionId");
 
     if (auctionId) {
-      console.log(`Auction ID found: ${auctionId}`);
       loadAuctionDetails(auctionId);
-      module.initAuctionSearch();
       handleBidSubmission(auctionId);
-    } else {
-      console.error("No auction ID found in the URL.");
     }
   }
 
@@ -69,20 +67,14 @@ function initializePage() {
       removeItem("authToken");
       removeItem("apiKey");
       removeItem("username");
-
       removeItem("userProfile");
-
       window.location.href = "/home/index.html";
     });
-  } else {
-    console.log("Logout button not found.");
   }
 
   const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
 
   if (currentPath === "/home/index.html") {
-    console.log("Home page detected, loading public auctions.");
-
     let currentPage = 1;
     const limit = 6;
 
@@ -103,26 +95,9 @@ function initializePage() {
         });
       });
     }
-
-    const searchSection = document.getElementById("search-section");
-    const toggleIcon = document.getElementById("toggle-icon");
-
-    if (searchSection && toggleIcon) {
-      searchSection.addEventListener("shown.bs.collapse", () => {
-        toggleIcon.classList.remove("bi-chevron-down");
-        toggleIcon.classList.add("bi-chevron-up");
-      });
-
-      searchSection.addEventListener("hidden.bs.collapse", () => {
-        toggleIcon.classList.remove("bi-chevron-up");
-        toggleIcon.classList.add("bi-chevron-down");
-      });
-    }
   }
 
   if (currentPath === "/auctionlist/index.html") {
-    console.log("Auction list page detected, loading auctions.");
-
     import("./handler/auctionListHandler.mjs")
       .then((module) => {
         module.loadAuctionsList();
@@ -149,12 +124,9 @@ function initializePage() {
       });
     }
     initAuctionSearch();
-  } else {
-    console.log("Not on the auction list page, skipping auction list loading.");
   }
 
   if (currentPath === "/createauction/index.html") {
-    console.log("Create Auction page detected, initializing form.");
     initcreateauctionForm();
   }
 

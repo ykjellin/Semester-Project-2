@@ -2,13 +2,14 @@ import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
 import { renderAuctions } from "./auctionListHandler.mjs";
 
+/**
+ * Function to search auctions by title.
+ * @param {string} title - The title to search for.
+ * @returns {Promise<object>} - The search results from the API.
+ */
 export async function searchAuctionsByTitle(title) {
   const authToken = getItem("authToken");
   const apiKey = getItem("apiKey");
-
-  console.log("Search Title:", title);
-  console.log("Auth Token:", authToken);
-  console.log("API Key:", apiKey);
 
   try {
     const response = await fetch(
@@ -28,7 +29,6 @@ export async function searchAuctionsByTitle(title) {
     }
 
     const data = await response.json();
-    console.log("Search Results:", data);
     return data;
   } catch (error) {
     console.error("Error fetching auctions:", error);
@@ -36,6 +36,9 @@ export async function searchAuctionsByTitle(title) {
   }
 }
 
+/**
+ * Function to initialize the auction search event listener.
+ */
 export function initAuctionSearch() {
   const searchBtn = document.getElementById("search-btn");
 
@@ -43,16 +46,11 @@ export function initAuctionSearch() {
     searchBtn.addEventListener("click", async () => {
       const searchTitle = document.getElementById("search-title").value.trim();
 
-      console.log("Search Button Clicked");
-      console.log("Search Title Input:", searchTitle);
-
       if (searchTitle) {
         const results = await searchAuctionsByTitle(searchTitle);
-        console.log("Rendering Auctions:", results); //
         renderAuctions(results.data);
       } else {
         alert("Please enter a title to search for.");
-        console.log("No search title entered");
       }
     });
   }

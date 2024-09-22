@@ -1,6 +1,10 @@
 import { getItem } from "../storage.mjs";
 import { BASE_URL } from "../constants.mjs";
 
+/**
+ * Function to handle bid submission for a specific auction.
+ * @param {string} auctionId - The ID of the auction to place a bid on.
+ */
 export async function handleBidSubmission(auctionId) {
   const bidForm = document.getElementById("bid-form");
 
@@ -41,15 +45,10 @@ export async function handleBidSubmission(auctionId) {
       if (!response.ok) {
         const errorResponse = await response.json();
         console.error("Error response from API:", errorResponse);
-        console.error(
-          "Detailed error message:",
-          errorResponse.errors[0].message
-        );
         throw new Error(`Error placing bid: ${response.statusText}`);
       }
 
       const result = await response.json();
-      console.log("Bid placed successfully:", result);
       alert("Your bid has been placed successfully!");
     } catch (error) {
       console.error("Error placing bid:", error.message);
