@@ -40,11 +40,9 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
 
   try {
     const queryParams = new URLSearchParams(cleanedFilters).toString();
-    console.log("Public auctions loading function triggered on fresh load");
     const url = queryParams
       ? `${BASE_URL}/auction/listings?${queryParams}`
       : `${BASE_URL}/auction/listings`;
-    console.log("Fetching auctions from:", url);
 
     const response = await fetch(url, {
       method: "GET",
@@ -53,14 +51,11 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
       },
     });
 
-    console.log("API Response:", response);
-
     if (!response.ok) {
       throw new Error(`Error fetching auctions: ${response.status}`);
     }
 
     const auctionData = await response.json();
-    console.log("API response data on fresh load:", auctionData);
     if (auctionData.data.length === 0) {
       displayFeedback("No auctions found.", "info");
     } else {
@@ -139,6 +134,7 @@ export async function searchAuctionsByTitlePublic(title) {
 export function renderHomepageAuctions(auctions) {
   console.log("Rendering auctions:", auctions);
   const auctionlistContainer = document.getElementById("homepage-auction-list");
+  console.log("Checking for auction list container:", auctionlistContainer);
   const template = document.getElementById("homepage-auction-card-template");
 
   if (!auctionlistContainer) {
