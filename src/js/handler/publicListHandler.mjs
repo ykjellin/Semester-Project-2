@@ -1,5 +1,17 @@
 import { BASE_URL } from "../constants.mjs";
 
+function displayFeedback(message, type = "info") {
+  const feedbackContainer = document.getElementById("feedback");
+  feedbackContainer.classList.remove(
+    "d-none",
+    "alert-danger",
+    "alert-info",
+    "alert-success"
+  );
+  feedbackContainer.classList.add(`alert-${type}`);
+  feedbackContainer.textContent = message;
+}
+
 /**
  * Function to load a list of public auctions.
  * @param {number} [limit=6] - The number of auctions to display per page.
@@ -44,8 +56,16 @@ export async function loadPublicAuctionsList(limit = 6, page = 1) {
     }
 
     const auctionData = await response.json();
-    renderHomepageAuctions(auctionData.data);
+    if (auctionData.data.length === 0) {
+      displayFeedback("No auctions found.", "info");
+    } else {
+      renderHomepageAuctions(auctionData.data);
+    }
   } catch (error) {
+    displayFeedback(
+      "Failed to load auctions. Please try again later.",
+      "danger"
+    );
     console.error("Fetch Auctions Error: ", error);
   }
 }
@@ -62,11 +82,16 @@ export function initHomepageAuctionSearch() {
         .getElementById("homepage-search-title")
         .value.trim();
 
-      if (searchTitle) {
-        const results = await searchAuctionsByTitlePublic(searchTitle);
-        renderHomepageAuctions(results.data);
+      if (searchTitle.length === 0) {
+        displayFeedback("Please enter a search term.", "danger");
+        return;
+      }
+
+      const results = await searchAuctionsByTitlePublic(searchTitle);
+      if (results.data.length === 0) {
+        displayFeedback("No auctions found for the search term.", "info");
       } else {
-        alert("Please enter a title to search for.");
+        renderHomepageAuctions(results.data);
       }
     });
   }
@@ -121,6 +146,11 @@ export function renderHomepageAuctions(auctions) {
   }
 
   auctionlistContainer.innerHTML = "";
+
+  if (auctions.length === 0) {
+    displayFeedback("No auctions found.", "info");
+    return;
+  }
 
   auctions.forEach((auction) => {
     const auctionCard = document.importNode(template.content, true);

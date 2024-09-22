@@ -86,7 +86,7 @@
         <div class="row">
           <div class="col-md-12" id="auction-detail-media"></div>
         </div>
-
+        <div id="auction-feedback" class="alert hidden" style="display: none;"></div>
         <div class="row my-5">
           <div id="auction-bids-list"></div>
           <hr class="my-4" />
@@ -94,13 +94,10 @@
           <form id="bid-form">
             <div class="mb-3">
               <label for="bid-amount" class="form-label">Bid Amount</label>
-              <input
-                type="number"
-                class="form-control"
-                id="bid-amount"
-                name="bid-amount"
-                required
-              />
+              <input type="number" class="form-control" id="bid-amount" placeholder="Enter your bid">
+              <div class="invalid-feedback">
+                <!-- Error message will go here -->
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Place Bid</button>
           </form>

@@ -7,18 +7,28 @@ import { BASE_URL } from "../constants.mjs";
  */
 export async function handleBidSubmission(auctionId) {
   const bidForm = document.getElementById("bid-form");
+  const bidInput = document.getElementById("bid-amount");
+  const errorFeedback = document.querySelector(".invalid-feedback");
 
-  if (!bidForm) {
-    console.error("Bid form not found");
+  if (!bidForm || !bidInput || !errorFeedback) {
+    console.error("Bid form or related elements not found");
     return;
   }
 
   bidForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const bidAmount = document.getElementById("bid-amount").value;
-    if (!bidAmount || bidAmount <= 0) {
-      alert("Please enter a valid bid amount.");
+    const bidAmount = bidInput.value;
+
+    // Clear previous validation classes
+    bidInput.classList.remove("is-invalid", "is-valid");
+    errorFeedback.textContent = "";
+
+    // Validate the bid amount
+    if (!bidAmount || isNaN(bidAmount) || bidAmount <= 0) {
+      bidInput.classList.add("is-invalid");
+      errorFeedback.textContent =
+        "Please enter a valid bid amount greater than 0.";
       return;
     }
 
@@ -27,9 +37,13 @@ export async function handleBidSubmission(auctionId) {
       const authToken = getItem("authToken");
 
       if (!apiKey || !authToken) {
-        console.error("API key or auth token is missing");
+        displayError("Authentication error. Please log in to place a bid.");
         return;
       }
+
+      // Disable the submit button to prevent duplicate submissions
+      const submitButton = bidForm.querySelector("button[type='submit']");
+      submitButton.disabled = true;
 
       const url = `${BASE_URL}/auction/listings/${auctionId}/bids`;
       const response = await fetch(url, {
@@ -44,15 +58,45 @@ export async function handleBidSubmission(auctionId) {
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        console.error("Error response from API:", errorResponse);
+        bidInput.classList.add("is-invalid");
+        errorFeedback.textContent =
+          errorResponse.message || "Error placing bid.";
+        displayError(errorResponse.message || "Error placing bid.");
         throw new Error(`Error placing bid: ${response.statusText}`);
       }
 
-      const result = await response.json();
-      alert("Your bid has been placed successfully!");
+      // On success, add valid class
+      bidInput.classList.add("is-valid");
+      displaySuccess("Your bid has been placed successfully!");
     } catch (error) {
       console.error("Error placing bid:", error.message);
-      alert(`Failed to place bid: ${error.message}`);
+      displayError(`Failed to place bid: ${error.message}`);
+    } finally {
+      submitButton.disabled = false;
     }
   });
+}
+
+/**
+ * Function to display error messages to the user.
+ * @param {string} message - The error message to display.
+ */
+function displayError(message) {
+  const errorContainer = document.getElementById("error-container");
+  if (errorContainer) {
+    errorContainer.textContent = message;
+    errorContainer.style.display = "block";
+  }
+}
+
+/**
+ * Function to display success messages to the user.
+ * @param {string} message - The success message to display.
+ */
+function displaySuccess(message) {
+  const successContainer = document.getElementById("success-container");
+  if (successContainer) {
+    successContainer.textContent = message;
+    successContainer.style.display = "block";
+  }
 }

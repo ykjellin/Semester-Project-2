@@ -1,6 +1,5 @@
 import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
-import { loadAuctionDetails } from "./auctionHandler.mjs";
 
 if (document.getElementById("auction-list")) {
   loadAuctionsList();
@@ -54,7 +53,7 @@ export async function loadAuctionsList(page = 1) {
     const authToken = getItem("authToken");
 
     if (!apiKey || !authToken) {
-      console.error("API key or auth token is missing");
+      displayError("Please log in to view the auctions.");
       return [];
     }
 
@@ -73,12 +72,21 @@ export async function loadAuctionsList(page = 1) {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        displayError("Unauthorized access. Please log in again.");
+      } else if (response.status === 404) {
+        displayError("Auctions not found.");
+      } else {
+        displayError(`Error fetching auctions: ${response.status}`);
+      }
       throw new Error(`Error fetching auctions: ${response.status}`);
     }
 
     const auctionData = await response.json();
+    displaySuccess("Auctions loaded successfully.");
     renderAuctions(auctionData.data);
   } catch (error) {
+    displayError("Failed to load auctions. Please try again later.");
     console.error("Fetch Auctions Error: ", error);
   }
 }
@@ -92,12 +100,20 @@ export function renderAuctions(auctions) {
   const template = document.getElementById("auction-card-template");
 
   if (!auctionlistContainer) {
+    displayError("Auction list container not found.");
     console.error("Auction list container not found");
     return;
   }
 
   if (!template) {
+    displayError("Auction card template not found.");
     console.error("Auction card template not found");
+    return;
+  }
+
+  if (auctions.length === 0) {
+    auctionlistContainer.innerHTML =
+      "<p>No auctions available at the moment.</p>";
     return;
   }
 
@@ -128,4 +144,28 @@ export function renderAuctions(auctions) {
 
     auctionlistContainer.appendChild(auctionCard);
   });
+}
+
+/**
+ * Function to display error messages to the user.
+ * @param {string} message - The error message to display.
+ */
+function displayError(message) {
+  const errorContainer = document.getElementById("error-container");
+  if (errorContainer) {
+    errorContainer.textContent = message;
+    errorContainer.style.display = "block";
+  }
+}
+
+/**
+ * Function to display success messages to the user.
+ * @param {string} message - The success message to display.
+ */
+function displaySuccess(message) {
+  const successContainer = document.getElementById("success-container");
+  if (successContainer) {
+    successContainer.textContent = message;
+    successContainer.style.display = "block";
+  }
 }

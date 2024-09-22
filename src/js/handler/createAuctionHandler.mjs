@@ -13,17 +13,31 @@ export function initcreateauctionForm() {
       event.preventDefault();
 
       const formData = new FormData(createauctionForm);
+      const title = formData.get("title").trim();
+      const endsAt = formData.get("endsAt");
+      const description = formData.get("description")?.trim(); // Optional
+      const media = formData.get("media")?.trim(); // Optional
+      const tags = formData.get("tags")
+        ? formData
+            .get("tags")
+            .split(",")
+            .map((tag) => tag.trim())
+        : []; // Optional
+
+      // Basic validation for required fields
+      if (!title || !endsAt || isNaN(new Date(endsAt).getTime())) {
+        displayError(
+          "Please fill in the required fields: Title and End Date/Time."
+        );
+        return;
+      }
+
       const auctionData = {
-        title: formData.get("title"),
-        description: formData.get("description"),
-        endsAt: new Date(formData.get("endsAt")).toISOString(),
-        tags: formData
-          .get("tags")
-          .split(",")
-          .map((tag) => tag.trim()),
-        media: formData.get("media")
-          ? [{ url: formData.get("media"), alt: "" }]
-          : [],
+        title,
+        endsAt: new Date(endsAt).toISOString(),
+        description, // Optional
+        tags, // Optional
+        media: media ? [{ url: media, alt: "" }] : [], // Optional
       };
 
       const authToken = getItem("authToken");
@@ -42,17 +56,39 @@ export function initcreateauctionForm() {
 
         if (response.ok) {
           const result = await response.json();
-          alert("Auction created successfully!");
-          window.location.href = "/auctions";
+          displaySuccess("Auction created successfully!");
+          window.location.href = "/auctionList/index.html"; // Update the redirect path as needed
         } else {
           const errorData = await response.json();
-          alert(`Error: ${errorData.message}`);
+          displayError(`Error: ${errorData.message}`);
           console.error("Auction creation failed:", errorData);
         }
       } catch (error) {
         console.error("Error creating auction:", error);
-        alert("Failed to create auction. Please try again.");
+        displayError("Failed to create auction. Please try again.");
       }
     });
   }
+}
+
+/**
+ * Function to display error messages to the user using a Bootstrap alert.
+ * @param {string} message - The error message to display.
+ */
+function displayError(message) {
+  const feedbackContainer = document.getElementById("formFeedback");
+  feedbackContainer.classList.remove("d-none", "alert-success");
+  feedbackContainer.classList.add("alert-danger");
+  feedbackContainer.textContent = message;
+}
+
+/**
+ * Function to display success messages to the user using a Bootstrap alert.
+ * @param {string} message - The success message to display.
+ */
+function displaySuccess(message) {
+  const feedbackContainer = document.getElementById("formFeedback");
+  feedbackContainer.classList.remove("d-none", "alert-danger");
+  feedbackContainer.classList.add("alert-success");
+  feedbackContainer.textContent = message;
 }

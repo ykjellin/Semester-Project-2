@@ -64,6 +64,8 @@
         <div class="col-md-4">
           <h1 id="login-h2">Login</h1>
           <hr class="my-4" />
+          <div id="loginLoader" class="loader" style="display: none"></div>
+
           <form id="loginForm">
             <div class="mb-3">
               <label for="name" class="form-label">Username</label>
@@ -99,6 +101,7 @@
               Login
             </button>
           </form>
+          <div id="loginFeedback" class="alert alert-info hidden"></div>
         </div>
       </div>
     </main>

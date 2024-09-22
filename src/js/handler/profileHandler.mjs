@@ -258,6 +258,7 @@ function loadEditProfileForm() {
       <button type="submit" class="btn ">Save Changes</button>
       <button id="cancel-edit" class="btn ">Cancel</button>
     </form>
+    <div id="formFeedback" class="alert d-none"></div>
   `;
 
   document
@@ -267,7 +268,9 @@ function loadEditProfileForm() {
     .getElementById("cancel-edit")
     .addEventListener("click", reloadProfileView);
 }
-
+function navigateToProfile() {
+  window.location.href = "/profile/index.html";
+}
 /**
  * Function to handle the profile editing form submission and send updated data to the API.
  * @param {Event} event - The form submission event.

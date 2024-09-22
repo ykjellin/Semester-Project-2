@@ -1,6 +1,16 @@
 import { BASE_URL } from "../constants.mjs";
 import { getItem } from "../storage.mjs";
 
+function showFeedback(message, isError = false) {
+  const feedbackElement = document.getElementById("auction-feedback");
+  if (feedbackElement) {
+    feedbackElement.textContent = message;
+    feedbackElement.classList.remove("alert-success", "alert-danger");
+    feedbackElement.classList.add(isError ? "alert-danger" : "alert-success");
+    feedbackElement.style.display = "block"; // Show feedback
+  }
+}
+
 /**
  * Function to load auction details.
  * @param {string} auctionId - The ID of the auction to load details for.
@@ -12,6 +22,7 @@ export async function loadAuctionDetails(auctionId) {
 
     if (!apiKey || !authToken) {
       console.error("API key or auth token is missing");
+      showFeedback("API key or authentication token is missing.", true);
       return;
     }
 
@@ -32,6 +43,14 @@ export async function loadAuctionDetails(auctionId) {
 
     const auctionDataResponse = await response.json();
     const auctionData = auctionDataResponse.data;
+
+    // Show loading message
+    const loadingMessage = document.getElementById("loading-message");
+    if (loadingMessage) {
+      loadingMessage.style.display = "block";
+    }
+
+    showFeedback("Auction details loaded successfully.");
 
     // Set auction title
     const auctionTitle = document.getElementById("auction-detail-title");
@@ -61,15 +80,18 @@ export async function loadAuctionDetails(auctionId) {
 
     // Display individual bids
     const bidsContainer = document.getElementById("auction-bids-list");
-    if (bidsContainer && auctionData.bids && auctionData.bids.length > 0) {
-      bidsContainer.innerHTML = "";
-      auctionData.bids.forEach((bid) => {
-        const bidElement = document.createElement("p");
-        bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
-        bidsContainer.appendChild(bidElement);
-      });
-    } else if (bidsContainer) {
-      bidsContainer.innerHTML = "<p>No bids placed yet.</p>";
+    if (bidsContainer) {
+      if (auctionData.bids && auctionData.bids.length > 0) {
+        bidsContainer.innerHTML = "";
+        auctionData.bids.forEach((bid) => {
+          const bidElement = document.createElement("p");
+          bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
+          bidsContainer.appendChild(bidElement);
+        });
+      } else {
+        bidsContainer.innerHTML =
+          "<p>No bids placed yet. Be the first to bid!</p>";
+      }
     }
 
     // Display seller information
@@ -103,8 +125,20 @@ export async function loadAuctionDetails(auctionId) {
     } else if (mediaContainer) {
       mediaContainer.innerHTML = "<p>No images available for this auction.</p>";
     }
+
+    if (loadingMessage) {
+      loadingMessage.style.display = "none";
+    }
   } catch (error) {
     console.error("Error loading auction details:", error);
-    alert("Failed to load auction details.");
+
+    showFeedback("Failed to load auction details. Please try again.", true);
+
+    const auctionError = document.getElementById("auction-error");
+    if (auctionError) {
+      auctionError.textContent =
+        "We couldn't load the auction details. Please try again later.";
+      auctionError.style.display = "block";
+    }
   }
 }
