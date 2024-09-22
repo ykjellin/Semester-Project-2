@@ -4,7 +4,7 @@ import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibilit
 import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
 import { loadAuctionDetails } from "../../src/js/handler/auctionHandler.mjs";
 import { handleBidSubmission } from "./handler/bidHandler.mjs";
-import { getItem, removeItem } from "./storage.mjs";
+import { getItem, removeItem, clearStorage } from "./storage.mjs";
 import { initAuctionSearch } from "./handler/auctionSearch.mjs";
 import { initcreateauctionForm } from "./handler/createAuctionHandler.mjs";
 import {
