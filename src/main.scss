@@ -84,6 +84,19 @@ hr {
   }
 }
 
+#logout-btn {
+  border-radius: 1px;
+  border: 2px solid $gold;
+  color: $gold;
+  font-size: x-large;
+  font-weight: 400;
+  margin-left: 2rem;
+
+  &:hover {
+    background-color: lighten($primary, 10%);
+  }
+}
+
 #home-h1 {
   padding-bottom: 2%;
 }
@@ -502,6 +515,42 @@ hr {
     color: $gold;
     font-size: x-large;
     font-weight: 400;
+  }
+}
+
+#auction-seller {
+  img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $gold;
+    display: block;
+  }
+}
+
+#auction-detail-media {
+  img {
+    max-width: 50rem;
+    margin: 2rem;
+  }
+}
+
+#bid-form {
+  button {
+    margin-top: auto;
+    border-radius: 1px;
+    border: 2px solid $gold;
+    color: $gold;
+    font-size: x-large;
+    font-weight: 400;
+
+    &:hover {
+      color: lighten($primary, 20%);
+    }
+  }
+  #bid-amount {
+    max-width: 10rem;
   }
 }
 

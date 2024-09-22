@@ -4,7 +4,7 @@ import { togglePasswordVisibility } from "../../src/js/utility/passwordVisibilit
 import { loadProfile } from "../../src/js/handler/profileHandler.mjs";
 import { loadAuctionDetails } from "../../src/js/handler/auctionHandler.mjs";
 import { handleBidSubmission } from "./handler/bidHandler.mjs";
-import { getItem } from "./storage.mjs";
+import { getItem, removeItem } from "./storage.mjs";
 import { initAuctionSearch } from "./handler/auctionSearch.mjs";
 import { initcreateauctionForm } from "./handler/createAuctionHandler.mjs";
 import {
@@ -61,6 +61,21 @@ function initializePage() {
     } else {
       console.error("No auction ID found in the URL.");
     }
+  }
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      removeItem("authToken");
+      removeItem("apiKey");
+      removeItem("username");
+
+      removeItem("userProfile");
+
+      window.location.href = "/home/index.html";
+    });
+  } else {
+    console.log("Logout button not found.");
   }
 
   const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
