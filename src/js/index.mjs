@@ -19,7 +19,6 @@ import {
 function handleNavigationLinks() {
   const createAuctionLink = document.getElementById("create-auction-link");
   const authToken = getItem("authToken");
-  console.log("Auth token status:", authToken ? "Logged in" : "Not logged in");
 
   if (createAuctionLink) {
     if (authToken) {
@@ -35,7 +34,6 @@ function handleNavigationLinks() {
  * It attaches form handlers, loads auction data, and manages DOM interactions.
  */
 function initializePage() {
-  console.log("Initializing the page...");
   handleNavigationLinks();
 
   const registerForm = document.getElementById("register-form");
@@ -66,7 +64,6 @@ function initializePage() {
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
-      console.log("Logging out and clearing all user data...");
       removeItem("authToken");
       removeItem("apiKey");
       removeItem("username");
@@ -79,10 +76,8 @@ function initializePage() {
   const currentPath = window.location.pathname
     .replace(/\/$/, "/index.html")
     .toLowerCase();
-  console.log("Current path:", currentPath);
 
   if (currentPath === "/home/index.html") {
-    console.log("Loading public auctions...");
     let currentPage = 1;
     const limit = 6;
 
@@ -175,6 +170,5 @@ function initializePage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Ensuring local storage is clear...");
   initializePage();
 });

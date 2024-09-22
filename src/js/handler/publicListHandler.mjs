@@ -132,9 +132,8 @@ export async function searchAuctionsByTitlePublic(title) {
  * @param {Array} auctions - An array of auction objects to display.
  */
 export function renderHomepageAuctions(auctions) {
-  console.log("Rendering auctions:", auctions);
   const auctionlistContainer = document.getElementById("homepage-auction-list");
-  console.log("Checking for auction list container:", auctionlistContainer);
+
   const template = document.getElementById("homepage-auction-card-template");
 
   if (!auctionlistContainer) {
