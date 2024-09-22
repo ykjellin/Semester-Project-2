@@ -12080,6 +12080,9 @@ hr {
   border: 1px solid #cbb958;
   margin-bottom: 5%;
 }
+.homepage-auction-section .form-label {
+  color: black;
+}
 .homepage-auction-section h2, .homepage-auction-section .h2 {
   display: flex;
   justify-content: space-between;
