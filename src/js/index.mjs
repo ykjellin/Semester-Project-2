@@ -12,6 +12,7 @@ import {
   loadPublicAuctionsList,
   initHomepageAuctionSearch,
 } from "./handler/publicListHandler.mjs";
+import { handleAuthButton } from "./handler/handleAuthButton.mjs";
 
 /**
  * Function to handle navigation links visibility based on authentication.
@@ -29,12 +30,45 @@ function handleNavigationLinks() {
   }
 }
 
+function navigateToProfile(user) {
+  console.log("Attempting to navigate to profile for user:", user);
+  if (typeof user === "object") {
+    console.error("Incorrect user data type for navigation:", user);
+
+    window.location.href = "/profile/index.html";
+  } else if (typeof user === "string") {
+    console.log(
+      `Navigating to /profile/index.html?user=${encodeURIComponent(user)}`
+    );
+    window.location.href = `/profile/index.html?user=${encodeURIComponent(
+      user
+    )}`;
+  } else {
+    console.error("Invalid user data for navigation:", user);
+
+    window.location.href = "/profile/index.html";
+  }
+}
+
 /**
  * Function to initialize the page based on the current path.
  * It attaches form handlers, loads auction data, and manages DOM interactions.
  */
 function initializePage() {
   handleNavigationLinks();
+
+  const username = getItem("username");
+  const authToken = getItem("authToken");
+  const apiKey = getItem("apiKey");
+
+  if (!username || !authToken || !apiKey) {
+    console.log("User not logged in");
+  } else {
+    const profilePage = document.getElementById("profile-page");
+    if (profilePage) {
+      loadProfile();
+    }
+  }
 
   const registerForm = document.getElementById("register-form");
   if (registerForm) {
@@ -44,11 +78,6 @@ function initializePage() {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     handleLoginSubmit();
-  }
-
-  const profilePage = document.getElementById("profile-page");
-  if (profilePage) {
-    loadProfile();
   }
 
   if (window.location.pathname.includes("/viewauction/index.html")) {
@@ -69,7 +98,18 @@ function initializePage() {
       removeItem("username");
       removeItem("userProfile");
       clearStorage();
+      console.log("User logged out, navigating to home");
       window.location.href = "/home/index.html";
+    });
+  }
+
+  const profileLink = document.getElementById("profile-link");
+  if (profileLink) {
+    profileLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      const storedUsername = getItem("username");
+      console.log("Profile link clicked, navigating for user:", storedUsername);
+      navigateToProfile(storedUsername);
     });
   }
 
@@ -171,4 +211,5 @@ function initializePage() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initializePage();
+  handleAuthButton();
 });

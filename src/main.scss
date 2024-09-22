@@ -112,7 +112,8 @@ hr {
   }
 }
 
-#logout-btn {
+#logout-btn,
+#auth-btn {
   @include gold-button;
   margin-left: 2rem;
 }
