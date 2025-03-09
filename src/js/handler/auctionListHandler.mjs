@@ -40,16 +40,13 @@ export async function loadAuctionsList(page = 1) {
     const apiKey = getItem("apiKey");
     const authToken = getItem("authToken");
 
-    // ✅ Prepare headers (empty by default)
     const headers = { "Content-Type": "application/json" };
 
-    // ✅ Only add authentication headers if user is logged in
     if (apiKey && authToken) {
       headers["X-Noroff-API-Key"] = apiKey;
       headers.Authorization = `Bearer ${authToken}`;
     }
 
-    // ✅ Construct URL with filters if applied
     const queryParams = new URLSearchParams(cleanedFilters).toString();
     const url = queryParams
       ? `${BASE_URL}/auction/listings?${queryParams}`
@@ -73,7 +70,7 @@ export async function loadAuctionsList(page = 1) {
     }
 
     const auctionData = await response.json();
-    renderAuctions(auctionData?.data ?? []); // ✅ Ensure `data` is always an array
+    renderAuctions(auctionData?.data ?? []);
   } catch (error) {
     displayError("Failed to load auctions. Please try again later.");
     console.error("Fetch Auctions Error:", error);

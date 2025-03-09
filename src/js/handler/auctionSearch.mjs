@@ -28,11 +28,11 @@ export async function searchAuctionsByTitle(title) {
     }
 
     const data = await response.json();
-    return data?.data ? data : { data: [] }; // ✅ Ensures `data` is always an object with `data: []`
+    return data?.data ? data : { data: [] };
   } catch (error) {
     displayError("Error occurred while fetching search results.");
     console.error("Error fetching auctions:", error);
-    return { data: [] }; // ✅ Prevents undefined errors
+    return { data: [] };
   }
 }
 
@@ -58,7 +58,6 @@ export function initAuctionSearch() {
     console.log(`Searching for auctions with title: "${searchTitle}"`);
     const results = await searchAuctionsByTitle(searchTitle);
 
-    // ✅ Ensure `results.data` exists before passing it to `renderAuctions()`
     if (Array.isArray(results.data)) {
       renderAuctions(results.data);
     } else {

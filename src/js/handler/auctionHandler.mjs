@@ -23,13 +23,18 @@ export async function loadAuctionDetails(auctionId) {
       return;
     }
 
-    const url = `${BASE_URL}/auction/listings/${auctionId}?_seller=true`;
+    const authToken = getItem("authToken");
+    const isLoggedIn = !!authToken;
+
+    const url = `${BASE_URL}/auction/listings/${auctionId}?_seller=true${
+      isLoggedIn ? "&_bids=true" : ""
+    }`;
 
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }, // ✅ No authentication needed to view auctions
+      },
     });
 
     if (!response.ok) {
@@ -59,16 +64,19 @@ export async function loadAuctionDetails(auctionId) {
         ? `Ends: ${new Date(auctionData.endsAt).toLocaleString()}`
         : "No end date provided";
 
-    // ✅ Hide bids from guests
-    const authToken = getItem("authToken");
+    // ✅ Handle Bids (Only for Logged-In Users)
     const auctionBids = document.getElementById("auction-detail-bids");
     const bidsContainer = document.getElementById("auction-bids-list");
 
-    if (!authToken) {
+    if (!isLoggedIn) {
       if (auctionBids) auctionBids.style.display = "none";
-      if (bidsContainer) bidsContainer.innerHTML = "<p>Login to view bids.</p>";
+      if (bidsContainer) {
+        bidsContainer.innerHTML = "<p>Login to view bids.</p>";
+      }
     } else {
-      if (auctionBids) auctionBids.textContent = auctionData._count?.bids ?? 0;
+      if (auctionBids) {
+        auctionBids.textContent = auctionData._count?.bids ?? "0";
+      }
       if (bidsContainer) {
         if (auctionData.bids?.length > 0) {
           bidsContainer.innerHTML = "";
@@ -84,7 +92,7 @@ export async function loadAuctionDetails(auctionId) {
       }
     }
 
-    // Display seller information
+    // ✅ Display Seller Information
     const sellerContainer = document.getElementById("auction-seller");
     if (sellerContainer && auctionData.seller) {
       sellerContainer.innerHTML = `
@@ -103,7 +111,7 @@ export async function loadAuctionDetails(auctionId) {
       sellerContainer.innerHTML = "<p>No seller information available.</p>";
     }
 
-    // Display auction media
+    // ✅ Display Auction Media
     const mediaContainer = document.getElementById("auction-detail-media");
     if (mediaContainer && auctionData.media?.length > 0) {
       mediaContainer.innerHTML = "";
@@ -118,10 +126,10 @@ export async function loadAuctionDetails(auctionId) {
       mediaContainer.innerHTML = "<p>No images available for this auction.</p>";
     }
 
-    // ✅ Hide bid form for unauthenticated users
+    // ✅ Hide bid form if not logged in
     const bidForm = document.getElementById("bid-form");
-    if (!authToken && bidForm) {
-      bidForm.style.display = "none"; // Hide bid form for guests
+    if (!isLoggedIn && bidForm) {
+      bidForm.style.display = "none";
     }
 
     if (loadingMessage) {
