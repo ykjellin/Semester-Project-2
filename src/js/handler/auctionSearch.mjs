@@ -1,5 +1,4 @@
 import { BASE_URL } from "../constants.mjs";
-import { getItem } from "../storage.mjs";
 import { renderAuctions } from "./auctionListHandler.mjs";
 
 /**
@@ -8,14 +7,6 @@ import { renderAuctions } from "./auctionListHandler.mjs";
  * @returns {Promise<object>} - The search results from the API.
  */
 export async function searchAuctionsByTitle(title) {
-  const authToken = getItem("authToken");
-  const apiKey = getItem("apiKey");
-
-  if (!authToken || !apiKey) {
-    displayError("Please log in to perform the search.");
-    return [];
-  }
-
   try {
     const response = await fetch(
       `${BASE_URL}/auction/listings/search?q=${encodeURIComponent(title)}`,
@@ -23,8 +14,6 @@ export async function searchAuctionsByTitle(title) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-          "X-Noroff-API-Key": apiKey,
         },
       }
     );
@@ -35,24 +24,15 @@ export async function searchAuctionsByTitle(title) {
       } else {
         displayError("Failed to fetch search results. Please try again.");
       }
-      throw new Error("Failed to fetch search results");
+      throw new Error(`Error fetching search results: ${response.status}`);
     }
 
     const data = await response.json();
-
-    if (data.data && data.data.length > 0) {
-      displaySuccess(
-        `Found ${data.data.length} auctions for the title "${title}"`
-      );
-      return data;
-    } else {
-      displayError("No auctions found matching the search criteria.");
-      return { data: [] };
-    }
+    return data?.data ? data : { data: [] };
   } catch (error) {
     displayError("Error occurred while fetching search results.");
     console.error("Error fetching auctions:", error);
-    return [];
+    return { data: [] };
   }
 }
 
@@ -61,19 +41,29 @@ export async function searchAuctionsByTitle(title) {
  */
 export function initAuctionSearch() {
   const searchBtn = document.getElementById("search-btn");
+  const searchInput = document.getElementById("search-title");
 
-  if (searchBtn) {
-    searchBtn.addEventListener("click", async () => {
-      const searchTitle = document.getElementById("search-title").value.trim();
-
-      if (searchTitle) {
-        const results = await searchAuctionsByTitle(searchTitle);
-        renderAuctions(results.data);
-      } else {
-        displayError("Please enter a title to search for.");
-      }
-    });
+  if (!searchBtn || !searchInput) {
+    console.error("Search elements not found.");
+    return;
   }
+
+  searchBtn.addEventListener("click", async () => {
+    const searchTitle = searchInput.value.trim();
+    if (!searchTitle) {
+      displayError("Please enter a title to search for.");
+      return;
+    }
+
+    console.log(`Searching for auctions with title: "${searchTitle}"`);
+    const results = await searchAuctionsByTitle(searchTitle);
+
+    if (Array.isArray(results.data)) {
+      renderAuctions(results.data);
+    } else {
+      displayError("No valid auctions found.");
+    }
+  });
 }
 
 /**

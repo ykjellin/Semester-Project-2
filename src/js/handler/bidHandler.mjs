@@ -2,7 +2,7 @@ import { getItem } from "../storage.mjs";
 import { BASE_URL } from "../constants.mjs";
 
 /**
- * Function to handle bid submission for a specific auction.
+ * Function to handle bid submission for an auction.
  * @param {string} auctionId - The ID of the auction to place a bid on.
  */
 export async function handleBidSubmission(auctionId) {
@@ -11,20 +11,18 @@ export async function handleBidSubmission(auctionId) {
   const errorFeedback = document.querySelector(".invalid-feedback");
 
   if (!bidForm || !bidInput || !errorFeedback) {
-    console.error("Bid form or related elements not found");
+    console.error("Bid form or related elements not found.");
     return;
   }
 
   bidForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const bidAmount = bidInput.value;
+    const bidAmount = parseFloat(bidInput.value.trim());
 
-    // Clear previous validation classes
     bidInput.classList.remove("is-invalid", "is-valid");
     errorFeedback.textContent = "";
 
-    // Validate the bid amount
     if (!bidAmount || isNaN(bidAmount) || bidAmount <= 0) {
       bidInput.classList.add("is-invalid");
       errorFeedback.textContent =
@@ -41,38 +39,72 @@ export async function handleBidSubmission(auctionId) {
         return;
       }
 
-      // Disable the submit button to prevent duplicate submissions
       const submitButton = bidForm.querySelector("button[type='submit']");
-      submitButton.disabled = true;
+      if (submitButton) submitButton.disabled = true;
 
-      const url = `${BASE_URL}/auction/listings/${auctionId}/bids`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Noroff-API-Key": apiKey,
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({ amount: parseInt(bidAmount, 10) }),
-      });
+      const auctionDetailsResponse = await fetch(
+        `${BASE_URL}/auction/listings/${auctionId}?_bids=true&_seller=true`,
+        {
+          method: "GET",
+          headers: {
+            "X-Noroff-API-Key": apiKey,
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-      if (!response.ok) {
-        const errorResponse = await response.json();
-        bidInput.classList.add("is-invalid");
-        errorFeedback.textContent =
-          errorResponse.message || "Error placing bid.";
-        displayError(errorResponse.message || "Error placing bid.");
-        throw new Error(`Error placing bid: ${response.statusText}`);
+      if (!auctionDetailsResponse.ok) {
+        displayError("Could not verify auction status. Try again later.");
+        throw new Error("Failed to fetch auction details.");
       }
 
-      // On success, add valid class
+      const auctionData = await auctionDetailsResponse.json();
+      const auction = auctionData.data;
+
+      if (!auction || new Date(auction.endsAt) < new Date()) {
+        displayError("Bidding is closed for this auction.");
+        throw new Error("Bidding is closed for this auction.");
+      }
+
+      const currentHighestBid =
+        auction.bids.length > 0
+          ? Math.max(...auction.bids.map((bid) => bid.amount))
+          : 0;
+
+      if (bidAmount <= currentHighestBid) {
+        bidInput.classList.add("is-invalid");
+        errorFeedback.textContent = `Your bid must be higher than the current highest bid: ${currentHighestBid}`;
+        if (submitButton) submitButton.disabled = false;
+        return;
+      }
+
+      const bidResponse = await fetch(
+        `${BASE_URL}/auction/listings/${auctionId}/bids`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Noroff-API-Key": apiKey,
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({ amount: bidAmount }),
+        }
+      );
+
+      if (!bidResponse.ok) {
+        const errorResponse = await bidResponse.json();
+        displayError(errorResponse.message || "Error placing bid.");
+        throw new Error(`Error placing bid: ${errorResponse.message}`);
+      }
+
       bidInput.classList.add("is-valid");
+      bidInput.value = "";
       displaySuccess("Your bid has been placed successfully!");
     } catch (error) {
       console.error("Error placing bid:", error.message);
       displayError(`Failed to place bid: ${error.message}`);
     } finally {
-      submitButton.disabled = false;
+      if (submitButton) submitButton.disabled = false;
     }
   });
 }

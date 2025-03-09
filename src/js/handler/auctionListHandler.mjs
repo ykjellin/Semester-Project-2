@@ -12,25 +12,13 @@ let currentPage = 1;
  * @param {number} [page=1] - The current page to load auctions from.
  */
 export async function loadAuctionsList(page = 1) {
-  const sort = document.getElementById("sort")
-    ? document.getElementById("sort").value
-    : "";
-  const sortOrder = document.getElementById("sortOrder")
-    ? document.getElementById("sortOrder").value
-    : "";
+  const sort = document.getElementById("sort")?.value || "";
+  const sortOrder = document.getElementById("sortOrder")?.value || "";
 
-  const _seller = document.getElementById("_seller")
-    ? document.getElementById("_seller").checked
-    : undefined;
-  const _bids = document.getElementById("_bids")
-    ? document.getElementById("_bids").checked
-    : undefined;
-  const _active = document.getElementById("_active")
-    ? document.getElementById("_active").checked
-    : undefined;
-  const _tag = document.getElementById("tag")
-    ? document.getElementById("tag").value
-    : "";
+  const _seller = document.getElementById("_seller")?.checked;
+  const _bids = document.getElementById("_bids")?.checked;
+  const _active = document.getElementById("_active")?.checked;
+  const _tag = document.getElementById("tag")?.value || "";
 
   const filters = {
     sort: sort || undefined,
@@ -44,7 +32,7 @@ export async function loadAuctionsList(page = 1) {
 
   const cleanedFilters = Object.fromEntries(
     Object.entries(filters).filter(
-      ([key, value]) => value !== undefined && value !== ""
+      ([_, value]) => value !== undefined && value !== ""
     )
   );
 
@@ -52,9 +40,11 @@ export async function loadAuctionsList(page = 1) {
     const apiKey = getItem("apiKey");
     const authToken = getItem("authToken");
 
-    if (!apiKey || !authToken) {
-      displayError("Please log in to view the auctions.");
-      return [];
+    const headers = { "Content-Type": "application/json" };
+
+    if (apiKey && authToken) {
+      headers["X-Noroff-API-Key"] = apiKey;
+      headers.Authorization = `Bearer ${authToken}`;
     }
 
     const queryParams = new URLSearchParams(cleanedFilters).toString();
@@ -64,30 +54,26 @@ export async function loadAuctionsList(page = 1) {
 
     const response = await fetch(url, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Noroff-API-Key": apiKey,
-        Authorization: `Bearer ${authToken}`,
-      },
+      headers,
     });
 
     if (!response.ok) {
-      if (response.status === 401) {
-        displayError("Unauthorized access. Please log in again.");
-      } else if (response.status === 404) {
-        displayError("Auctions not found.");
-      } else {
-        displayError(`Error fetching auctions: ${response.status}`);
-      }
+      const errorMessages = {
+        401: "Unauthorized access. Please log in to bid.",
+        404: "No auctions found.",
+      };
+      displayError(
+        errorMessages[response.status] ||
+          `Error fetching auctions: ${response.status}`
+      );
       throw new Error(`Error fetching auctions: ${response.status}`);
     }
 
     const auctionData = await response.json();
-    displaySuccess("Auctions loaded successfully.");
-    renderAuctions(auctionData.data);
+    renderAuctions(auctionData?.data ?? []);
   } catch (error) {
     displayError("Failed to load auctions. Please try again later.");
-    console.error("Fetch Auctions Error: ", error);
+    console.error("Fetch Auctions Error:", error);
   }
 }
 
@@ -96,28 +82,23 @@ export async function loadAuctionsList(page = 1) {
  * @param {Array} auctions - An array of auction objects to display.
  */
 export function renderAuctions(auctions) {
+  if (!Array.isArray(auctions)) {
+    console.error("renderAuctions received invalid data:", auctions);
+    displayError("Error displaying auctions.");
+    return;
+  }
+
   const auctionlistContainer = document.getElementById("auction-list");
   const template = document.getElementById("auction-card-template");
 
-  if (!auctionlistContainer) {
-    displayError("Auction list container not found.");
-    console.error("Auction list container not found");
+  if (!auctionlistContainer || !template) {
+    displayError("Missing auction list container or template.");
+    console.error("Auction list container or template not found");
     return;
   }
 
-  if (!template) {
-    displayError("Auction card template not found.");
-    console.error("Auction card template not found");
-    return;
-  }
-
-  if (auctions.length === 0) {
-    auctionlistContainer.innerHTML =
-      "<p>No auctions available at the moment.</p>";
-    return;
-  }
-
-  auctionlistContainer.innerHTML = "";
+  auctionlistContainer.innerHTML =
+    auctions.length === 0 ? "<p>No auctions available at the moment.</p>" : "";
 
   auctions.forEach((auction) => {
     const auctionCard = document.importNode(template.content, true);
@@ -135,12 +116,15 @@ export function renderAuctions(auctions) {
       auctionImg.src = "https://picsum.photos/150/100?random=6";
     }
 
-    const viewauctionBtn = auctionCard.querySelector("#auction-list-view");
-    viewauctionBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      const auctionId = auction.id;
-      window.location.href = `/viewauction/index.html?auctionId=${auctionId}`;
-    });
+    const viewauctionBtn = auctionCard.querySelector(".auction-list-view");
+    if (viewauctionBtn) {
+      viewauctionBtn.addEventListener("click", () => {
+        const auctionId = auction.id;
+        window.location.href = `/viewauction/index.html?auctionId=${auctionId}`;
+      });
+    } else {
+      console.error("View Auction button not found inside auction card.");
+    }
 
     auctionlistContainer.appendChild(auctionCard);
   });
