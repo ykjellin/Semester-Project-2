@@ -17,27 +17,19 @@ function showFeedback(message, isError = false) {
  */
 export async function loadAuctionDetails(auctionId) {
   try {
-    const apiKey = getItem("apiKey");
-    const authToken = getItem("authToken");
-
-    if (!apiKey || !authToken) {
-      console.error("API key or auth token is missing");
-      showFeedback(
-        "API key or authentication token is missing, please log in.",
-        true
-      );
+    if (!auctionId) {
+      console.error("No auction ID provided.");
+      showFeedback("Invalid auction. Please try again.", true);
       return;
     }
 
-    const url = `${BASE_URL}/auction/listings/${auctionId}?_bids=true&_seller=true`;
+    const url = `${BASE_URL}/auction/listings/${auctionId}?_seller=true`;
 
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-Noroff-API-Key": apiKey,
-        Authorization: `Bearer ${authToken}`,
-      },
+      }, // ✅ No authentication needed to view auctions
     });
 
     if (!response.ok) {
@@ -49,51 +41,46 @@ export async function loadAuctionDetails(auctionId) {
 
     // Show loading message
     const loadingMessage = document.getElementById("loading-message");
-    if (loadingMessage) {
-      loadingMessage.style.display = "block";
-    }
+    if (loadingMessage) loadingMessage.style.display = "block";
 
     showFeedback("Auction details loaded successfully.");
 
     // Set auction title
-    const auctionTitle = document.getElementById("auction-detail-title");
-    if (auctionTitle) auctionTitle.textContent = auctionData.title;
+    document.getElementById("auction-detail-title").textContent =
+      auctionData.title || "No title available";
 
     // Set auction description
-    const auctionDescription = document.getElementById(
-      "auction-detail-description"
-    );
-    if (auctionDescription)
-      auctionDescription.textContent = auctionData.description;
+    document.getElementById("auction-detail-description").textContent =
+      auctionData.description || "No description available.";
 
     // Set auction end date
-    const auctionEndsAt = document.getElementById("auction-detail-endsAt");
-    if (auctionEndsAt)
-      auctionEndsAt.textContent = new Date(auctionData.endsAt).toLocaleString();
+    document.getElementById("auction-detail-endsAt").textContent =
+      auctionData.endsAt
+        ? `Ends: ${new Date(auctionData.endsAt).toLocaleString()}`
+        : "No end date provided";
 
-    // Display number of bids
+    // ✅ Hide bids from guests
+    const authToken = getItem("authToken");
     const auctionBids = document.getElementById("auction-detail-bids");
-    if (
-      auctionBids &&
-      auctionData._count &&
-      auctionData._count.bids !== undefined
-    ) {
-      auctionBids.textContent = auctionData._count.bids;
-    }
-
-    // Display individual bids
     const bidsContainer = document.getElementById("auction-bids-list");
-    if (bidsContainer) {
-      if (auctionData.bids && auctionData.bids.length > 0) {
-        bidsContainer.innerHTML = "";
-        auctionData.bids.forEach((bid) => {
-          const bidElement = document.createElement("p");
-          bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
-          bidsContainer.appendChild(bidElement);
-        });
-      } else {
-        bidsContainer.innerHTML =
-          "<p>No bids placed yet. Be the first to bid!</p>";
+
+    if (!authToken) {
+      if (auctionBids) auctionBids.style.display = "none";
+      if (bidsContainer) bidsContainer.innerHTML = "<p>Login to view bids.</p>";
+    } else {
+      if (auctionBids) auctionBids.textContent = auctionData._count?.bids ?? 0;
+      if (bidsContainer) {
+        if (auctionData.bids?.length > 0) {
+          bidsContainer.innerHTML = "";
+          auctionData.bids.forEach((bid) => {
+            const bidElement = document.createElement("p");
+            bidElement.textContent = `Bidder: ${bid.bidder.name} - Amount: ${bid.amount}`;
+            bidsContainer.appendChild(bidElement);
+          });
+        } else {
+          bidsContainer.innerHTML =
+            "<p>No bids placed yet. Be the first to bid!</p>";
+        }
       }
     }
 
@@ -106,9 +93,11 @@ export async function loadAuctionDetails(auctionId) {
         <p><strong>Seller Bio:</strong> ${
           auctionData.seller.bio || "No bio available"
         }</p>
-        <img src="${auctionData.seller.avatar.url}" alt="${
-        auctionData.seller.avatar.alt || "Seller Avatar"
-      }" class="img-fluid" />
+        <img src="${
+          auctionData.seller.avatar?.url || "https://via.placeholder.com/150"
+        }" 
+          alt="${auctionData.seller.avatar?.alt || "Seller Avatar"}" 
+          class="img-fluid" />
       `;
     } else if (sellerContainer) {
       sellerContainer.innerHTML = "<p>No seller information available.</p>";
@@ -116,7 +105,7 @@ export async function loadAuctionDetails(auctionId) {
 
     // Display auction media
     const mediaContainer = document.getElementById("auction-detail-media");
-    if (mediaContainer && auctionData.media && auctionData.media.length > 0) {
+    if (mediaContainer && auctionData.media?.length > 0) {
       mediaContainer.innerHTML = "";
       auctionData.media.forEach((media) => {
         const img = document.createElement("img");
@@ -129,12 +118,17 @@ export async function loadAuctionDetails(auctionId) {
       mediaContainer.innerHTML = "<p>No images available for this auction.</p>";
     }
 
+    // ✅ Hide bid form for unauthenticated users
+    const bidForm = document.getElementById("bid-form");
+    if (!authToken && bidForm) {
+      bidForm.style.display = "none"; // Hide bid form for guests
+    }
+
     if (loadingMessage) {
       loadingMessage.style.display = "none";
     }
   } catch (error) {
     console.error("Error loading auction details:", error);
-
     showFeedback("Failed to load auction details. Please try again.", true);
 
     const auctionError = document.getElementById("auction-error");
