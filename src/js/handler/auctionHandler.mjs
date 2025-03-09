@@ -64,7 +64,6 @@ export async function loadAuctionDetails(auctionId) {
         ? `Ends: ${new Date(auctionData.endsAt).toLocaleString()}`
         : "No end date provided";
 
-    // ✅ Handle Bids (Only for Logged-In Users)
     const auctionBids = document.getElementById("auction-detail-bids");
     const bidsContainer = document.getElementById("auction-bids-list");
 
@@ -92,7 +91,6 @@ export async function loadAuctionDetails(auctionId) {
       }
     }
 
-    // ✅ Display Seller Information
     const sellerContainer = document.getElementById("auction-seller");
     if (sellerContainer && auctionData.seller) {
       sellerContainer.innerHTML = `
@@ -111,7 +109,6 @@ export async function loadAuctionDetails(auctionId) {
       sellerContainer.innerHTML = "<p>No seller information available.</p>";
     }
 
-    // ✅ Display Auction Media
     const mediaContainer = document.getElementById("auction-detail-media");
     if (mediaContainer && auctionData.media?.length > 0) {
       mediaContainer.innerHTML = "";
@@ -126,7 +123,6 @@ export async function loadAuctionDetails(auctionId) {
       mediaContainer.innerHTML = "<p>No images available for this auction.</p>";
     }
 
-    // ✅ Hide bid form if not logged in
     const bidForm = document.getElementById("bid-form");
     if (!isLoggedIn && bidForm) {
       bidForm.style.display = "none";
