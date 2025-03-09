@@ -135,12 +135,16 @@ export function renderAuctions(auctions) {
       auctionImg.src = "https://picsum.photos/150/100?random=6";
     }
 
-    const viewauctionBtn = auctionCard.querySelector("#auction-list-view");
-    viewauctionBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      const auctionId = auction.id;
-      window.location.href = `/viewauction/index.html?auctionId=${auctionId}`;
-    });
+    const viewauctionBtn = auctionCard.querySelector(".auction-list-view");
+
+    if (viewauctionBtn) {
+      viewauctionBtn.addEventListener("click", () => {
+        const auctionId = auction.id;
+        window.location.href = `/viewauction/index.html?auctionId=${auctionId}`;
+      });
+    } else {
+      console.error("View Auction button not found inside auction card.");
+    }
 
     auctionlistContainer.appendChild(auctionCard);
   });
