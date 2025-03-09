@@ -18,23 +18,22 @@ export function handleLoginSubmit() {
       loader.style.display = "block";
 
       const formData = new FormData(loginForm);
-      const name = formData.get("name");
       const email = formData.get("email");
       const password = formData.get("password");
 
-      // Basic validation
-      if (!name || !email || !password) {
-        (feedbackElement.textContent = "All fields are required!"), true;
+      // ✅ Only validate email and password
+      if (!email || !password) {
+        feedbackElement.textContent = "Email and password are required!";
         loader.style.display = "none";
         return;
       }
 
       try {
-        const data = await login(name, email, password);
+        const data = await login(email, password); // ✅ Send only email and password
 
         if (data && data.data && data.data.accessToken) {
           storeItem("authToken", data.data.accessToken);
-          storeItem("username", data.data.name);
+          storeItem("username", data.data.name); // ✅ Get username from API response
 
           let apiKey = getItem("apiKey");
           if (!apiKey) {
@@ -44,6 +43,7 @@ export function handleLoginSubmit() {
               console.warn("Error creating API key, but continuing login...");
             }
           }
+
           const username = getItem("username");
           console.log("Navigating to profile for user:", username);
           window.location.href = `/profile/index.html?user=${encodeURIComponent(

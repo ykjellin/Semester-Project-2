@@ -3,10 +3,9 @@ import { storeItem, getItem } from "../../storage.mjs";
 
 /**
  * Function to create an API key.
- * @param {string} name - The name for the API key.
  * @returns {Promise<string|null>} - Returns the API key if successful, or null if failed.
  */
-export async function createApiKey(name) {
+export async function createApiKey() {
   try {
     const authToken = getItem("authToken");
 
@@ -50,25 +49,25 @@ export function storeToken(token) {
 
 /**
  * Function to handle user login.
- * @param {string} name - The user's name (username).
  * @param {string} email - The user's email.
  * @param {string} password - The user's password.
- * @returns {Promise<object|null>} - Returns the login data (token and apiKey) or null on failure.
+ * @returns {Promise<object|null>} - Returns the login data (token and username) or null on failure.
  */
-export async function login(name, email, password) {
+export async function login(email, password) {
   try {
     const response = await fetch(LOGIN, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ email, password }), // ✅ Only send email and password
     });
 
     const data = await response.json();
 
     if (data.data && data.data.accessToken) {
       storeToken(data.data.accessToken);
+      storeItem("username", data.data.name); // ✅ Store username from API response
       return data;
     } else {
       throw new Error("Login failed");
@@ -88,7 +87,7 @@ export async function login(name, email, password) {
  * @param {string} [avatarUrl=""] - The user's avatar URL (optional).
  * @param {string} [bannerUrl=""] - The user's banner URL (optional).
  * @param {boolean} [venueManager=false] - Indicates if the user is a venue manager (optional).
- * @returns {Promise<object|null>} - Returns the registration data (token and apiKey) or null on failure.
+ * @returns {Promise<object|null>} - Returns the registration data (token and API key) or null on failure.
  */
 export async function register(
   name,
@@ -133,7 +132,7 @@ export async function register(
     if (data.token) {
       storeToken(data.token);
 
-      const apiKey = await createApiKey(name);
+      const apiKey = await createApiKey();
       if (!apiKey) {
         console.warn("Failed to create API key");
       }
